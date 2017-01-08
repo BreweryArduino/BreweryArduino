@@ -410,9 +410,9 @@ void OnNasos (byte l) {
   if (l == 1) {
     if (OnOffTerpNW == true){
       myGLCD.setFont(SmallRusFont);
-      myGLCD.setColor(VGA_LIME);
-      myGLCD.printNumI(maxTerpNW, 158, 60);
-    myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
+      myGLCD.setColor(VGA_LIME);      
+       myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
+       myGLCD.printNumI(maxTerpNW, 158, 60);
     }
     else myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
   }
