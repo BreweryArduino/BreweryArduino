@@ -385,6 +385,7 @@ void OffNasos (byte l) {
     myGLCD.fillRoundRect(134, 18, 187, 72);
   }
   digitalWrite( NasosPin, ReleOff);
+   OnOffTerpScr = true;
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void OnNasos (byte l) {
