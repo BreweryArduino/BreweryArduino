@@ -1,5 +1,5 @@
 void Beer () {
-    myGLCD.fillScr(VGA_BLACK);
+  myGLCD.fillScr(VGA_BLACK);
   int alltime = 0;
   if  (termB2 != 0 && pauseB1 != 0) alltime = alltime + pauseB1;
   if  (termB3 != 0 && pauseB2 != 0) alltime = alltime + pauseB2;
@@ -117,7 +117,7 @@ void Beer () {
       //while (true)//для отладки
     {
       OnNasos (1);
-      
+
       PIctl(TempC, termB1);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
       if (out != 0 ) {
@@ -789,7 +789,7 @@ void Beer () {
     myGLCD.setFont(BigRusFont);
     myGLCD.printNumI(timeB1, 231, 25);
     myGLCD.printNumI(timeB1, 37, 25);
-
+    ik = 0;
     while (ik < timeB1) //
     {
       printTemperatureNoScr();

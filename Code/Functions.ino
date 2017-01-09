@@ -242,10 +242,26 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
     m1 = mi1 * 60;
     q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 60;
   }
-
-  if (q <= 9) myGLCD.print(" ", 247, 25);
-  if (q <= 99) myGLCD.print(" ", 263, 25);
-  myGLCD.printNumI(q, 231, 25);
+  if (q > 0) {
+    if (q <= 9) myGLCD.print(" ", 247, 25);
+    if (q <= 99) myGLCD.print(" ", 263, 25);
+    myGLCD.printNumI(q, 231, 25);
+  }
+  if (q == 0) {
+    myGLCD.printNumI(0, 231, 25);
+    myGLCD.print(".", 247, 25);
+    if (da1 == da) {
+      q = (h1 + m1 + s1) / 1;
+    }
+    else q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 1;
+    if (q >= 10) {
+      myGLCD.printNumI(q, 263, 25);
+    }
+    else {
+      myGLCD.printNumI(q, 263, 25);
+      myGLCD.print(" ", 279, 25);
+    }
+  }
   return iz;
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -282,7 +298,7 @@ void TimeWorkNasos (byte r, byte f, byte l) { //Функция считает в
         myGLCD.drawLine(135, 20, 185, 70);
         myGLCD.drawLine(185, 20, 135, 70);
         myGLCD.setFont(BigRusFont);
-        myGLCD.printNumI(maxTerpNW, 140, 40);
+        myGLCD.printNumI(maxTerpNW, 135, 40);
         myGLCD.setBackColor(VGA_BLACK);
         OnOffTerpScr = false;
       }
@@ -385,11 +401,11 @@ void OffNasos (byte l) {
     myGLCD.fillRoundRect(134, 18, 187, 72);
   }
   digitalWrite( NasosPin, ReleOff);
-   OnOffTerpScr = true;
+  OnOffTerpScr = true;
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void OnNasos (byte l) {
-   if (OnOffTerpNW == true && maxTerpNW <= TempC ) {
+  if (OnOffTerpNW == true && maxTerpNW <= TempC ) {
     if  (OnOffTerpScr == true) {
       digitalWrite( NasosPin, ReleOff);
       if (l == 1) {
@@ -408,16 +424,16 @@ void OnNasos (byte l) {
   }
   OnOffTerpScr = true;
   if (l == 1) {
-    if (OnOffTerpNW == true){
+    if (OnOffTerpNW == true) {
       myGLCD.setFont(SmallRusFont);
-      myGLCD.setColor(VGA_LIME);      
-       myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
-       myGLCD.printNumI(maxTerpNW, 158, 60);
+      myGLCD.setColor(VGA_LIME);
+      myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
+      myGLCD.printNumI(maxTerpNW, 158, 60);
     }
     else myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
   }
   digitalWrite( NasosPin, ReleOn);
-  labelOn:
+labelOn:
   byte i;
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------

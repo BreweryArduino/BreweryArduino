@@ -12,7 +12,7 @@ void Screen0 () {// Главное меню
     myGLCD.setColor(VGA_LIME);
    myGLCD.print("BreweryArduino", CENTER, 180);
    myGLCD.setFont(SmallRusFont);
-   myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E"" 2016""\x98"".", CENTER, 204);
+   myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E"" 2016-2017""\x98"".", CENTER, 204);
   Touch0 ();
 }
 
