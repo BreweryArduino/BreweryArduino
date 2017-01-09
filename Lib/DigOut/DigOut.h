@@ -1,7 +1,7 @@
 #ifndef DigOut_h
 #define DigOut_h
 
-#include <arduino.h>
+#include <Arduino.h>
 
 class DigOut {
 public:
