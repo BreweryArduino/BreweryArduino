@@ -1278,16 +1278,16 @@ void TochNasos_1 () {//обработка меню насоса второя с�
                 myGLCD.setColor (VGA_BLACK);
                 myGLCD.fillRoundRect(112, 99, 208, 149);
                 myGLCD.setColor (VGA_RED);
-                myGLCD.printNumI(airW, 160, 99);
+                myGLCD.printNumI(airW, CENTER, 99);
                 delay(100);
               }
               if (x > 250 && x < 290) {
                 airW ++;
-                if (airW > 120) airW = 1;
+                if (airW > 120) airW = 0;
                 myGLCD.setColor (VGA_BLACK);
                 myGLCD.fillRoundRect(112, 99, 208, 149);
                 myGLCD.setColor (VGA_RED);
-                myGLCD.printNumI(airW, 160, 99);
+                myGLCD.printNumI(airW, CENTER, 99);
                 delay(100);
               }
               if (x > 145 && x < 185) setNasos_1 ();
@@ -1305,7 +1305,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
         myGLCD.setColor (VGA_RED);
         myGLCD.setBackColor (VGA_BLACK);
         myGLCD.setFont(SevenSegNumFont);
-        myGLCD.printNumI(airP, 160, 99);
+        myGLCD.printNumI(airP, CENTER, 99);
 
         while (true) {
           if (myTouch.dataAvailable())
@@ -1321,16 +1321,16 @@ void TochNasos_1 () {//обработка меню насоса второя с�
                 myGLCD.setColor (VGA_BLACK);
                 myGLCD.fillRoundRect(112, 99, 208, 149);
                 myGLCD.setColor (VGA_RED);
-                myGLCD.printNumI(airP, 160, 99);
+                myGLCD.printNumI(airP, CENTER, 99);
                 delay(100);
               }
               if (x > 250 && x < 290) {
                 airP ++;
-                if (airP > 120) airP = 1;
+                if (airP > 120) airP = 0;
                 myGLCD.setColor (VGA_BLACK);
                 myGLCD.fillRoundRect(112, 99, 208, 149);
                 myGLCD.setColor (VGA_RED);
-                myGLCD.printNumI(airP, 160, 99);
+                myGLCD.printNumI(airP, CENTER, 99);
                 delay(100);
               }
               if (x > 145 && x < 185) setNasos_1 ();
@@ -1348,7 +1348,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
         myGLCD.setColor (VGA_RED);
         myGLCD.setBackColor (VGA_BLACK);
         myGLCD.setFont(SevenSegNumFont);
-        myGLCD.printNumI(rep, 160, 99);
+        myGLCD.printNumI(rep, CENTER, 99);
 
         while (true) {
           if (myTouch.dataAvailable())
@@ -1364,16 +1364,16 @@ void TochNasos_1 () {//обработка меню насоса второя с�
                 myGLCD.setColor (VGA_BLACK);
                 myGLCD.fillRoundRect(112, 99, 208, 149);
                 myGLCD.setColor (VGA_RED);
-                myGLCD.printNumI(rep, 160, 99);
+                myGLCD.printNumI(rep, CENTER, 99);
                 delay(100);
               }
               if (x > 250 && x < 290) {
                 rep ++;
-                if (rep > 120) rep = 1;
+                if (rep > 10) rep = 0;
                 myGLCD.setColor (VGA_BLACK);
                 myGLCD.fillRoundRect(112, 99, 208, 149);
                 myGLCD.setColor (VGA_RED);
-                myGLCD.printNumI(rep, 160, 99);
+                myGLCD.printNumI(rep, CENTER, 99);
                 delay(100);
               }
               if (x > 145 && x < 185) setNasos_1 ();
