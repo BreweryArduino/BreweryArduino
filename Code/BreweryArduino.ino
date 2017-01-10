@@ -58,7 +58,7 @@ int Se (); void melodi (); void melodiErr (); int OutTimeNoScr (byte z);void UpD
 void setBeerM_1 ();void setBeerN1 ();void TimeWorkNasos (byte r, byte f, byte l);void TimeWorkNasosAir ();void OffNasos (byte l);
 void OnNasos (byte l);void OffHot ();void OnHot ();void Save_sys ();void Read_sys ();void CardInfo ();void SDSaveSys ();void SDRead (String nameF);
 void SDReadSys ();void SDBeerName ();void SDSaveBeer ();void SDReadDir ();void ErroSD ();void SDReadBeer ();void ScreenListDir (byte i);
-void ProgressBerr (byte i);void BlackScr ();
+void ProgressBerr (byte i);void BlackScr ();void melodiNokia ();
 //******************************************************************************************************************
 void Screen0(); void Screen1(); void Screen2();void Screen2_1 (); void Screen3(); void Screen4(); void Screen5(); void ScreenSetTime ();
 void setHot (); void setNasos (); void setBeer (); void setSD (); void Screen4_1 (); void Screen4_2 (); void Screen5_2 (); void Beer ();
@@ -144,6 +144,7 @@ int scale = 0;//шкала прогресса
 byte maxTerpNW = 85;
 boolean OnOffTerpNW = false;
 boolean OnOffTerpScr = true;
+
 void setup () {
   Read_sys ();
 Wire.begin();

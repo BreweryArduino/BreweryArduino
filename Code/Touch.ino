@@ -1628,6 +1628,8 @@ void TouchsetBeerM_1 () {
       x = myTouch.getX();
       y = myTouch.getY();
       if (y > 50 && y < 110) {
+        (244, 50, 304, 110);
+        if (x >244 && x < 304) setBeer ();
         if (x > 16 && x < 76) {
           for ( byte i = 8; i <= 14; i++) {
             if (flagTabelB == i) {
@@ -1656,9 +1658,8 @@ void TouchsetBeerM_1 () {
       if (y > 130 && y < 190) {
         if (x > 16 && x < 76) melodi ();
         if (x > 92 && x < 152) melodiErr ();
-        if (x > 168 && x < 228) {
-
-        }
+        if (x > 168 && x < 228) melodiNokia ();
+        
         if (x > 244 && x < 304) {
           for ( byte i = 8; i <= 14; i++) {
             if (flagTabelB == i) {

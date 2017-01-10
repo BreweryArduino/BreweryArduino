@@ -297,6 +297,7 @@ void TimeWorkNasos (byte r, byte f, byte l) { //Функция считает в
         myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
         myGLCD.drawLine(135, 20, 185, 70);
         myGLCD.drawLine(185, 20, 135, 70);
+        myGLCD.setFont(BigRusFont);
         byte q;
         if (maxTerpNW >= 10 && maxTerpNW < 100) {
           q = 8;
@@ -469,6 +470,18 @@ void OffHot () {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void OnHot () {
   myGLCD.drawBitmap(135, 75, 50, 50, Hot2, 1);
+  myGLCD.setFont(SmallRusFont);
+  myGLCD.setBackColor(VGA_WHITE);
+  myGLCD.setColor(VGA_GREEN);
+  byte q;
+
+  if (out > 10 && out < 100) {
+    q = 8;
+  }
+  else q = 0;
+  if (out < 10) q = 16;
+  myGLCD.printNumI(out, 161 + q, 112);
+  myGLCD.setBackColor(VGA_BLACK);
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void melodi ()
@@ -525,9 +538,24 @@ void melodiErr ()
     noTone(Bib);
   }
 }
+void melodiNokia () {
+  int melody[] = { NOTE_E5, NOTE_D5, NOTE_F4, NOTE_G4, NOTE_C5, NOTE_B4, NOTE_D4, NOTE_E4, NOTE_B4, NOTE_A4, NOTE_C4, NOTE_E4, NOTE_A4 };
+  int noteDurations[] = { 8, 8, 4, 4, 8, 8, 4, 4, 8, 8, 4, 4, 1 };
+  int amountNotes = 13;
+
+
+  for (int thisNote = 0; thisNote < amountNotes; thisNote++) {
+    int noteDuration = 1000 / noteDurations[thisNote];
+    tone(Bib, melody[thisNote], noteDuration);
+    delay(noteDuration);
+    noTone(Bib);
+  }
+}
+
 void FMelodi (byte Melodi1) {
   if (Melodi1 == 0) melodi ();
   if (Melodi1 == 1) melodiErr ();
+  if (Melodi1 == 2) melodiNokia ();
 }
 void ErroSD () {
   if (!card.init(SPI_HALF_SPEED, chipSelect)) {

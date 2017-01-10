@@ -7,12 +7,12 @@ void Screen0 () {// Главное меню
   //myGLCD.drawBitmap(135, 95, 50, 50, nasos, 1);
   myGLCD.drawBitmap(195, 95, 50, 50, beer, 1);
   myGLCD.drawBitmap(255, 95, 50, 50, sd, 1);
-    myGLCD.setBackColor(VGA_BLACK);
+  myGLCD.setBackColor(VGA_BLACK);
   myGLCD.setFont(BigRusFont);
-    myGLCD.setColor(VGA_LIME);
-   myGLCD.print("BreweryArduino", CENTER, 180);
-   myGLCD.setFont(SmallRusFont);
-   myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E"" 2016-2017""\x98"".", CENTER, 204);
+  myGLCD.setColor(VGA_LIME);
+  myGLCD.print("BreweryArduino", CENTER, 180);
+  myGLCD.setFont(SmallRusFont);
+  myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E"" 2016-2017""\x98"".", CENTER, 204);
   Touch0 ();
 }
 
@@ -735,7 +735,7 @@ void setNasos_1 () {//________________________________________________________В
   myGLCD.setFont(SmallRusFont);
   if (OnOffTerpNW == false)myGLCD.print ("B""\x91""K""\x88"".", 258, 106);
   if (OnOffTerpNW == true)myGLCD.print ("B""K""\x88"".", 262, 106);
-    TochNasos_1 ();
+  TochNasos_1 ();
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void setBeer () {//________________________________________________________Первая страница настройки пивоварни
@@ -890,9 +890,20 @@ void setBeerM_1 () {//________________________________________________________С
   }
   myGLCD.setColor(VGA_WHITE);
   myGLCD.fillRoundRect(244, 130, 304, 190);
+  myGLCD.fillRoundRect(244, 50, 304, 110);
   myGLCD.setColor(VGA_BLACK);
+  myGLCD.setFont(SmallRusFont);
+  myGLCD.print("O""\xA4""\xA1""e""\xA2""a", 250, 76);
   myGLCD.setFont(BigRusFont);
   myGLCD.print(" - ", 250, 150);
+            for ( byte i = 8; i <= 14; i++) {
+            if (flagTabelB == i) {
+              if (MelodiN[i - 8] == 0)waitForItButton1(16, 50, 76, 110);
+              if (MelodiN[i - 8] == 1)waitForItButton1(92, 50, 152, 110);
+              if (MelodiN[i - 8] == 2)waitForItButton1(168, 50, 228, 110);
+              if (MelodiN[i - 8] == 7)waitForItButton1(244, 130, 304, 190);
+            }
+          }
   TouchsetBeerM_1 ();
 
 }
