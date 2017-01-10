@@ -1000,7 +1000,7 @@ void Beer () {
   }
   myGLCD.setFont(BigRusFont);
   myGLCD.setColor(VGA_LIME);
-  myGLCD.print("BAPKA"" ""\x85""ABEP""\x8E""\x86""HA!!!", CENTER, 110);
+  myGLCD.print("BAPKA"" ""\x85""ABEP""\x8E""EHA!!!", CENTER, 110);
   myGLCD.setFont(SmallRusFont);
   myGLCD.print("HA""\x84""M""\x86"",""\x8D""TO""\x80""\x91"" ""\x89""PO""\x82""O""\x88""\x84""\x86""T""\x92", CENTER, 220);
   while (true) {
