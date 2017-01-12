@@ -28,7 +28,7 @@ void ScreenTime (int x, int y, byte z, byte r, byte b) { // x,y начальны
 
     myGLCD.print("No clock", x, y);
     // following line sets the RTC to the date & time this sketch was compiled
-    rtc.adjust(DateTime(2014, 1, 1, 0, 0, 0));
+    rtc.adjust(DateTime(2009, 7, 3, 0, 0, 0));
   }
   else {
     myGLCD.setColor (colorlist[r]);
@@ -45,6 +45,10 @@ void ScreenTime (int x, int y, byte z, byte r, byte b) { // x,y начальны
     if ( x + ((8 * c) * 8) > 320) x = 320 - ((8 * c) * 8);
     if ( y + ((4 * c) + 8) > 240) y = 240 - ((4 * c) + 8);
     DateTime now = rtc.now();
+    da =  now.day();
+    mon =  now.month();
+    yea = now.year();
+
     if (now.hour() < 10) {
       myGLCD.printNumI(0, x, y);
       h = 8 * c;
@@ -145,11 +149,24 @@ void timeselect () {
   hoset = now.hour();
   miset = now.minute();
   seset = now.second();
+  daset = now.day();
+  monset =  now.month();
+  yeaset = now.year();
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-void SetTimeClock (byte ho2, byte mi2, byte se2) {
+void timeReal () {
+  DateTime now = rtc.now();
+  ho = now.hour();
+  mi = now.minute();
+  se = now.second();
+  da = now.day();
+  mon =  now.month();
+  yea = now.year();
+}
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+void SetTimeClock (int yea2, byte mon2, byte da2, byte ho2, byte mi2, byte se2) {
 
-  rtc.adjust(DateTime(2014, 1, 1, ho2, mi2, se2));
+  rtc.adjust(DateTime(yea2, mon2, da2, ho2, mi2, se2));
 
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -191,7 +208,7 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
   }
   if (q == 0) {
     myGLCD.printNumI(0, 231, 25);
-    myGLCD.print(".", 247, 25);
+    myGLCD.print(":", 247, 25);
     if (da1 == da) {
       q = (h1 + m1 + s1) / 1;
     }
@@ -200,8 +217,8 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
       myGLCD.printNumI(q, 263, 25);
     }
     else {
-      myGLCD.printNumI(q, 263, 25);
-      myGLCD.print(" ", 279, 25);
+      myGLCD.printNumI(q, 279, 25);
+      myGLCD.print("0", 263, 25);
     }
   }
   myGLCD.setFont(SevenSegNumFont);
@@ -249,7 +266,7 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
   }
   if (q == 0) {
     myGLCD.printNumI(0, 231, 25);
-    myGLCD.print(".", 247, 25);
+    myGLCD.print(":", 247, 25);
     if (da1 == da) {
       q = (h1 + m1 + s1) / 1;
     }
@@ -258,8 +275,8 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
       myGLCD.printNumI(q, 263, 25);
     }
     else {
-      myGLCD.printNumI(q, 263, 25);
-      myGLCD.print(" ", 279, 25);
+      myGLCD.printNumI(q, 279, 25);
+      myGLCD.print("0", 263, 25);
     }
   }
   return iz;
@@ -284,6 +301,28 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
   }
 */
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
+void Date () {
+  myGLCD.setBackColor(VGA_BLACK);
+  myGLCD.setColor(VGA_LIME);
+  myGLCD.setFont(BigRusFont);
+  timeReal ();
+  if (da < 10) {
+    myGLCD.printNumI(0, 80, 150);
+    myGLCD.printNumI(da, 96, 150);
+  }
+  else myGLCD.printNumI(da, 80, 150);
+  myGLCD.print(".", 112, 150);
+  if (mon < 10) {
+    myGLCD.printNumI(0, 128, 150);
+    myGLCD.printNumI(mon, 144, 150);
+  }
+  else myGLCD.printNumI(mon, 128, 150);
+  myGLCD.print(".", 160, 150);
+  myGLCD.printNumI(yea, 176, 150);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
 void TimeWorkNasos (byte r, byte f, byte l) { //Функция считает время работы и простоя насоса (работа,простой) и отображение
   printTemperatureNoScr();
   if (OnOffTerpNW == true && maxTerpNW <= TempC ) {
@@ -307,6 +346,7 @@ void TimeWorkNasos (byte r, byte f, byte l) { //Функция считает в
         myGLCD.printNumI(maxTerpNW, 136 + q, 40);
         myGLCD.setBackColor(VGA_BLACK);
         OnOffTerpScr = false;
+        termgist = 2;
       }
     }
     goto label;
@@ -432,6 +472,7 @@ void OnNasos (byte l) {
         myGLCD.printNumI(maxTerpNW, 136 + q, 40);
         myGLCD.setBackColor(VGA_BLACK);
         OnOffTerpScr = false;
+        termgist = 2;
       }
     }
     goto labelOn;
@@ -439,26 +480,31 @@ void OnNasos (byte l) {
   OnOffTerpScr = true;
   if (l == 1) {
     if (OnOffTerpNW == true) {
-      myGLCD.setFont(SmallRusFont);
-      myGLCD.setBackColor(VGA_WHITE);
-      myGLCD.setColor(VGA_GREEN);
-      myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
-      byte q;
+      if (maxTerpNW > TempC + termgist) {
+        myGLCD.setFont(SmallRusFont);
+        myGLCD.setBackColor(VGA_WHITE);
+        myGLCD.setColor(VGA_GREEN);
+        myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
+        byte q;
 
-      if (maxTerpNW > 10 && maxTerpNW < 100) {
-        q = 8;
+        if (maxTerpNW > 10 && maxTerpNW < 100) {
+          q = 8;
+        }
+        else q = 0;
+        if (maxTerpNW < 10) q = 16;
+        myGLCD.printNumI(maxTerpNW, 161 + q, 58);
+        myGLCD.setBackColor(VGA_BLACK);
+
+        digitalWrite( NasosPin, ReleOn);//
+        termgist = 0;
       }
-      else q = 0;
-      if (maxTerpNW < 10) q = 16;
-      myGLCD.printNumI(maxTerpNW, 161 + q, 58);
-      myGLCD.setBackColor(VGA_BLACK);
     }
     else {
       myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
+      digitalWrite( NasosPin, ReleOn);
     }
-
   }
-  digitalWrite( NasosPin, ReleOn);
+  else digitalWrite( NasosPin, ReleOn);
 labelOn:
   byte i;//просто так но без ниго не как.
 }

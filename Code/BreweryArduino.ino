@@ -50,7 +50,7 @@ float ePid, pPid;
 void(* resetFunc) (void) = 0; // Reset MC function
 
 void ScreenTime (int x, int y, byte z, byte r, byte b);//Вывод на времени на экран
-void SetTimeClock (byte ho, byte mi, byte se);//Установка даты и времени часов
+void SetTimeClock (int yea2, byte mon2, byte da2,byte ho2, byte mi2, byte se2);//Установка даты и времени часов
 void waitForItButton(int x1, int y1, int x2, int y2); void waitForItButton1(int x1, int y1, int x2, int y2);
 int OutTime (byte z, byte x); void SetTime (byte g); void timeselect (); void printTemperature();
 byte PIctl(float temp, int8_t ust); void printTemperatureNoScr();
@@ -58,7 +58,7 @@ int Se (); void melodi (); void melodiErr (); int OutTimeNoScr (byte z);void UpD
 void setBeerM_1 ();void setBeerN1 ();void TimeWorkNasos (byte r, byte f, byte l);void TimeWorkNasosAir ();void OffNasos (byte l);
 void OnNasos (byte l);void OffHot ();void OnHot ();void Save_sys ();void Read_sys ();void CardInfo ();void SDSaveSys ();void SDRead (String nameF);
 void SDReadSys ();void SDBeerName ();void SDSaveBeer ();void SDReadDir ();void ErroSD ();void SDReadBeer ();void ScreenListDir (byte i);
-void ProgressBerr (byte i);void BlackScr ();void melodiNokia ();
+void ProgressBerr (byte i);void BlackScr ();void melodiNokia ();void Date ();void SetDate (byte g);void timeReal ();
 //******************************************************************************************************************
 void Screen0(); void Screen1(); void Screen2();void Screen2_1 (); void Screen3(); void Screen4(); void Screen5(); void ScreenSetTime ();
 void setHot (); void setNasos (); void setBeer (); void setSD (); void Screen4_1 (); void Screen4_2 (); void Screen5_2 (); void Beer ();
@@ -102,9 +102,10 @@ byte termB1; byte termB2; byte termB3; byte termB4; byte termB5; byte termB6; by
 byte timeB1, timeB2, timeB3, timeB4, timeB5, timeB6; //время кипячения и закладки хмеля
 byte chil;//охладить
 byte termKIP = 100;// температура закипания
-long int ho, mi, se, da;
+long int ho, mi, se, da, yea, mon;
 long int ho1, mi1, se1, da1;
-byte hoset, miset, seset;
+int yeaset;
+byte hoset, miset, seset,daset, monset;
 int hoB2, miB2, seB2, daB2, hoB3, miB3, seB3, daB3, hoB4, miB4, seB4, daB4, hoB5, miB5, seB5, daB5, hoB6, miB6, seB6, daB6;
 int hoN, miN, seN, daN;
 byte fT = 1;
@@ -144,6 +145,7 @@ int scale = 0;//шкала прогресса
 byte maxTerpNW = 85;
 boolean OnOffTerpNW = false;
 boolean OnOffTerpScr = true;
+byte termgist;
 
 void setup () {
   Read_sys ();

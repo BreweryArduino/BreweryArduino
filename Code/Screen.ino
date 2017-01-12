@@ -309,7 +309,7 @@ void Screen4_2 () {
     if (termB2 > 9 && termB2 < 100) i = 8;
     if (termB2 > 99)  i = 16;
     myGLCD.print("\x7F""C", 127 + i, w);
-    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""\x9D"" " , 151 + i, w); //в течении
+    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 151 + i, w); //в течении
     int q;
     if (pauseB1 < 10) q = 0;
     if (pauseB1 > 9 && pauseB1 < 100) q = 8;
@@ -326,7 +326,7 @@ void Screen4_2 () {
     if (termB3 > 9 && termB3 < 100) i = 8;
     if (termB3 > 99)  i = 16;
     myGLCD.print("\x7F""C", 127 + i, w);
-    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""\x9D"" " , 151 + i, w); //в течении
+    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 151 + i, w); //в течении
     int q;
     if (pauseB2 < 10) q = 0;
     if (pauseB2 > 9 && pauseB2 < 100) q = 8;
@@ -343,7 +343,7 @@ void Screen4_2 () {
     if (termB4 > 9 && termB4 < 100) i = 8;
     if (termB4 > 99)  i = 16;
     myGLCD.print("\x7F""C", 127 + i, w);
-    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""\x9D"" " , 151 + i, w); //в течении
+    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 151 + i, w); //в течении
     int q;
     if (pauseB3 < 10) q = 0;
     if (pauseB3 > 9 && pauseB3 < 100) q = 8;
@@ -360,7 +360,7 @@ void Screen4_2 () {
     if (termB5 > 9 && termB5 < 100) i = 8;
     if (termB5 > 99)  i = 16;
     myGLCD.print("\x7F""C", 127 + i, w);
-    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""\x9D"" " , 151 + i, w); //в течении
+    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 151 + i, w); //в течении
     int q;
     if (pauseB4 < 10) q = 0;
     if (pauseB4 > 9 && pauseB4 < 100) q = 8;
@@ -377,7 +377,7 @@ void Screen4_2 () {
     if (termB6 > 9 && termB6 < 100) i = 8;
     if (termB6 > 99)  i = 16;
     myGLCD.print("\x7F""C", 127 + i, w);
-    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""\x9D"" " , 151 + i, w); //в течении
+    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 151 + i, w); //в течении
     int q;
     if (pauseB5 < 10) q = 0;
     if (pauseB5 > 9 && pauseB5 < 100) q = 8;
@@ -394,7 +394,7 @@ void Screen4_2 () {
     if (termB7 > 9 && termB7 < 100) i = 8;
     if (termB7 > 99)  i = 16;
     myGLCD.print("\x7F""C", 103 + i, w);
-    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""\x9D"" " , 127 + i, w); //в течении
+    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 127 + i, w); //в течении
     int q;
     if (pauseB6 < 10) q = 0;
     if (pauseB6 > 9 && pauseB5 < 100) q = 8;
@@ -405,7 +405,7 @@ void Screen4_2 () {
   }
 
   if (timeB1 > 0) {
-    myGLCD.print("K""\x9D""\xA3""\xAF""\xA4""\x9D""\xA4""\xAC"" ""\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""\x9D"" ", 7, w); //кипятить в течении
+    myGLCD.print("K""\x9D""\xA3""\xAF""\xA4""\x9D""\xA4""\xAC"" ""\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" ", 7, w); //кипятить в течении
     int q;
     if (timeB1 < 10) q = 0;
     if (timeB1 > 9 && timeB1 < 100) q = 8;
@@ -557,9 +557,11 @@ void ScreenSetTime () {
   myGLCD.drawBitmap(15, 10, 50, 50, Set2, 1);
   myGLCD.drawBitmap(135, 10, 50, 50, clock1, 1);
   myGLCD.drawBitmap(68, 20, 64, 30, LeftButton1, 1);// назад
-  myGLCD.drawBitmap(30, 156, 40, 40, minus1, 1);// " - "
-  myGLCD.drawBitmap(250, 156, 40, 40, Plus1, 1);// " + "
-  myGLCD.drawBitmap(145, 156, 40, 40, ok1, 1);// "ok"
+  myGLCD.setColor(VGA_WHITE);
+  myGLCD.setBackColor(VGA_BLACK);
+  myGLCD.setFont(BigRusFont);
+  myGLCD.print("Bpe""\xA1""\xAF", CENTER, 75);
+  myGLCD.print("\x82""a""\xA4""a", CENTER, 125);
   TouchSetTime ();
 }
 
@@ -896,14 +898,14 @@ void setBeerM_1 () {//________________________________________________________С
   myGLCD.print("O""\xA4""\xA1""e""\xA2""a", 250, 76);
   myGLCD.setFont(BigRusFont);
   myGLCD.print(" - ", 250, 150);
-            for ( byte i = 8; i <= 14; i++) {
-            if (flagTabelB == i) {
-              if (MelodiN[i - 8] == 0)waitForItButton1(16, 50, 76, 110);
-              if (MelodiN[i - 8] == 1)waitForItButton1(92, 50, 152, 110);
-              if (MelodiN[i - 8] == 2)waitForItButton1(168, 50, 228, 110);
-              if (MelodiN[i - 8] == 7)waitForItButton1(244, 130, 304, 190);
-            }
-          }
+  for ( byte i = 8; i <= 14; i++) {
+    if (flagTabelB == i) {
+      if (MelodiN[i - 8] == 0)waitForItButton1(16, 50, 76, 110);
+      if (MelodiN[i - 8] == 1)waitForItButton1(92, 50, 152, 110);
+      if (MelodiN[i - 8] == 2)waitForItButton1(168, 50, 228, 110);
+      if (MelodiN[i - 8] == 7)waitForItButton1(244, 130, 304, 190);
+    }
+  }
   TouchsetBeerM_1 ();
 
 }

@@ -28,27 +28,29 @@ void SetTime(byte g) {// Обработка кнопок + - ок установ
       x = myTouch.getX();
       y = myTouch.getY();
       if (g == 1) {
-        if (y > 156 && y < 196) {
+        if (y > 180 && y < 220) {
           if (x > 30 && x < 70) {// "-"
-            waitForItButton(30, 156, 70, 196);//Делаем окантовку кнопки
+            waitForItButton(30, 180, 70, 220);//Делаем окантовку кнопки
             hoset --;
             if (hoset >= 25) hoset = 23;
-            SetTimeClock (hoset, miset, seset);//Установка даты и времени часов
+            timeReal ();
+            SetTimeClock (yea, mon, da, hoset, mi, se); //Установка даты и времени часов
             ScreenTime (96, 100, 2, 9, 1);//Обновляем время
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(91, 95, 133, 121);
           }
           if (x > 250 && x < 290) {// "+"
-            waitForItButton(250, 156, 290, 196);//Делаем окантовку кнопки
+            waitForItButton(250, 180, 290, 220);//Делаем окантовку кнопки
             hoset ++;
             if (hoset >= 25) hoset = 0;
-            SetTimeClock (hoset, miset, seset);//Установка даты и времени часов
+            timeReal ();
+            SetTimeClock (yea, mon, da, hoset, mi, se); //Установка даты и времени часов
             ScreenTime (96, 100, 2, 9, 1);//Обновляем время
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(91, 95, 133, 121);
           }
           if (x > 145 && x < 185) {// "ок"
-            waitForItButton(145, 156, 185, 196);//Делаем окантовку кнопки
+            waitForItButton(145, 180, 185, 220);//Делаем окантовку кнопки
             myGLCD.print(" ", 108, 117);
             ScreenSetTime ();
           }
@@ -56,27 +58,29 @@ void SetTime(byte g) {// Обработка кнопок + - ок установ
       }
 
       if (g == 2) {
-        if (y > 156 && y < 196) {
+        if (y > 180 && y < 220) {
           if (x > 30 && x < 70) {// "-"
-            waitForItButton(30, 156, 70, 196);//Делаем окантовку кнопки
+            waitForItButton(30, 180, 70, 220);//Делаем окантовку кнопки
             miset--;
             if (miset > 59) miset = 59;
-            SetTimeClock (hoset, miset, seset);//Установка даты и времени часов
+            timeReal ();
+            SetTimeClock (yea, mon, da, ho, miset, se); //Установка даты и времени часов
             ScreenTime (96, 100, 2, 9, 1);//Обновляем время
             myGLCD.setColor(VGA_WHITE);
-            myGLCD.drawRoundRect(137, 95, 180, 121);
+            myGLCD.drawRoundRect(137, 95, 181, 121);
           }
           if (x > 250 && x < 290) {// "+"
-            waitForItButton(250, 156, 290, 196);//Делаем окантовку кнопки
+            waitForItButton(250, 180, 290, 220);//Делаем окантовку кнопки
             miset++;
             if (miset > 59) miset = 0;
-            SetTimeClock (hoset, miset, seset);//Установка даты и времени часов
+            timeReal ();
+            SetTimeClock (yea, mon, da, ho, miset, se); //Установка даты и времени часов
             ScreenTime (96, 100, 2, 9, 1);//Обновляем время
             myGLCD.setColor(VGA_WHITE);
-            myGLCD.drawRoundRect(137, 95, 180, 121);
+            myGLCD.drawRoundRect(137, 95, 181, 121);
           }
           if (x > 145 && x < 185) {// "ок"
-            waitForItButton(145, 156, 185, 196);//Делаем окантовку кнопки
+            waitForItButton(145, 180, 185, 220);//Делаем окантовку кнопки
             myGLCD.print(" ", 160, 117);
             ScreenSetTime ();
           }
@@ -84,29 +88,137 @@ void SetTime(byte g) {// Обработка кнопок + - ок установ
       }
 
       if (g == 3) {
-        if (y > 156 && y < 196) {
+        if (y > 180 && y < 220) {
           if (x > 30 && x < 70) {// "-"
-            waitForItButton(30, 156, 70, 196);//Делаем окантовку кнопки
+            waitForItButton(30, 180, 70, 220);//Делаем окантовку кнопки
             seset--;
             if (seset > 59) seset = 59;
-            SetTimeClock (hoset, miset, seset);//Установка даты и времени часов
+            timeReal ();
+            SetTimeClock (yea, mon, da, ho, mi, seset); //Установка даты и времени часов
             ScreenTime (96, 100, 2, 9, 1);//Обновляем время
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(185, 95, 229, 121);
           }
           if (x > 250 && x < 290) {// "+"
-            waitForItButton(250, 156, 290, 196);//Делаем окантовку кнопки
+            waitForItButton(250, 180, 290, 220);//Делаем окантовку кнопки
             seset++;
             if (seset > 59) seset = 0;
-            SetTimeClock (hoset, miset, seset);//Установка даты и времени часов
+            timeReal ();
+            SetTimeClock (yea, mon, da, ho, mi, seset); //Установка даты и времени часов
             ScreenTime (96, 100, 2, 9, 1);//Обновляем время
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(185, 95, 229, 121);
           }
           if (x > 145 && x < 185) {// "ок"
-            waitForItButton(145, 156, 185, 196);//Делаем окантовку кнопки
+            waitForItButton(145, 180, 185, 220);//Делаем окантовку кнопки
             myGLCD.print(" ", 208, 117);
-            SetTimeClock (hoset, miset, seset);//Установка даты и времени часов
+            //SetTimeClock (hoset, miset, seset, daset, monset, yeaset);//Установка даты и времени часов
+            ScreenSetTime ();
+          }
+        }
+      }
+    }
+  }
+}
+//_________________________________________________________________________________________________
+void SetDate (byte g) {// Обработка кнопок + - ок установки часов
+
+  while (true)
+  {
+    timeselect ();
+    if (myTouch.dataAvailable())
+    {
+      myTouch.read();
+      x = myTouch.getX();
+      y = myTouch.getY();
+      if (g == 1) {
+        if (y > 180 && y < 220) {
+          if (x > 30 && x < 70) {// "-"
+            waitForItButton(30, 180, 70, 220);//Делаем окантовку кнопки
+            daset --;
+            if (daset == 0) daset = 31;
+            timeReal ();
+            SetTimeClock (yea, mon, daset, ho, mi, se); //Установка даты и времени часов
+            //ScreenTime (96, 100, 2, 9, 1);//Обновляем время
+            Date ();
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(75, 145, 117, 171);
+          }
+          if (x > 250 && x < 290) {// "+"
+            waitForItButton(250, 180, 290, 220);//Делаем окантовку кнопки
+            daset ++;
+            if (da >= 31) daset = 1;
+            timeReal ();
+            SetTimeClock (yea, mon, daset, ho, mi, se); //Установка даты и времени часов
+            //ScreenTime (96, 100, 2, 9, 1);//Обновляем время
+            Date ();
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(75, 145, 117, 171);
+          }
+          if (x > 145 && x < 185) {// "ок"
+            waitForItButton(145, 180, 185, 220);//Делаем окантовку кнопки
+            myGLCD.print(" ", 108, 117);
+            //SetTimeClock (yea, mon, daset,ho, mi, se);//Установка даты и времени часов
+            ScreenSetTime ();
+          }
+        }
+      }
+
+      if (g == 2) {
+        if (y > 180 && y < 220) {
+          if (x > 30 && x < 70) {// "-"
+            waitForItButton(30, 180, 70, 220);//Делаем окантовку кнопки
+            monset--;
+            if (monset == 0) monset = 12;
+            timeReal ();
+            SetTimeClock (yea, monset, da, ho, mi, se); //Установка даты и времени часов
+            Date ();
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(123, 145, 165, 171);
+          }
+          if (x > 250 && x < 290) {// "+"
+            waitForItButton(250, 180, 290, 220);//Делаем окантовку кнопки
+            monset++;
+            if (monset >= 12) monset = 1;
+            timeReal ();
+            SetTimeClock (yea, monset, da, ho, mi, se); //Установка даты и времени часов
+            Date ();
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(123, 145, 165, 171);
+          }
+          if (x > 145 && x < 185) {// "ок"
+            waitForItButton(145, 180, 185, 220);//Делаем окантовку кнопки
+            myGLCD.print(" ", 160, 117);
+            ScreenSetTime ();
+          }
+        }
+      }
+
+      if (g == 3) {
+        if (y > 180 && y < 220) {
+          if (x > 30 && x < 70) {// "-"
+            waitForItButton(30, 180, 70, 220);//Делаем окантовку кнопки
+            yeaset--;
+            //if (yeaset <= 2017) yeaset = 2017;
+            timeReal ();
+            SetTimeClock (yeaset, mon, da, ho, mi, se); //Установка даты и времени часов
+            Date ();
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(171, 145, 245, 171);
+          }
+          if (x > 250 && x < 290) {// "+"
+            waitForItButton(250, 180, 290, 220);//Делаем окантовку кнопки
+            yeaset++;
+            timeReal ();
+            SetTimeClock (yeaset, mon, da, ho, mi, se); //Установка даты и времени часов
+            Date ();
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(171, 145, 245, 171);
+          }
+          if (x > 145 && x < 185) {// "ок"
+            waitForItButton(145, 180, 185, 220);//Делаем окантовку кнопки
+            myGLCD.print(" ", 208, 117);
+            //SetTimeClock (hoset, miset, seset, daset, monset, yeaset);//Установка даты и времени часов
             ScreenSetTime ();
           }
         }
@@ -870,40 +982,82 @@ void TouchREC () {
 }
 
 void TouchSetTime () { //обработка меню часов
-  while (true)
-  {
+  while (true) {
+
     ScreenTime (96, 100, 2, 9, 1);
+    Date ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();
-      if (y > 100 && y < 116) {
-        if (x > 96 && x < 128) {
+      if (y > 100 && y < 116) {//Time
+        if (x > 91 && x < 133) {
           // myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_WHITE);
           myGLCD.drawRoundRect(91, 95, 133, 121);
+          myGLCD.drawBitmap(30, 180, 40, 40, minus1, 1);// " - "
+          myGLCD.drawBitmap(250, 180, 40, 40, Plus1, 1);// " + "
+          myGLCD.drawBitmap(145, 180, 40, 40, ok1, 1);// "ok"
           SetTime (1);
         }
-        if (x > 144 && x < 176) {
+        if (x > 137 && x < 181) {
           // myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_WHITE);
           myGLCD.drawRoundRect(137, 95, 181, 121);
+          myGLCD.drawBitmap(30, 180, 40, 40, minus1, 1);// " - "
+          myGLCD.drawBitmap(250, 180, 40, 40, Plus1, 1);// " + "
+          myGLCD.drawBitmap(145, 180, 40, 40, ok1, 1);// "ok"
           SetTime (2);
         }
-        if (x > 192 && x < 224) {
+        if (x > 185 && x < 229) {
           //myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_WHITE);
           myGLCD.drawRoundRect(185, 95, 229, 121);
+          myGLCD.drawBitmap(30, 180, 40, 40, minus1, 1);// " - "
+          myGLCD.drawBitmap(250, 180, 40, 40, Plus1, 1);// " + "
+          myGLCD.drawBitmap(145, 180, 40, 40, ok1, 1);// "ok"
           SetTime (3);
         }
       }
+      //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      if (y > 145 && y < 171) {// Date
+        if (x > 75 && x < 117) {
+          // myGLCD.setFont(SmallRusFont);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.drawRoundRect(75, 145, 117, 171);
+          myGLCD.drawBitmap(30, 180, 40, 40, minus1, 1);// " - "
+          myGLCD.drawBitmap(250, 180, 40, 40, Plus1, 1);// " + "
+          myGLCD.drawBitmap(145, 180, 40, 40, ok1, 1);// "ok"
+          SetDate (1);
+        }
+        if (x > 123 && x < 165) {
+          // myGLCD.setFont(SmallRusFont);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.drawRoundRect(123, 145, 165, 171);
+          myGLCD.drawBitmap(30, 180, 40, 40, minus1, 1);// " - "
+          myGLCD.drawBitmap(250, 180, 40, 40, Plus1, 1);// " + "
+          myGLCD.drawBitmap(145, 180, 40, 40, ok1, 1);// "ok"
+          SetDate (2);
+        }
+        if (x > 171 && x < 245) {
+          //myGLCD.setFont(SmallRusFont);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.drawRoundRect(171, 145, 245, 171);
+          myGLCD.drawBitmap(30, 180, 40, 40, minus1, 1);// " - "
+          myGLCD.drawBitmap(250, 180, 40, 40, Plus1, 1);// " + "
+          myGLCD.drawBitmap(145, 180, 40, 40, ok1, 1);// "ok"
+          SetDate (3);
+        }
+      }
       if (x > 15 && x < 65 && y > 10 && y < 60) {
-        ScreenSys ();// возврат в  меню sis
+        ScreenSys ();// возврат в  меню sys
       }
     }
   }
 }
+
+
 //_________________________________________________________________________________________________
 void TouchRele () {
   while (true)
@@ -1629,7 +1783,7 @@ void TouchsetBeerM_1 () {
       y = myTouch.getY();
       if (y > 50 && y < 110) {
         (244, 50, 304, 110);
-        if (x >244 && x < 304) setBeer ();
+        if (x > 244 && x < 304) setBeer ();
         if (x > 16 && x < 76) {
           for ( byte i = 8; i <= 14; i++) {
             if (flagTabelB == i) {
@@ -1659,7 +1813,7 @@ void TouchsetBeerM_1 () {
         if (x > 16 && x < 76) melodi ();
         if (x > 92 && x < 152) melodiErr ();
         if (x > 168 && x < 228) melodiNokia ();
-        
+
         if (x > 244 && x < 304) {
           for ( byte i = 8; i <= 14; i++) {
             if (flagTabelB == i) {
