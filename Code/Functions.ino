@@ -69,12 +69,6 @@ void ScreenTime (int x, int y, byte z, byte r, byte b) { // x,y начальны
     }
     else s = 0;
     myGLCD.printNumI(now.second(), x + ((8 * c) * 6) + s, y);
-    //Serial.print(now.year(), DEC);
-    //Serial.print('/');
-    // Serial.print(now.month(), DEC);
-    //Serial.print('/');
-    // Serial.print(now.day(), DEC);
-
   }
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -282,44 +276,94 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
   return iz;
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-/*int Se () {
-  boolean h = false;
-  if (chek == true) {
-    DateTime now = rtc.now();
-    DateTime future (now.unixtime() + 60);
-    miFSh = future.second();
+void NoCommerc() {
+  if (EEPROM.read(100) == 0) {
+    myGLCD.setBackColor(VGA_BLACK);
+    myGLCD.setFont(SmallRusFont);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.print("Commercial use without ", CENTER, 10);
+    myGLCD.print("permission is prohibited", CENTER, 26);
+    delay(500);
+    myGLCD.print("is prohibited !", CENTER, 42);
+    delay(500);
+    myGLCD.print("Dementev Nikolay", CENTER, 58);
+    delay(500);
+    myGLCD.print("breweryarduino@mail.ru", CENTER, 74);
+    delay(500);
+    myGLCD.print("Ko""\xA1""\xA1""ep""\xA7""ec""\x9F""oe ""\x9D""c""\xA3""o""\xA0""\xAC""\x9C""o""\x97""a""\xA2""\x9D", CENTER, 100);
+    delay(500);
+    myGLCD.print("\x96""e""\x9C"" ""pa""\x9C""pe""\xA8""e""\xA2""\x9D""\xAF"" ""a""\x97""\xA4""opa", CENTER, 116);
+    delay(500);
+    myGLCD.print("\x9C""a""\xA3""pe""\xA9""e""\xA2""o !", CENTER, 132);
+    delay(500);
+    myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 148);
+    delay(500);
+    myGLCD.print("breweryarduino@mail.ru", CENTER, 164);
+    myGLCD.setFont(BigRusFont);
+    myGLCD.setColor(VGA_BLUE);
+    myGLCD.fillRoundRect(50, 180, 270, 236);
+    myGLCD.setBackColor(VGA_BLUE);
+    myGLCD.setColor(VGA_LIME);
+    myGLCD.print("\x89""P""\x86""H""\x95""T""\x92", CENTER, 200);
+    while (true)
+    {
+      if (myTouch.dataAvailable())
+      {
+        myTouch.read();
+        x = myTouch.getX();
+        y = myTouch.getY();
+        if (x > 50 && x < 270 && y > 180 && y < 236) {
+          EEPROM.write(100, 1);
+          Screen0 ();
+        }
+
+      }
+    }
   }
-  DateTime now = rtc.now();
-  miSh = now.second();
-  byte seC =  miFSh - miSh;
-  if (seC == 0) {
-    h = true;
-    chek  = true;
-  }
-  else h = false;
-  return h;
-  }
-*/
-//-----------------------------------------------------------------------------------------------------------------------------------------------------
-void Date () {
-  myGLCD.setBackColor(VGA_BLACK);
-  myGLCD.setColor(VGA_LIME);
-  myGLCD.setFont(BigRusFont);
-  timeReal ();
-  if (da < 10) {
-    myGLCD.printNumI(0, 80, 150);
-    myGLCD.printNumI(da, 96, 150);
-  }
-  else myGLCD.printNumI(da, 80, 150);
-  myGLCD.print(".", 112, 150);
-  if (mon < 10) {
-    myGLCD.printNumI(0, 128, 150);
-    myGLCD.printNumI(mon, 144, 150);
-  }
-  else myGLCD.printNumI(mon, 128, 150);
-  myGLCD.print(".", 160, 150);
-  myGLCD.printNumI(yea, 176, 150);
+  Screen0 ();
 }
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+void Date (int x, int y, byte z, byte r, byte b) {// x,y начальные координаты вывода на экран даты, z = 1 Маленький шрифт; 2 Большой шрифт, r - цвет шрифта, b - цвет фона шрифта
+
+  byte m, s, h;
+
+  int c;
+  myGLCD.setColor (colorlist[r]);
+  myGLCD.setBackColor(colorlist[b]);
+  scrclr = 0;
+  if (z == 1 ) {
+    c = 1;
+    myGLCD.setFont(SmallRusFont);
+  }
+  if (z == 2 ) {
+    c = 2;
+    myGLCD.setFont(BigRusFont);
+  }
+  if ( x + ((8 * c) * 8) > 320) x = 320 - ((8 * c) * 8);
+  if ( y + ((4 * c) + 8) > 240) y = 240 - ((4 * c) + 8);
+  DateTime now = rtc.now();
+  da =  now.day();
+  mon =  now.month();
+  yea = now.year();
+
+  if (now.day() < 10) {
+    myGLCD.printNumI(0, x, y);
+    h = 8 * c;
+  }
+  else h = 0;
+  myGLCD.printNumI(now.day(), x + h, y);
+  myGLCD.print(".", x + ((8 * c) * 2), y);
+  if (now.month() < 10) {
+    myGLCD.printNumI(0, x + ((8 * c) * 3), y);
+    m = 8 * c;
+  }
+  else m = 0;
+  myGLCD.printNumI(now.month(), x + ((8 * c) * 3) + m, y);
+  myGLCD.print(".", x + ((8 * c) * 5), y);
+  s = 0;
+  myGLCD.printNumI(now.year(), x + ((8 * c) * 6) + s, y);
+}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------
 
@@ -584,6 +628,7 @@ void melodiErr ()
     noTone(Bib);
   }
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void melodiNokia () {
   int melody[] = { NOTE_E5, NOTE_D5, NOTE_F4, NOTE_G4, NOTE_C5, NOTE_B4, NOTE_D4, NOTE_E4, NOTE_B4, NOTE_A4, NOTE_C4, NOTE_E4, NOTE_A4 };
   int noteDurations[] = { 8, 8, 4, 4, 8, 8, 4, 4, 8, 8, 4, 4, 1 };
@@ -597,12 +642,13 @@ void melodiNokia () {
     noTone(Bib);
   }
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FMelodi (byte Melodi1) {
   if (Melodi1 == 0) melodi ();
   if (Melodi1 == 1) melodiErr ();
   if (Melodi1 == 2) melodiNokia ();
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void ErroSD () {
   if (!card.init(SPI_HALF_SPEED, chipSelect)) {
     myGLCD.setColor(VGA_RED);
@@ -613,7 +659,7 @@ void ErroSD () {
     setSD ();
   }
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void ScreenListDir (byte i) {
   myGLCD.fillScr(VGA_BLACK);
   myGLCD.drawBitmap(135, 10, 50, 50, sd, 1);
@@ -643,6 +689,7 @@ void ScreenListDir (byte i) {
   myGLCD.print(NameDir[4 + i], 53, 203);
   Touch5 ();
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Touch () {
   byte i = 0;
   while (i == 0) {
@@ -655,13 +702,26 @@ void Touch () {
     }
   }
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void ProgressBerr (byte i) {
   myGLCD.setColor(VGA_WHITE);
   scale = scale + (kof * i);
   myGLCD.fillRect (10, 225, scale, 230);
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void BlackScr () {
   myGLCD.setColor(VGA_BLACK);
   myGLCD.fillRect (3, 3, 317, 220);
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+// call back for file timestamps
+void dateTime(uint16_t* date, uint16_t* time) {
+  DateTime now = rtc.now();
+
+  // return date using FAT_DATE macro to format fields
+  *date = FAT_DATE(now.year(), now.month(), now.day());
+
+  // return time using FAT_TIME macro to format fields
+  *time = FAT_TIME(now.hour(), now.minute(), now.second());
 }
 

@@ -140,7 +140,7 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
             timeReal ();
             SetTimeClock (yea, mon, daset, ho, mi, se); //Установка даты и времени часов
             //ScreenTime (96, 100, 2, 9, 1);//Обновляем время
-            Date ();
+            Date (80, 150, 2, 9, 1);
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(75, 145, 117, 171);
           }
@@ -151,7 +151,7 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
             timeReal ();
             SetTimeClock (yea, mon, daset, ho, mi, se); //Установка даты и времени часов
             //ScreenTime (96, 100, 2, 9, 1);//Обновляем время
-            Date ();
+            Date (80, 150, 2, 9, 1);
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(75, 145, 117, 171);
           }
@@ -172,7 +172,7 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
             if (monset == 0) monset = 12;
             timeReal ();
             SetTimeClock (yea, monset, da, ho, mi, se); //Установка даты и времени часов
-            Date ();
+            Date (80, 150, 2, 9, 1);
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(123, 145, 165, 171);
           }
@@ -182,7 +182,7 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
             if (monset >= 12) monset = 1;
             timeReal ();
             SetTimeClock (yea, monset, da, ho, mi, se); //Установка даты и времени часов
-            Date ();
+            Date (80, 150, 2, 9, 1);
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(123, 145, 165, 171);
           }
@@ -202,7 +202,7 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
             //if (yeaset <= 2017) yeaset = 2017;
             timeReal ();
             SetTimeClock (yeaset, mon, da, ho, mi, se); //Установка даты и времени часов
-            Date ();
+            Date (80, 150, 2, 9, 1);
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(171, 145, 245, 171);
           }
@@ -211,7 +211,7 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
             yeaset++;
             timeReal ();
             SetTimeClock (yeaset, mon, da, ho, mi, se); //Установка даты и времени часов
-            Date ();
+            Date (80, 150, 2, 9, 1);
             myGLCD.setColor(VGA_WHITE);
             myGLCD.drawRoundRect(171, 145, 245, 171);
           }
@@ -230,13 +230,17 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
 void Touch0 () { // обработка тачскрина главного меню
   while (true)
   {
-    /*myGLCD.setColor(VGA_RED);
-      printTemperatureNoScr();
-      myGLCD.setFont(SevenSegNumFont);
-      if (TempC > 99 ) TempC = 99;
-      myGLCD.printNumI(TempC, 128, 95);
-    */
-    ScreenTime (96, 39, 2, 9, 1);
+    byte i;
+    ScreenTime (96, 45, 2, 9, 1);
+    Date (15, 10, 1, 9, 1);
+    printTemperatureNoScr();
+    myGLCD.setFont(SmallRusFont);
+    if (TempC > 99 ) i = 0;
+    if (TempC < 99 && TempC > 9) i = 8;
+    if (TempC < 9) i = 16;
+    myGLCD.printNumI(TempC, 265 + i, 10);
+    myGLCD.print("\x7F""C", 289, 10);
+
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -245,7 +249,7 @@ void Touch0 () { // обработка тачскрина главного ме�
       if (y > 95 && y < 145) {
         if (x > 15 && x < 65) Screen1 ();
         if (x > 75 && x < 125) Screen2 ();
-        //if (x > 135 && x < 185) Screen3 ();
+        // if (x > 135 && x < 185) Screen3 ();
         if (x > 195 && x < 245) Screen4 ();
         if (x > 255 && x < 305) Screen5 ();
       }
@@ -396,7 +400,7 @@ void Touch2 () { // обработка тачскрина меню тэна
 }
 
 //_________________________________________________________________________________________________
-/*void Touch3 () { // обработка тачскрина меню насоса
+/*void Touch3 () { // обработка тачскрина меню
   while (true)
   {
 
@@ -899,6 +903,8 @@ void Touch5_2 () {
   }
 }
 void TouchSDBeerReName (byte g) {
+  char* ACS[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+  char* ACS2[] = {"C", "H"};
   myGLCD.drawBitmap(30, 156, 40, 40, minus1, 1);// " - "
   myGLCD.drawBitmap(250, 156, 40, 40, Plus1, 1);// " + "
   myGLCD.drawBitmap(145, 156, 40, 40, ok1, 1);// "ok"
@@ -916,27 +922,49 @@ void TouchSDBeerReName (byte g) {
       y = myTouch.getY();
       if (y > 156 && y < 196) {
         if (x > 250 && x < 290) {
-          h++;
-          if (h > 35) h = 0;
-          myGLCD.print(ACS[h], 35 * w, 100);
-          delay(100);
-
+          if (g != 7) {
+            h++;
+            if (h > 35) h = 0;
+            myGLCD.print(ACS[h], 35 * w, 100);
+            delay(100);
+          }
+          else {
+            h++;
+            if (h > 1) h = 0;
+            myGLCD.print(ACS2[h], 35 * w, 100);
+            delay(100);
+          }
         }
         if (x > 30 && x < 70) {
-          h--;
-          if (h > 35) h = 35;
-          myGLCD.print(ACS[h], 35 * w, 100);
-          delay(100);
+          if (g != 7) {
+            h--;
+            if (h > 35) h = 35;
+            myGLCD.print(ACS[h], 35 * w, 100);
+            delay(100);
+          }
 
+          else {
+
+            h--;
+            if (h > 1) h = 1;
+            myGLCD.print(ACS2[h], 35 * w, 100);
+            delay(100);
+          }
         }
+
         if (x > 145 && x < 185) {
-          BufName[g] =  ACS[h];
+          if (g != 7) {
+            BufName[g] =  ACS[h];
+
+          }
+          else BufName[g] =  ACS2[h];
           Screen5_2 ();
         }
       }
     }
   }
 }
+
 //_________________________________________________________________________________________________
 void TouchSys () {
 
@@ -985,7 +1013,7 @@ void TouchSetTime () { //обработка меню часов
   while (true) {
 
     ScreenTime (96, 100, 2, 9, 1);
-    Date ();
+    Date (80, 150, 2, 9, 1);
     if (myTouch.dataAvailable())
     {
       myTouch.read();

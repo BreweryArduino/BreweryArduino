@@ -50,24 +50,24 @@ float ePid, pPid;
 void(* resetFunc) (void) = 0; // Reset MC function
 
 void ScreenTime (int x, int y, byte z, byte r, byte b);//Вывод на времени на экран
-void SetTimeClock (int yea2, byte mon2, byte da2,byte ho2, byte mi2, byte se2);//Установка даты и времени часов
+void SetTimeClock (int yea2, byte mon2, byte da2, byte ho2, byte mi2, byte se2); //Установка даты и времени часов
 void waitForItButton(int x1, int y1, int x2, int y2); void waitForItButton1(int x1, int y1, int x2, int y2);
 int OutTime (byte z, byte x); void SetTime (byte g); void timeselect (); void printTemperature();
-byte PIctl(float temp, int8_t ust); void printTemperatureNoScr();
-int Se (); void melodi (); void melodiErr (); int OutTimeNoScr (byte z);void UpDown2 ();void setBeerN_1 (byte gg);void FMelodi (byte Melodi1);
-void setBeerM_1 ();void setBeerN1 ();void TimeWorkNasos (byte r, byte f, byte l);void TimeWorkNasosAir ();void OffNasos (byte l);
-void OnNasos (byte l);void OffHot ();void OnHot ();void Save_sys ();void Read_sys ();void CardInfo ();void SDSaveSys ();void SDRead (String nameF);
-void SDReadSys ();void SDBeerName ();void SDSaveBeer ();void SDReadDir ();void ErroSD ();void SDReadBeer ();void ScreenListDir (byte i);
-void ProgressBerr (byte i);void BlackScr ();void melodiNokia ();void Date ();void SetDate (byte g);void timeReal ();
+byte PIctl(float temp, int8_t ust); void printTemperatureNoScr(); void NoCommerc();
+int Se (); void melodi (); void melodiErr (); int OutTimeNoScr (byte z); void UpDown2 (); void setBeerN_1 (byte gg); void FMelodi (byte Melodi1);
+void setBeerM_1 (); void setBeerN1 (); void TimeWorkNasos (byte r, byte f, byte l); void TimeWorkNasosAir (); void OffNasos (byte l);
+void OnNasos (byte l); void OffHot (); void OnHot (); void Save_sys (); void Read_sys (); void CardInfo (); void SDSaveSys (); void SDRead (String nameF);
+void SDReadSys (); void SDBeerName (); void SDSaveBeer (); void SDReadDir (); void ErroSD (); void SDReadBeer (); void ScreenListDir (byte i);
+void ProgressBerr (byte i); void BlackScr (); void melodiNokia (); void Date (int x, int y, byte z, byte r, byte b); void SetDate (byte g); void timeReal ();
 //******************************************************************************************************************
-void Screen0(); void Screen1(); void Screen2();void Screen2_1 (); void Screen3(); void Screen4(); void Screen5(); void ScreenSetTime ();
+void Screen0(); void Screen1(); void Screen2(); void Screen2_1 (); void Screen3(); void Screen4(); void Screen5(); void ScreenSetTime ();
 void setHot (); void setNasos (); void setBeer (); void setSD (); void Screen4_1 (); void Screen4_2 (); void Screen5_2 (); void Beer ();
-void setBeer_1 ();void ScreenSys ();void ScreenREC ();void SetRele ();void setNasos_1 ();
+void setBeer_1 (); void ScreenSys (); void ScreenREC (); void SetRele (); void setNasos_1 ();
 //******************************************************************************************************************
 void Touch0 (); void Touch1 (); void Touch2 (); void Touch3 (); void Touch4_1 (); void  UpDown (); void UpDown1 (); void OkTabel (); void SetScreen4 (byte g, byte i);
 void Touch4 (); void Touch5 (); void TouchHot (); void TouchNasos (); void TouchBeer (); void TouchSD (); void TouchSetTime (); void OkTabel1 (); void Touch4_2 ();
-void Touch5_2 ();void OkTabel2 (); void FWorkN (byte workN1);void FPauseN (byte pauseN1);void UpDown3 ();void TouchsetBeerN_1 (byte hh);void TouchsetBeerM_1 ();
-void TouchBeer_1 ();void TouchSys ();void TouchREC ();void TouchSDBeerReName (byte g);void TouchRele ();void Touch ();void TochNasos_1 ();
+void Touch5_2 (); void OkTabel2 (); void FWorkN (byte workN1); void FPauseN (byte pauseN1); void UpDown3 (); void TouchsetBeerN_1 (byte hh); void TouchsetBeerM_1 ();
+void TouchBeer_1 (); void TouchSys (); void TouchREC (); void TouchSDBeerReName (byte g); void TouchRele (); void Touch (); void TochNasos_1 ();
 //******************************************************************************************************************
 
 extern unsigned Set2[0x9C4];
@@ -105,39 +105,38 @@ byte termKIP = 100;// температура закипания
 long int ho, mi, se, da, yea, mon;
 long int ho1, mi1, se1, da1;
 int yeaset;
-byte hoset, miset, seset,daset, monset;
+byte hoset, miset, seset, daset, monset;
 int hoB2, miB2, seB2, daB2, hoB3, miB3, seB3, daB3, hoB4, miB4, seB4, daB4, hoB5, miB5, seB5, daB5, hoB6, miB6, seB6, daB6;
 int hoN, miN, seN, daN;
 byte fT = 1;
 byte fR = 1;
-byte ReleTime = 60;//кратность в секундах работы насоса 
+byte ReleTime = 60;//кратность в секундах работы насоса
 byte RelePause = 1;//кратность в секундах простоя насоса
 byte ReleOn = LOW;
 byte ReleOff = HIGH;
 byte iteration = 0;
-byte flagTabel = 1; byte flagTabel1 = 1; byte flagTabelWN = 1; byte flagTabelB = 1;byte flagTabelName = 1;
+byte flagTabel = 1; byte flagTabel1 = 1; byte flagTabelWN = 1; byte flagTabelB = 1; byte flagTabelName = 1;
 int TempC;
 int TempCSET = 10;
 byte ON_OFF = 0;
 
 byte PauseN[7];//массив пауз насоса
-byte WorkN[7]{};// массив времени работы наноса
-byte BeerN[7]{7,7,7,7,7,7,7};//массив привязки насоса к этапам пивоварения
-byte MelodiN[7]{1,1,1,1,1,1,0};//массив привязки мелодий к этапам пивоварения
+byte WorkN[7] {}; // массив времени работы наноса
+byte BeerN[7] {7, 7, 7, 7, 7, 7, 7}; //массив привязки насоса к этапам пивоварения
+byte MelodiN[7] {1, 1, 1, 1, 1, 1, 0}; //массив привязки мелодий к этапам пивоварения
 int  resolution = 12;
 unsigned long lastTempRequest = 0;
 int  delayInMillis = 0;
 float temperature = 0.0;
 int  idle = 0;
 byte airW = 5; byte airP = 5; byte rep = 3;// продувка насосa
-byte nasosWH=1; byte nasosPH=1;// переменные для хранения времени работы и простоя насоса в режиме тэна
+byte nasosWH = 1; byte nasosPH = 1; // переменные для хранения времени работы и простоя насоса в режиме тэна
 boolean innverN = false;//переменная для инвертирования в Touch2
 boolean SdTouch = false;//переменная для запрета нажатия кнопки "ПОВТОРИТЬ" в TouchSD и CardInfo
 int outArray[150];
 String NameBeer = "/BEER/";
 String NameDir[25] = "";//буфер хренеия имен рецептов считанных с SD карты
-char* ACS[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","_","0","1","2","3","4","5","6","7","8","9"};
-char* BufName[] = {"M","Y","_","_","B","E","E","R",};// временный буфер для хранения имени сохраняемого рецепта
+char* BufName[] = {"M", "Y", "_", "B", "E", "E", "R", "C",}; // временный буфер для хранения имени сохраняемого рецепта
 byte SumDir = 0;//для хранения кол-во рецептов
 byte ScreenDir = 1;
 int kof;//шкала прогресса
@@ -149,19 +148,17 @@ byte termgist;
 
 void setup () {
   Read_sys ();
-Wire.begin();
-SD.begin(chipSelect);
-//rtc.begin();
-DateTime now = rtc.now();
+  Wire.begin();
+  SD.begin(chipSelect);
+  //rtc.begin();
+  DateTime now = rtc.now();
+
   Serial.begin(9600);
   myGLCD.InitLCD();
   myGLCD.clrScr();
   myGLCD.fillScr(VGA_BLACK);
   myTouch.InitTouch(1);
   myTouch.setPrecision(PREC_MEDIUM);
- // Wire.begin();
-// rtc.begin(DateTime(__DATE__, __TIME__));
-
   sensors.begin();
   sensors.getAddress(tempDeviceAddress, 0);
   sensors.setResolution(tempDeviceAddress, resolution);
@@ -170,11 +167,11 @@ DateTime now = rtc.now();
   sensors.requestTemperatures();
   delayInMillis = 750 / (1 << (12 - resolution));
   lastTempRequest = millis();
-  
+
   pinMode (NasosPin, OUTPUT);
-  digitalWrite(NasosPin,ReleOff);
-  
-  Screen0 ();
+  digitalWrite(NasosPin, ReleOff);
+  NoCommerc();
+
 }
 
 void loop () {

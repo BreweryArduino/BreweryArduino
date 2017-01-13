@@ -4,7 +4,7 @@ void Screen0 () {// Главное меню
   myGLCD.fillScr(VGA_BLACK);
   myGLCD.drawBitmap(15, 95, 50, 50, Set2, 1);
   myGLCD.drawBitmap(75, 95, 50, 50, Hot2, 1);
-  //myGLCD.drawBitmap(135, 95, 50, 50, nasos, 1);
+
   myGLCD.drawBitmap(195, 95, 50, 50, beer, 1);
   myGLCD.drawBitmap(255, 95, 50, 50, sd, 1);
   myGLCD.setBackColor(VGA_BLACK);
@@ -13,6 +13,7 @@ void Screen0 () {// Главное меню
   myGLCD.print("BreweryArduino", CENTER, 180);
   myGLCD.setFont(SmallRusFont);
   myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E"" 2016-2017""\x98"".", CENTER, 204);
+myGLCD.print("breweryarduino@mail.ru", CENTER, 220);
   Touch0 ();
 }
 
@@ -31,6 +32,10 @@ void Screen1 () {//Меню установки
   myGLCD.drawBitmap(195, 95, 50, 50, beer, 1);
   myGLCD.drawBitmap(255, 95, 50, 50, sd, 1);
   myGLCD.drawBitmap(32, 20, 64, 30, LeftButton1, 1);
+  myGLCD.setColor(VGA_LIME);
+  myGLCD.setBackColor(VGA_BLACK);
+  myGLCD.setFont(SmallRusFont);
+  myGLCD.print("Hac""\xA4""po""\x9E""\x9F""a ""\x9F""o""\xA1""\xA3""o""\xA2""e""\xA2""\xA4""o""\x97"" ""c""\x9D""c""\xA4""e""\xA1""\xAB", CENTER, 70);
   Touch1 ();
 
 }
@@ -160,15 +165,18 @@ void Screen2_1 () {//Меню управления тэном возврат с 
   myGLCD.printNumI(out, 100, 95);
   Touch2 ();
 }
-/*void Screen3 () {//Меню управления насосом
+/*void Screen3 () {//
   myGLCD.fillScr(VGA_BLACK);
-  myGLCD.drawBitmap(135, 10, 50, 50, nasos, 1);
+  myGLCD.drawBitmap(135, 10, 50, 50, beer, 1);
   myGLCD.drawBitmap(32, 20, 64, 30, LeftButton1, 1);
   myGLCD.drawBitmap(188, 20, 64, 30, RightButton1, 1);
+  myGLCD.setColor(VGA_BLACK);
+  myGLCD.setBackColor(VGA_WHITE);
+  myGLCD.setFont(BigRusFont);
+  myGLCD.print("H", 152, 27);
   Touch3 ();
-  }
+}
 */
-
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void Screen4 () {//Меню варки пива 1этап
   myGLCD.fillScr(VGA_BLACK);

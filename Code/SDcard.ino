@@ -78,12 +78,16 @@ void CardInfo () {
   if (SD.exists("/BEER") == false) {
     a = 170;
     //myFile = SD.open("SYS.TXT", FILE_WRITE);
+      // set date time callback function
+  SdFile::dateTimeCallback(dateTime); 
     SD.mkdir("/BEER");
     //myFile.close();
     myGLCD.print("co""\x9C""\x99""a""\x9A""\xA1""....BEER", 5, 140);//проверка существования папки для хранения рецептов
   }
   if (SD.exists("SYS.TXT") == false) {
     b = 185;
+      // set date time callback function
+  SdFile::dateTimeCallback(dateTime); 
     myFile = SD.open("SYS.TXT", FILE_WRITE);
     myFile.close();
     myGLCD.print("co""\x9C""\x99""a""\x9A""\xA1""....SYS.TXT", 5, 155);//проверка существования папки для хранения рецептов
@@ -95,6 +99,8 @@ void CardInfo () {
 void SDSaveSys () {// Функция записи на карту файла sys.txt
   File myFile;
   ErroSD ();
+    // set date time callback function
+  SdFile::dateTimeCallback(dateTime); 
   myFile = SD.open("sys.txt", FILE_WRITE);
   myGLCD.print("*", LEFT, 200);//
   myFile.seek(0);
@@ -269,6 +275,8 @@ void SDReadBeer () {
 void SDSaveBeer () {
   File myFile;
   ErroSD ();
+    // set date time callback function
+  SdFile::dateTimeCallback(dateTime); 
   myFile = SD.open(NameBeer, FILE_WRITE);
   myFile.seek(0);
   // if the file opened okay, write to it:
