@@ -113,7 +113,7 @@ void Beer () {
     myGLCD.setFont(SevenSegNumFont);
     printTemperature();
 
-    while ( termB1 >= TempC)
+    while ( termB1 >= TempC){
       OnNasos (1);
     PIctl(TempC, termB1);
     ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -126,6 +126,7 @@ void Beer () {
     myGLCD.setColor(VGA_RED);
     myGLCD.printNumI(termB1, 15, 81);
     printTemperature();
+  }
   }
   OffNasos (1);
   OffHot ();
