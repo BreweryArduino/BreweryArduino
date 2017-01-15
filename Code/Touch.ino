@@ -809,13 +809,16 @@ void Touch5_2 () {
           myGLCD.setFont(BigRusFont);
           myGLCD.print ("Pe""\xA6""e""\xA3""\xA4"" ""c"" ""\xA4""a""\x9F""\x9D""\xA1", CENTER, 172);
           myGLCD.print ("\x9D""\xA1""e""\xA2""e""\xA1"" ""cy""\xA9""ec""\xA4""\x97""ye""\xA4""!", CENTER, 195);
-          delay(3000);
+          delay(2000);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRect(0, 154, 319, 238);
           waitForItButton1(10, 160, 60, 210);
           waitForItButton1(260, 160, 310, 210);
+          myGLCD.setColor(VGA_RED);
           myGLCD.print ("\x82""A", 19, 176);
+          myGLCD.setColor(VGA_LIME);
           myGLCD.print ("HET", 261, 176);
+          myGLCD.setColor(VGA_WHITE);
           myGLCD.print("COXPAH""\x86""T""\x92""?", CENTER, 176);
           boolean a;
           while (true) {
@@ -904,7 +907,6 @@ void Touch5_2 () {
 }
 void TouchSDBeerReName (byte g) {
   char* ACS[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-  char* ACS2[] = {"C", "H"};
   myGLCD.drawBitmap(30, 156, 40, 40, minus1, 1);// " - "
   myGLCD.drawBitmap(250, 156, 40, 40, Plus1, 1);// " + "
   myGLCD.drawBitmap(145, 156, 40, 40, ok1, 1);// "ok"
@@ -922,42 +924,21 @@ void TouchSDBeerReName (byte g) {
       y = myTouch.getY();
       if (y > 156 && y < 196) {
         if (x > 250 && x < 290) {
-          if (g != 7) {
-            h++;
-            if (h > 35) h = 0;
-            myGLCD.print(ACS[h], 35 * w, 100);
-            delay(100);
-          }
-          else {
-            h++;
-            if (h > 1) h = 0;
-            myGLCD.print(ACS2[h], 35 * w, 100);
-            delay(100);
-          }
+          h++;
+          if (h > 35) h = 0;
+          myGLCD.print(ACS[h], 35 * w, 100);
+          delay(100);
         }
         if (x > 30 && x < 70) {
-          if (g != 7) {
-            h--;
-            if (h > 35) h = 35;
-            myGLCD.print(ACS[h], 35 * w, 100);
-            delay(100);
-          }
-
-          else {
-
-            h--;
-            if (h > 1) h = 1;
-            myGLCD.print(ACS2[h], 35 * w, 100);
-            delay(100);
-          }
+          h--;
+          if (h > 35) h = 35;
+          myGLCD.print(ACS[h], 35 * w, 100);
+          delay(100);
         }
 
         if (x > 145 && x < 185) {
-          if (g != 7) {
-            BufName[g] =  ACS[h];
 
-          }
-          else BufName[g] =  ACS2[h];
+          BufName[g] =  ACS[h];
           Screen5_2 ();
         }
       }
@@ -1383,6 +1364,9 @@ void TochNasos_1 () {//обработка меню насоса второя с�
       x = myTouch.getX();
       y = myTouch.getY();
       if (x > 244 && x < 304 && y > 80 && y < 140) {
+        if (x > 300 && x < 320 && y > 0 && y < 10) {
+          myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
+        }
         waitForItButton(244, 80, 304, 140);
         OnOffTerpNW = !OnOffTerpNW;
         myGLCD.setColor(VGA_WHITE);
@@ -1576,6 +1560,9 @@ void TouchBeer () { //первая страница меню настройки 
       x = myTouch.getX();
       y = myTouch.getY();
       if (x > 15 && x < 65 && y > 10 && y < 60) Screen1 ();// возврат в  меню настроек
+      if (x > 300 && x < 320 && y > 0 && y < 10) {
+        myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
+      }
       if (x > 188 && 252 && y > 20 && y < 50) setBeer_1 ();
       if (x > 279 && x < 309) {
         if (y > 57 &&  y < 121) {// Вверх
@@ -1809,6 +1796,9 @@ void TouchsetBeerM_1 () {
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();
+      if (x > 300 && x < 320 && y > 0 && y < 10) {
+        myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
+      }
       if (y > 50 && y < 110) {
         (244, 50, 304, 110);
         if (x > 244 && x < 304) setBeer ();

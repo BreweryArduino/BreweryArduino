@@ -695,6 +695,9 @@ void Touch () {
   while (i == 0) {
     if (myTouch.dataAvailable())
     {
+      if (x > 300 && x < 320 && y > 0 && y < 10) {
+        myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
+      }
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();

@@ -1,4 +1,5 @@
 void Beer () {
+
   myGLCD.fillScr(VGA_BLACK);
   int alltime = 0;
   if  (termB2 != 0 && pauseB1 != 0) alltime = alltime + pauseB1;
@@ -113,20 +114,20 @@ void Beer () {
     myGLCD.setFont(SevenSegNumFont);
     printTemperature();
 
-    while ( termB1 >= TempC){
+    while ( termB1 >= TempC) {
       OnNasos (1);
-    PIctl(TempC, termB1);
-    ten.lpwm(t_pwm, out);//медленный ШИМ на тен
-    if (out != 0 ) {
-      OnHot ();
+      PIctl(TempC, termB1);
+      ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+      if (out != 0 ) {
+        OnHot ();
+      }
+      else OffHot ();
+      ScreenTime (96, 196, 2, 9, 1);
+      myGLCD.setFont(SevenSegNumFont);
+      myGLCD.setColor(VGA_RED);
+      myGLCD.printNumI(termB1, 15, 81);
+      printTemperature();
     }
-    else OffHot ();
-    ScreenTime (96, 196, 2, 9, 1);
-    myGLCD.setFont(SevenSegNumFont);
-    myGLCD.setColor(VGA_RED);
-    myGLCD.printNumI(termB1, 15, 81);
-    printTemperature();
-  }
   }
   OffNasos (1);
   OffHot ();
@@ -625,7 +626,197 @@ void Beer () {
     ProgressBerr (pauseB6);
     FMelodi (MelodiN[6]);
   }
+
+  //  **************************************Йодная проба************************************
+  byte Dpause = 0;
+  byte DtempC = 0;
+labelIod:
+  BlackScr ();
+  myGLCD.setFont(BigRusFont);
+  myGLCD.setBackColor(VGA_WHITE);
+  myGLCD.setColor(VGA_WHITE);
+  myGLCD.fillRoundRect(40, 20, 280, 56);
+  myGLCD.setColor(139, 69, 19);
+  myGLCD.fillRoundRect(40, 70, 280, 130);
+  myGLCD.fillRoundRect(40, 140, 280, 200);
+  myGLCD.print("\x87""o""\x99""\xA2""a""\xAF"" ""\xA3""po""\x96""a", CENTER, 30);//Йодная проба
+  myGLCD.setBackColor(139, 69, 19);
+  myGLCD.setColor(VGA_WHITE);
+  myGLCD.print("\x89""po""\x99""o""\xA0""\x9B""\x9D""\xA4""\xAC", CENTER, 162);//Продолжить
+  myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""\xA3""ay""\x9C""y", CENTER, 92);//Добавить паузу
+  myGLCD.setBackColor(VGA_BLACK);
+  while (true)
+  {
+    if (myTouch.dataAvailable())
+    {
+      myTouch.read();
+      x = myTouch.getX();
+      y = myTouch.getY();
+      if (x > 40 && x < 280 && y > 140 && y < 200) goto labelFiltr;
+      if (x > 300 && x < 320 && y > 0 && y < 10) {
+        myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
+      }
+      if (x > 40 && x < 280 && y > 70 && y < 130) {
+        BlackScr ();
+        myGLCD.drawBitmap(48, 35, 64, 30, LeftButton1, 1);
+        myGLCD.drawBitmap(208, 35, 64, 30, RightButton1, 1);
+        myGLCD.drawBitmap(48, 115, 64, 30, LeftButton1, 1);
+        myGLCD.drawBitmap(208, 115, 64, 30, RightButton1, 1);
+        myGLCD.setColor(VGA_RED);
+        myGLCD.printNumI(Dpause, CENTER, 42);//Пауза
+        myGLCD.printNumI(DtempC, CENTER, 122);//Температура
+        myGLCD.setColor(VGA_LIME);
+        myGLCD.print("\x89""ay""\x9C""a", CENTER, 10);//Пауза
+        myGLCD.print("Te""\xA1""\xA3""epa""\xA4""ypa", CENTER, 90);//Температура
+        myGLCD.setColor(VGA_YELLOW);
+        myGLCD.setBackColor(VGA_YELLOW);
+        myGLCD.fillRoundRect(40, 160, 280, 196);
+        myGLCD.setColor(VGA_RED);
+        myGLCD.print("CTAPT", CENTER, 170);//
+        myGLCD.setBackColor(VGA_BLACK);
+        while (true)
+        {
+          myGLCD.setBackColor(VGA_BLACK);
+          myGLCD.setColor(VGA_LIME);
+          byte i;
+          printTemperatureNoScr();
+          myGLCD.setFont(SmallRusFont);
+          if (TempC > 99 ) i = 0;
+          if (TempC < 99 && TempC > 9) i = 8;
+          if (TempC < 9) i = 16;
+          myGLCD.printNumI(TempC, 265 + i, 10);
+          myGLCD.print("\x7F""C", 289, 10);
+          myGLCD.setColor(VGA_RED);
+          myGLCD.setFont(BigRusFont);
+          if (myTouch.dataAvailable())
+          {
+            myTouch.read();
+            x = myTouch.getX();
+            y = myTouch.getY();
+            if ( x > 40 && x < 280 && y > 160 && y < 196) goto labelD;
+            if (y > 35 && y < 65) {
+              if (x > 48 && x < 112) {
+                Dpause--;
+                if (Dpause > 240) Dpause = 240;
+                myGLCD.print("   ", CENTER, 42);//Пауза
+                myGLCD.printNumI(Dpause, CENTER, 42);//Пауза
+                delay (100);
+
+              }
+
+              if (x > 208 && x < 272) {
+                Dpause++;
+                if (Dpause > 240) Dpause = 0;
+                myGLCD.print("   ", CENTER, 42);//Пауза
+                myGLCD.printNumI(Dpause, CENTER, 42);//Пауза
+                delay (100);
+              }
+            }
+            if (y > 115 && y < 145) {
+              if (x > 48 && x < 112) {
+                DtempC--;
+                if (DtempC > 120) DtempC = 240;
+                myGLCD.print("   ", CENTER, 122);//Пауза
+                myGLCD.printNumI(DtempC, CENTER, 122);//Температура
+                delay (100);
+
+              }
+
+              if (x > 208 && x < 272) {
+                DtempC++;
+                if (DtempC > 120) DtempC = 0;
+                myGLCD.print("   ", CENTER, 122);//Пауза
+                myGLCD.printNumI(DtempC, CENTER, 122);//Температура
+                delay (100);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+labelD:
+  if  (DtempC != 0 && Dpause != 0) {
+    BlackScr ();
+    myGLCD.setBackColor(VGA_BLACK);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.drawRoundRect(10, 20, 116, 46);
+    myGLCD.drawRoundRect(204, 20, 310, 46);
+    myGLCD.drawRoundRect(10, 76, 116, 136);
+    myGLCD.drawRoundRect(204, 76, 310, 136);
+    myGLCD.drawRect(7, 156, 310, 156);
+    myGLCD.drawRect(7, 176, 310, 176);
+    myGLCD.setFont(SmallRusFont);
+    myGLCD.print("B""\xAB""\x99""ep""\x9B""a""\xA4""\xAC"" ""\xA3""p""\x9D", 7, 160); //выдержать при
+    myGLCD.printNumI(DtempC, 119, 160);
+    int i;
+    if (DtempC < 10) i = 0;
+    if (DtempC > 9 && DtempC < 100) i = 8;
+    if (DtempC > 99)  i = 16;
+    myGLCD.print("\x7F""C", 127 + i, 160);
+    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 151 + i, 160); //в течении
+    int q;
+    if (Dpause < 10) q = 0;
+    if (Dpause > 9 && pauseB5 < 100) q = 8;
+    if (Dpause > 99)  q = 16;
+    myGLCD.printNumI(Dpause, 231 + i, 160);
+    myGLCD.print("\xA1""\x9D""\xA2""y""\xA4", 247 + i + q, 160); //минут
+    myGLCD.setFont(BigRusFont);
+    for (byte i = 0; i < 3; i++) {
+      myGLCD.drawRoundRect(0 + 1, 0 + 1, 320 - i, 240 - i);
+    }
+    myGLCD.setFont(SevenSegNumFont);
+    printTemperature();
+    myGLCD.setColor(VGA_RED);
+    myGLCD.printNumI(DtempC, 15, 81);
+    while (DtempC >= TempC)//
+    {
+      OnNasos (1);
+      PIctl(TempC, DtempC);
+      ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+      if (out != 0 ) {
+        OnHot ();
+      }
+      else OffHot ();
+      ScreenTime (96, 196, 2, 9, 1);
+      myGLCD.setFont(SevenSegNumFont);
+      printTemperature();
+    }
+    OffNasos (1);
+    int ii = Dpause * 60;
+    DateTime now = rtc.now();
+    DateTime future (now.unixtime() + ii);
+    ho1 = future.hour();
+    mi1 = future.minute();
+    se1 = future.second();
+    da1 = future.day();
+    myGLCD.setColor(VGA_RED);
+    myGLCD.setFont(BigRusFont);
+    myGLCD.printNumI(Dpause, 231, 25);
+    myGLCD.printNumI(Dpause, 37, 25);
+    ik = 0;
+    while (ik < Dpause) //
+    {
+      TimeWorkNasos (WorkN[BeerN[5]] , PauseN[BeerN[5]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
+      PIctl(TempC, DtempC);
+      ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+      if (out != 0 ) {
+        OnHot ();
+      }
+      else OffHot ();
+      ik = OutTime (Dpause, DtempC);
+
+
+    }
+    fT = 1;
+    OffNasos (1);
+    FMelodi (MelodiN[5]);
+    OffHot ();
+  }
+  goto labelIod;
   //  **************************************Фильтрация************************************
+labelFiltr:
+  BlackScr ();
   ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
   if (out != 0 ) {
     OnHot ();
@@ -834,6 +1025,7 @@ void Beer () {
         da = now.day();
         if (ho ==  hoB2 && mi == miB2 && se == seB2 && da == daB2) {
           melodiErr ();
+          ProgressBerr (timeB1-timeB2-timeB3-timeB4-timeB5-timeB6);
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
@@ -850,6 +1042,7 @@ void Beer () {
         da = now.day();
         if (ho ==  hoB3 && mi == miB3 && se == seB3 && da == daB3) {
           melodiErr ();
+ 
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
@@ -866,6 +1059,7 @@ void Beer () {
         da = now.day();
         if (ho ==  hoB4 && mi == miB4 && se == seB4 && da == daB4) {
           melodiErr ();
+
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
@@ -882,6 +1076,7 @@ void Beer () {
         da = now.day();
         if (ho ==  hoB5 && mi == miB5 && se == seB5 && da == daB5) {
           melodiErr ();
+
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
@@ -898,6 +1093,7 @@ void Beer () {
         da = now.day();
         if (ho ==  hoB6 && mi == miB6 && se == seB6 && da == daB6) {
           melodiErr ();
+
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
@@ -991,22 +1187,27 @@ void Beer () {
   scale = 0;
   summTime = 0;
   myGLCD.fillScr(VGA_BLACK);
+  myGLCD.setColor(VGA_LIME);
+  myGLCD.setFont(SmallRusFont);
+  myGLCD.print("HA""\x84""M""\x86""TE"",""\x8D""TO""\x80""\x91"" ""\x89""PO""\x82""O""\x88""\x84""\x86""T""\x92", CENTER, 225);
   for ( byte i = 0; i < 55; i++) {
     myGLCD.drawBitmap(0 + i, 0 + i, 50, 50, beer, 1);
     myGLCD.drawBitmap(0 + i, 190 - i, 50, 50, beer, 1);
     myGLCD.drawBitmap(270 - i, 190 - i, 50, 50, beer, 1);
     myGLCD.drawBitmap(270 - i, 0 + i, 50, 50, beer, 1);
+    if (myTouch.dataAvailable()) {
+      Screen0 ();
+    }
   }
   myGLCD.setFont(BigRusFont);
   myGLCD.setColor(VGA_LIME);
   myGLCD.print("BAPKA"" ""\x85""ABEP""\x8E""E""HA!!!", CENTER, 110);
-  myGLCD.setFont(SmallRusFont);
-  myGLCD.print("HA""\x84""M""\x86""TE"",""\x8D""TO""\x80""\x91"" ""\x89""PO""\x82""O""\x88""\x84""\x86""T""\x92", CENTER, 225);
   while (true) {
 
     if (myTouch.dataAvailable()) {
       Screen0 ();
     }
   }
+
 }
 
