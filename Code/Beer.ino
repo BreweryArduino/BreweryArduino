@@ -797,7 +797,7 @@ labelD:
     ik = 0;
     while (ik < Dpause) //
     {
-      TimeWorkNasos (WorkN[BeerN[5]] , PauseN[BeerN[5]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
+      TimeWorkNasos (WorkN[BeerN[1]] , PauseN[BeerN[1]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, DtempC);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
       if (out != 0 ) {
@@ -806,7 +806,9 @@ labelD:
       else OffHot ();
       ik = OutTime (Dpause, DtempC);
 
-
+      ScreenTime (96, 196, 2, 9, 1);
+      myGLCD.setFont(SevenSegNumFont);
+      printTemperature();
     }
     fT = 1;
     OffNasos (1);
