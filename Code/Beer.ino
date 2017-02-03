@@ -1,6 +1,8 @@
 void Beer () {
-
+  byte Dpause = 0;
+  byte DtempC = 0;
   myGLCD.fillScr(VGA_BLACK);
+  //-------------------------------расчет и отрисовка прогресс бара-----------------------------
   int alltime = 0;
   if  (termB2 != 0 && pauseB1 != 0) alltime = alltime + pauseB1;
   if  (termB3 != 0 && pauseB2 != 0) alltime = alltime + pauseB2;
@@ -9,8 +11,7 @@ void Beer () {
   if  (termB6 > 0 && pauseB5 > 0) alltime = alltime + pauseB5;
   if  (termB7 > 0 && pauseB6 > 0) alltime = alltime + pauseB6;
   if  (timeB1 > 0 )alltime = alltime + timeB1;
-  kof = 310 / alltime;
-
+  kof = 300 / alltime;
   myGLCD.setColor(VGA_GRAY);
   int summTime = 0;
   myGLCD.drawRect (10, 222, 310, 233);
@@ -38,10 +39,234 @@ void Beer () {
     summTime = summTime + (kof * pauseB6);
     myGLCD.drawRect (summTime, 222, summTime, 233);
   }
+  //-------------------------------навигация по этапам варки-----------------------------
+  myGLCD.setColor(VGA_GREEN);
+  myGLCD.fillRoundRect(10, 5, 310, 55);//Пропустить
+  myGLCD.setFont(BigRusFont);
+  myGLCD.setColor(VGA_WHITE);
+  myGLCD.drawRoundRect(10, 5, 310, 55);//Окантовка
+  myGLCD.setBackColor(VGA_GREEN);
+  myGLCD.print("\x89""PO""\x89""\x8A""CT""\x86""T""\x92", CENTER, 22);
+  myGLCD.setFont(SmallRusFont);
+  if  (termB3 != 0 && pauseB2 != 0) {//если пауза есть то зеленая кнопка иначе серая
+    myGLCD.setColor(VGA_GREEN);
+    myGLCD.fillRoundRect(10, 80, 60, 130);//Пауза№2
+    myGLCD.setBackColor(VGA_GREEN);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.drawRoundRect(10, 80, 60, 130);//Окантовка
+    myGLCD.print("\x89""ay""\x9C""a2", 12, 101);
+  }
+  else {
+    myGLCD.setColor(VGA_GRAY);
+    myGLCD.fillRoundRect(10, 80, 60, 130);//Пауза№2
+    myGLCD.setBackColor(VGA_GRAY);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.print("\x89""ay""\x9C""a2", 12, 101);
+  }
 
-  // 1 шаг __________________________________________________________________
+  if  (termB4 != 0 && pauseB3 != 0) {//если пауза есть то зеленая кнопка иначе серая
+    myGLCD.setColor(VGA_GREEN);
+    myGLCD.fillRoundRect(70, 80, 120, 130);//Пауза№3
+    myGLCD.setBackColor(VGA_GREEN);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.drawRoundRect(70, 80, 120, 130);//Окантовка
+    myGLCD.print("\x89""ay""\x9C""a3", 72, 101);
+  }
+  else {
+    myGLCD.setColor(VGA_GRAY);
+    myGLCD.fillRoundRect(70, 80, 120, 130);//Пауза№3
+    myGLCD.setBackColor(VGA_GRAY);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.print("\x89""ay""\x9C""a3", 72, 101);
+  }
+  if  (termB5 != 0 && pauseB4 != 0) {//если пауза есть то зеленая кнопка иначе серая
+    myGLCD.setColor(VGA_GREEN);
+    myGLCD.fillRoundRect(130, 80, 180, 130);//Пауза№4
+    myGLCD.setBackColor(VGA_GREEN);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.drawRoundRect(130, 80, 180, 130);//Окантовка
+    myGLCD.print("\x89""ay""\x9C""a4", 132, 101);
+  }
+  else {
+    myGLCD.setColor(VGA_GRAY);
+    myGLCD.fillRoundRect(130, 80, 180, 130);//Пауза№4
+    myGLCD.setBackColor(VGA_GRAY);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.print("\x89""ay""\x9C""a4", 132, 101);
+  }
+  if  (termB6 != 0 && pauseB5 != 0) {//если пауза есть то зеленая кнопка иначе серая
+    myGLCD.setColor(VGA_GREEN);
+    myGLCD.fillRoundRect(190, 80, 240, 130);//Пауза№5
+    myGLCD.setBackColor(VGA_GREEN);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.drawRoundRect(190, 80, 240, 130);//Окантовка
+    myGLCD.print("\x89""ay""\x9C""a5", 192, 101);
+  }
+  else {
+    myGLCD.setColor(VGA_GRAY);
+    myGLCD.fillRoundRect(190, 80, 240, 130);//Пауза№5
+    myGLCD.setBackColor(VGA_GRAY);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.print("\x89""ay""\x9C""a5", 192, 101);
+  }
+  if  (termB7 != 0 && pauseB6 != 0) {//если пауза есть то зеленая кнопка иначе серая
+    myGLCD.setColor(VGA_GREEN);
+    myGLCD.fillRoundRect(250, 80, 310, 130);//Мешаут
+    myGLCD.setBackColor(VGA_GREEN);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.drawRoundRect(250, 80, 310, 130);//Окантовка
+    myGLCD.print("Me""\xA8""ay""\xA4", 258, 101);
+  }
+  else {
+    myGLCD.setColor(VGA_GRAY);
+    myGLCD.fillRoundRect(250, 80, 310, 130);//Мешаут
+    myGLCD.setBackColor(VGA_GRAY);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.print("Me""\xA8""ay""\xA4", 258, 101);
+  }
+  myGLCD.setColor(VGA_GREEN);
+  myGLCD.fillRoundRect(10, 150, 150, 200);//Йодная пауза
+  myGLCD.setBackColor(VGA_GREEN);
+  myGLCD.setColor(VGA_WHITE);
+  myGLCD.drawRoundRect(10, 150, 150, 200);//Окантовка
+  myGLCD.print("\x87""o""\x99""\xA2""a""\xAF"" ""\xA3""po""\x96""a", 32, 171);
+
+  if  (timeB1 != 0) {//если пауза есть то зеленая кнопка иначе серая
+    myGLCD.setColor(VGA_GREEN);
+    myGLCD.fillRoundRect(170, 150, 310, 200);//Кипячение
+    myGLCD.setBackColor(VGA_GREEN);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.drawRoundRect(170, 150, 310, 200);//Окантовка
+    myGLCD.print("K""\x9D""\xA3""\xAF""\xA7""e""\xA2""\x9D""e", 208, 171);
+  }
+  else {
+    myGLCD.setColor(VGA_GRAY);
+    myGLCD.fillRoundRect(170, 150, 310, 200);//Кипячение
+    myGLCD.setBackColor(VGA_GRAY);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.print("K""\x9D""\xA3""\xAF""\xA7""e""\xA2""\x9D""e", 208, 171);
+  }
   byte iz = 0;
-  int ik;
+  int ik = 0;
+  while ( iz == 0)
+  {
+    if (myTouch.dataAvailable())
+    {
+      myTouch.read();
+      x = myTouch.getX();
+      y = myTouch.getY();
+      if (x > 10 && x < 310 && y > 5 && y < 50) {
+        waitForItButton1(10, 5, 310, 55);
+        delay(200);
+        Touch ();
+        if (x > 10 && x < 310 && y > 5 && y < 50) {
+          iz++  ;
+        }
+        else {
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.drawRoundRect(10, 5, 310, 55);//Окантовка
+        }
+      }
+      if (y > 80 && y < 130) {
+        if (x > 10 && x < 60 && termB3 != 0 && pauseB2 != 0) {
+          waitForItButton1(10, 80, 60, 130);
+          delay(200);
+          Touch ();
+          if (x > 10 && x < 60 && y > 80 && y < 130) {
+            ProgressBerr (pauseB1);
+            goto lablePause2;
+          }
+          else {
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(10, 80, 60, 130);//Окантовка
+          }
+        }
+        if (x > 70 && x < 120 && termB4 != 0 && pauseB3 != 0) {
+          waitForItButton1(70, 80, 120, 130);
+          delay(200);
+          Touch ();
+          if (x > 70 && x < 120 && y > 80 && y < 130) {
+            ProgressBerr (pauseB1 + pauseB2);
+            goto lablePause3;
+          }
+          else {
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(70, 80, 120, 130);//Окантовка
+          }
+        }
+        if (x > 130 && x < 180 && termB5 != 0 && pauseB4 != 0) {
+          waitForItButton1(130, 80, 180, 130);
+          delay(200);
+          Touch ();
+          if (x > 130 && x < 180 && y > 80 && y < 130) {
+            ProgressBerr (pauseB1 + pauseB2 + pauseB3);
+            goto lablePause4;
+          }
+          else {
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(130, 80, 180, 130);//Окантовка
+          }
+        }
+        if (x > 190 && x < 240 && termB6 != 0 && pauseB5 != 0) {
+          waitForItButton1(190, 80, 240, 130);
+          delay(200);
+          Touch ();
+          if (x > 190 && x < 240 && y > 80 && y < 130) {
+            ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4);
+            goto lablePause5;
+          }
+          else {
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(190, 80, 240, 130);//Окантовка
+          }
+        }
+        if (x > 250 && x < 310 && termB7 != 0 && pauseB6 != 0) {
+          waitForItButton1(250, 80, 310, 130);
+          delay(200);
+          Touch ();
+          if (x > 250 && x < 310 && y > 80 && y < 130) {
+            ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5);
+            goto lableMashOut;
+          }
+          else {
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(250, 80, 310, 130);//Окантовка
+          }
+        }
+      }
+      if (y > 150 && y < 200) {
+        if (x > 10 && x < 150) {
+          waitForItButton1(10, 150, 150, 200);
+          delay(200);
+          Touch ();
+          if (x > 10 && x < 150 && y > 150 && y < 200) {
+            ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5 + pauseB6);
+            goto lableIodnayProba;
+          }
+          else {
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(10, 150, 150, 200);//Окантовка
+          }
+        }
+        if (x > 170 && x < 310 && timeB1 != 0) {
+          waitForItButton1(170, 150, 310, 200);
+          delay(200);
+          Touch ();
+          if (x > 170 && x < 310 && y > 150 && y < 200) {
+            ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5 + pauseB6);
+            goto lableKipychenie;
+          }
+          else {
+            myGLCD.setColor(VGA_WHITE);
+            myGLCD.drawRoundRect(170, 150, 310, 200);//Окантовка
+          }
+        }
+      }
+    }
+  }
+  // 1 шаг __________________________________________________________________
+  BeerStep = 1;
+  iz = 0;
   BlackScr ();
   myGLCD.setFont(BigRusFont);
   myGLCD.setColor(VGA_BLUE);
@@ -63,6 +288,7 @@ void Beer () {
   }
 
   //************************************ Продуть насос *******************************
+  BeerStep = 2;
   if (rep > 0 && airW > 0 && airP > 0) {
     BlackScr ();
     myGLCD.setFont(BigRusFont);
@@ -87,6 +313,7 @@ void Beer () {
   }
   iteration = 0;
   //************************************ Нагерть воду*******************************
+  BeerStep = 3;
   if (termB1 != 0) {//
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -123,6 +350,7 @@ void Beer () {
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       myGLCD.setColor(VGA_RED);
       myGLCD.printNumI(termB1, 15, 81);
@@ -134,6 +362,7 @@ void Beer () {
   FMelodi (MelodiN[0]);
 
   // **************************************Засыпка солода************************************
+  BeerStep = 4;
   BlackScr ();
   if (termB1 == 0 ) termB1 = TempC;
   myGLCD.setFont(BigRusFont);
@@ -149,6 +378,7 @@ void Beer () {
     PIctl(TempC, termB1);
     ten.lpwm(t_pwm, out);//медленный ШИМ на тен
     ScreenTime (96, 196, 2, 9, 1);
+    TochStop (0, 0);
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -158,6 +388,7 @@ void Beer () {
     }
   }
   //**************************************Пауза №1************************************
+  BeerStep = 5;
   if  (termB2 != 0 && pauseB1 != 0) {
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -201,6 +432,7 @@ void Beer () {
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
     }
@@ -216,7 +448,7 @@ void Beer () {
     myGLCD.setFont(BigRusFont);
     myGLCD.printNumI(pauseB1, 231, 25);
     myGLCD.printNumI(pauseB1, 37, 25);
-    int ik = 0;
+    ik = 0;
     fT = 1;
     fR = 1;
     while (ik < pauseB1) //
@@ -228,6 +460,7 @@ void Beer () {
         OnHot ();
       }
       else OffHot ();
+      TochStop (pauseB1, 1);
       ik = OutTime (pauseB1, termB2);
 
 
@@ -238,6 +471,8 @@ void Beer () {
     FMelodi (MelodiN[1]);
   }
   //**************************************Пауза №2************************************
+  BeerStep = 6;
+lablePause2:
   if  (termB3 != 0 && pauseB2 != 0) {
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -281,6 +516,7 @@ void Beer () {
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
     }
@@ -299,6 +535,7 @@ void Beer () {
     ik = 0;
     while (ik < pauseB2) //
     {
+      TochStop (pauseB2, 1);
       TimeWorkNasos (WorkN[BeerN[2]] , PauseN[BeerN[2]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB3);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -316,6 +553,8 @@ void Beer () {
     FMelodi (MelodiN[2]);
   }
   //**************************************Пауза №3************************************
+lablePause3:
+  BeerStep = 7;
   if  (termB4 != 0 && pauseB3 != 0) {
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -359,6 +598,7 @@ void Beer () {
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
     }
@@ -377,6 +617,7 @@ void Beer () {
     ik = 0;
     while (ik < pauseB3) //
     {
+      TochStop (pauseB3, 1);
       TimeWorkNasos (WorkN[BeerN[3]] , PauseN[BeerN[3]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB4);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -394,6 +635,8 @@ void Beer () {
     FMelodi (MelodiN[3]);
   }
   //**************************************Пауза №4************************************
+lablePause4:
+  BeerStep = 8;
   if  (termB5 != 0 && pauseB4 != 0) {
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -437,6 +680,7 @@ void Beer () {
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
     }
@@ -455,6 +699,7 @@ void Beer () {
     ik = 0;
     while (ik < pauseB4) //
     {
+      TochStop (pauseB4, 1);
       TimeWorkNasos (WorkN[BeerN[4]] , PauseN[BeerN[4]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB5);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -472,6 +717,8 @@ void Beer () {
     FMelodi (MelodiN[4]);
   }
   //**************************************Пауза №5************************************
+lablePause5:
+  BeerStep = 9;
   if  (termB6 != 0 && pauseB5 != 0) {
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -515,6 +762,7 @@ void Beer () {
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
     }
@@ -533,6 +781,7 @@ void Beer () {
     ik = 0;
     while (ik < pauseB5) //
     {
+      TochStop (pauseB5, 1);
       TimeWorkNasos (WorkN[BeerN[5]] , PauseN[BeerN[5]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB6);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -550,6 +799,8 @@ void Beer () {
     FMelodi (MelodiN[5]);
   }
   //**************************************Мешаут************************************
+lableMashOut:
+  BeerStep = 10;
   if  (termB7 != 0 && pauseB6 != 0) {
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -592,6 +843,7 @@ void Beer () {
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
     }
@@ -610,6 +862,7 @@ void Beer () {
     ik = 0;
     while (ik < pauseB6) //
     {
+      TochStop (pauseB6, 1);
       TimeWorkNasos (WorkN[BeerN[6]] , PauseN[BeerN[6]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB7);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -628,9 +881,10 @@ void Beer () {
   }
 
   //  **************************************Йодная проба************************************
-  byte Dpause = 0;
-  byte DtempC = 0;
-labelIod:
+lableIodnayProba:
+  BeerStep = 11;
+
+  //labelIod:
   BlackScr ();
   myGLCD.setFont(BigRusFont);
   myGLCD.setBackColor(VGA_WHITE);
@@ -779,6 +1033,7 @@ labelD:
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
     }
@@ -797,6 +1052,7 @@ labelD:
     ik = 0;
     while (ik < Dpause) //
     {
+      TochStop (Dpause, 1);
       TimeWorkNasos (WorkN[BeerN[1]] , PauseN[BeerN[1]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, DtempC);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -805,19 +1061,16 @@ labelD:
       }
       else OffHot ();
       ik = OutTime (Dpause, DtempC);
-
-      ScreenTime (96, 196, 2, 9, 1);
-      myGLCD.setFont(SevenSegNumFont);
-      printTemperature();
     }
     fT = 1;
     OffNasos (1);
     FMelodi (MelodiN[5]);
     OffHot ();
   }
-  goto labelIod;
+  goto lableIodnayProba;
   //  **************************************Фильтрация************************************
 labelFiltr:
+  BeerStep = 12;
   BlackScr ();
   ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
   if (out != 0 ) {
@@ -837,6 +1090,7 @@ labelFiltr:
     if (myTouch.dataAvailable())
     {
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();
@@ -844,6 +1098,7 @@ labelFiltr:
     }
   }
   //************************************ Продуть насос *******************************
+  BeerStep = 13;
   if (rep > 0 && airW > 0 && airP > 0) {
     BlackScr ();
     myGLCD.setFont(BigRusFont);
@@ -856,6 +1111,7 @@ labelFiltr:
     iz = 0;
     while ( iteration == 0)    {
       ScreenTime (96, 196, 2, 9, 1);
+      //TochStop ();
       TimeWorkNasosAir ();
       if (fR == 1 && fT == 1)iz++;
 
@@ -868,6 +1124,8 @@ labelFiltr:
   }
   iteration = 0;
   //**************************************Кипятить************************************
+lableKipychenie:
+  BeerStep = 14;
   if  (timeB1 != 0) {
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -903,6 +1161,7 @@ labelFiltr:
       }
       else OffHot ();
       ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
     }
@@ -922,7 +1181,7 @@ labelFiltr:
     myGLCD.setColor(VGA_RED);
     myGLCD.printNumI(out, 100, 75);
     myGLCD.setFont(SmallRusFont);
-    myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" %", 100, 130);
+    myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" % ", 100, 130);
     myGLCD.setColor(VGA_LIME);
 
     int ii = timeB1 * 60;
@@ -982,6 +1241,7 @@ labelFiltr:
     myGLCD.printNumI(timeB1, 231, 25);
     myGLCD.printNumI(timeB1, 37, 25);
     ik = 0;
+    BeerStep = 15;
     while (ik < timeB1) //
     {
       printTemperatureNoScr();
@@ -1027,13 +1287,13 @@ labelFiltr:
         da = now.day();
         if (ho ==  hoB2 && mi == miB2 && se == seB2 && da == daB2) {
           melodiErr ();
-          ProgressBerr (timeB1-timeB2-timeB3-timeB4-timeB5-timeB6);
+          //ProgressBerr (timeB2);
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
           myGLCD.setColor (VGA_WHITE);
-          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC", 97, 160); //Добавить хмель (14)
-          myGLCD.printNumI(1, 227, 160); //
+          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #1", CENTER, 160); //Добавить хмель (14)
+          //myGLCD.printNumI(1, 227, 160); //
         }
       }
       if (timeB3 != 0) {
@@ -1044,13 +1304,13 @@ labelFiltr:
         da = now.day();
         if (ho ==  hoB3 && mi == miB3 && se == seB3 && da == daB3) {
           melodiErr ();
- 
+          //ProgressBerr (timeB3 - timeB2);
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
           myGLCD.setColor (VGA_WHITE);
-          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC", 97, 160); //Добавить хмель (14)
-          myGLCD.printNumI(2, 227, 160); //
+          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #2", CENTER, 160); //Добавить хмель (14)
+          //myGLCD.printNumI(2, 227, 160); //
         }
       }
       if (timeB4 != 0) {
@@ -1061,13 +1321,13 @@ labelFiltr:
         da = now.day();
         if (ho ==  hoB4 && mi == miB4 && se == seB4 && da == daB4) {
           melodiErr ();
-
+          //ProgressBerr (timeB4 - timeB3);
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
           myGLCD.setColor (VGA_WHITE);
-          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC", 97, 160); //Добавить хмель (14)
-          myGLCD.printNumI(3, 227, 160); //
+          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #3", CENTER, 160); //Добавить хмель (14)
+          //myGLCD.printNumI(3, 227, 160); //
         }
       }
       if (timeB5 != 0) {
@@ -1078,13 +1338,13 @@ labelFiltr:
         da = now.day();
         if (ho ==  hoB5 && mi == miB5 && se == seB5 && da == daB5) {
           melodiErr ();
-
+          //ProgressBerr (timeB5 - timeB4);
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
           myGLCD.setColor (VGA_WHITE);
-          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC", 97, 160); //Добавить хмель (14)
-          myGLCD.printNumI(4, 227, 160); //
+          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #4", CENTER, 160); //Добавить хмель (14)
+          //myGLCD.printNumI(4, 227, 160); //
         }
       }
       if (timeB6 != 0) {
@@ -1095,26 +1355,27 @@ labelFiltr:
         da = now.day();
         if (ho ==  hoB6 && mi == miB6 && se == seB6 && da == daB6) {
           melodiErr ();
-
+          //ProgressBerr (timeB6 - timeB5);
           myGLCD.setFont(SmallRusFont);
           myGLCD.setColor(VGA_BLACK);
           myGLCD.fillRoundRect(7, 157, 310, 175);
           myGLCD.setColor (VGA_WHITE);
-          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC", 97, 160); //Добавить хмель (14)
-          myGLCD.printNumI(5, 227, 160); //
+          myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #5", CENTER, 160); //Добавить хмель (14)
+          //myGLCD.printNumI(5, 227, 160); //
         }
       }
-
+      //TochStop (timeB1, 1);
       ik = OutTimeNoScr (timeB1);
 
 
     }
     ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
-
     ProgressBerr (timeB1);
+    //ProgressBerr (timeB1 - (timeB2 + (timeB3 - timeB2) + (timeB4 - timeB3) + (timeB5 - timeB4) + (timeB6 - timeB5)));
     melodiErr ();
   }
   //**************************************Вирпул************************************
+  BeerStep = 16;
   if (chil != 0) {
     BlackScr ();
     myGLCD.setBackColor(VGA_BLACK);
@@ -1171,12 +1432,6 @@ labelFiltr:
         fT = 1;
         OffNasos (0);
       }
-
-
-
-
-
-
       ScreenTime (96, 196, 2, 9, 1);
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
@@ -1185,13 +1440,14 @@ labelFiltr:
   }
   //**************************************Конец************************************
   BlackScr ();
+  BeerStep = 0;
   melodi ();
   scale = 0;
   summTime = 0;
   myGLCD.fillScr(VGA_BLACK);
   myGLCD.setColor(VGA_LIME);
   myGLCD.setFont(SmallRusFont);
-  myGLCD.print("HA""\x84""M""\x86""TE"",""\x8D""TO""\x80""\x91"" ""\x89""PO""\x82""O""\x88""\x84""\x86""T""\x92", CENTER, 225);
+  myGLCD.print("HA""\x84""M""\x86""TE"", ""\x8D""TO""\x80""\x91"" ""\x89""PO""\x82""O""\x88""\x84""\x86""T""\x92", CENTER, 225);
   for ( byte i = 0; i < 55; i++) {
     myGLCD.drawBitmap(0 + i, 0 + i, 50, 50, beer, 1);
     myGLCD.drawBitmap(0 + i, 190 - i, 50, 50, beer, 1);

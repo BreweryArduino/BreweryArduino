@@ -186,6 +186,7 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
     h1 = (ho1 - ho) * 3600;
     m1 = (mi1 - mi) * 60;
     s1 = (se1 - se);
+    timeWorkPause = (h1 + m1 + s1);
     q = (h1 + m1 + s1) / 60;
   }
   else {
@@ -193,6 +194,7 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
     mi = mi * 60;
     h1 = ho1 * 3600;
     m1 = mi1 * 60;
+    timeWorkPause = ((86400 + h1 + m1 + se1) - (ho + mi + se));
     q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 60;
   }
   if (q > 0) {
@@ -207,6 +209,7 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
       q = (h1 + m1 + s1) / 1;
     }
     else q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 1;
+    timeWorkPause = q;
     if (q >= 10) {
       myGLCD.printNumI(q, 263, 25);
     }
@@ -244,6 +247,7 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
     h1 = (ho1 - ho) * 3600;
     m1 = (mi1 - mi) * 60;
     s1 = (se1 - se);
+    timeWorkPause = (h1 + m1 + s1);
     q = (h1 + m1 + s1) / 60;
   }
   else {
@@ -251,6 +255,7 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
     mi = mi * 60;
     h1 = ho1 * 3600;
     m1 = mi1 * 60;
+    timeWorkPause = ((86400 + h1 + m1 + se1) - (ho + mi + se));
     q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 60;
   }
   if (q > 0) {
@@ -265,6 +270,7 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
       q = (h1 + m1 + s1) / 1;
     }
     else q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 1;
+    timeWorkPause = q;
     if (q >= 10) {
       myGLCD.printNumI(q, 263, 25);
     }
@@ -277,7 +283,7 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void NoCommerc() {
-  if (EEPROM.read(100) == 0) {
+  if (EEPROM.read(100) != 1) {
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setFont(SmallRusFont);
     myGLCD.setColor(VGA_WHITE);
@@ -727,4 +733,115 @@ void dateTime(uint16_t* date, uint16_t* time) {
   // return time using FAT_TIME macro to format fields
   *time = FAT_TIME(now.hour(), now.minute(), now.second());
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void TochStop (byte pause, boolean pauseNo) {
+  boolean iz = 0;
+  int ii = 0;
+  if (myTouch.dataAvailable())
+  {
+    myTouch.read();
+    x = myTouch.getX();
+    y = myTouch.getY();
+    if (x > 10 && x < 310 && y > 170 && y < 230) {
+      myGLCD.setColor(VGA_RED);
+      myGLCD.setFont(BigRusFont);
+      myGLCD.print("          ", 96, 196); // Затираем часы
+      myGLCD.print("\x89""ay""\x9C""a", CENTER, 196); // Пауза
+      ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
+      OffHot ();
+      OffNasos (1);
+      delay (300);
+      while (iz == 0)
+      {
+        if (myTouch.dataAvailable())
+        {
+          myTouch.read();
+          x = myTouch.getX();
+          y = myTouch.getY();
+          if (x > 10 && x < 310 && y > 170 && y < 220) {
+            iz++  ;
+            myGLCD.print("          ", CENTER, 196); // Затираем
+            if (BeerStep != 14) {
+              ii = (pause * 60) - ((pause * 60) - timeWorkPause);
+              myGLCD.setColor(VGA_WHITE);
+              DateTime now = rtc.now();
+              DateTime future (now.unixtime() + ii);
+              ho1 = future.hour();
+              mi1 = future.minute();
+              se1 = future.second();
+              da1 = future.day();
+            }
+            /*else {
+              ii = (pause * 60) - ((pause * 60) - timeWorkPause);
+              myGLCD.setColor(VGA_WHITE);
+              DateTime now = rtc.now();
+              DateTime future (now.unixtime() + ii);
+              ho1 = future.hour();
+              mi1 = future.minute();
+              se1 = future.second();
+              da1 = future.day();
+              if (timeB2 != 0) {
+                if (timeB2 > (pause * 60) - timeWorkPause) {
+                  int B2 = (timeB2 * 60) - ((pause * 60) - timeWorkPause);
+                  DateTime now = rtc.now();
+                  DateTime future (now.unixtime() + B2);
+                  hoB2 = future.hour();
+                  miB2 = future.minute();
+                  seB2 = future.second();
+                  daB2 = future.day();
+                }
+              }
+              if (timeB3 != 0) {
+                if (timeB3 > (pause * 60) - timeWorkPause) {
+                  int B3 = (timeB3 * 60) - ((pause * 60) - timeWorkPause);
+                  DateTime now = rtc.now();
+                  DateTime future (now.unixtime() + B3);
+                  hoB3 = future.hour();
+                  miB3 = future.minute();
+                  seB3 = future.second();
+                  daB3 = future.day();
+                }
+              }
+              if (timeB4 != 0) {
+                if (timeB4 > (pause * 60) - timeWorkPause) {
+                  int B4 = (timeB4 * 60) - ((pause * 60) - timeWorkPause);
+                  DateTime now = rtc.now();
+                  DateTime future (now.unixtime() + B4);
+                  hoB4 = future.hour();
+                  miB4 = future.minute();
+                  seB4 = future.second();
+                  daB4 = future.day();
+                }
+              }
+              if (timeB5 != 0) {
+                if (timeB5 > (pause * 60) - timeWorkPause) {
+                  int B5 = (timeB5 * 60) - ((pause * 60) - timeWorkPause);
+                  DateTime now = rtc.now();
+                  DateTime future (now.unixtime() + B5);
+                  hoB5 = future.hour();
+                  miB5 = future.minute();
+                  seB5 = future.second();
+                  daB5 = future.day();
+                }
+              }
+              if (timeB6 != 0) {
+                if (timeB6 > (pause * 60) - timeWorkPause) {
+                  int B6 = (timeB6 * 60) - ((pause * 60) - timeWorkPause);
+                  DateTime now = rtc.now();
+                  DateTime future (now.unixtime() + B6);
+                  hoB6 = future.hour();
+                  miB6 = future.minute();
+                  seB6 = future.second();
+                  daB6 = future.day();
+                }
+              }
+            }*/
+            }
+        }
+      }
+    }
+  }
+}
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
