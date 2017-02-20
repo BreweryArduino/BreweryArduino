@@ -423,7 +423,7 @@ void TimeWorkNasos (byte r, byte f, byte l) { //Функция считает в
     if (ho ==  hoN && mi == miN && se == seN && da == daN) {
       fR = 0;
       fT = 1;
-      OnNasos (l);
+      OffNasos (l);
       //digitalWrite( NasosPin, ReleOff);
       // if (l == 1) {
       //myGLCD.setColor(VGA_BLACK);

@@ -798,88 +798,6 @@ lablePause5:
     ProgressBerr (pauseB5);
     FMelodi (MelodiN[5]);
   }
-  //**************************************Мешаут************************************
-lableMashOut:
-  BeerStep = 10;
-  if  (termB7 != 0 && pauseB6 != 0) {
-    BlackScr ();
-    myGLCD.setBackColor(VGA_BLACK);
-    myGLCD.setColor(VGA_WHITE);
-    myGLCD.drawRoundRect(10, 20, 116, 46);
-    myGLCD.drawRoundRect(204, 20, 310, 46);
-    myGLCD.drawRoundRect(10, 76, 116, 136);
-    myGLCD.drawRoundRect(204, 76, 310, 136);
-    myGLCD.drawRect(7, 156, 310, 156);
-    myGLCD.drawRect(7, 176, 310, 176);
-    myGLCD.setFont(SmallRusFont);
-    myGLCD.print("Me""\xA8""ay""\xA4"" ""\xA3""p""\x9D", 7, 160); //мешаут при
-    myGLCD.printNumI(termB7, 95, 160);
-    int i;
-    if (termB7 < 10) i = 0;
-    if (termB7 > 9 && termB7 < 100) i = 8;
-    if (termB7 > 99)  i = 16;
-    myGLCD.print("\x7F""C", 103 + i, 160);
-    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 127 + i, 160); //в течении
-    int q;
-    if (pauseB6 < 10) q = 0;
-    if (pauseB6 > 9 && pauseB5 < 100) q = 8;
-    if (pauseB6 > 99)  q = 16;
-    myGLCD.printNumI(pauseB6, 207 + i, 160);
-    myGLCD.print("\xA1""\x9D""\xA2""y""\xA4", 223 + i + q, 160); //минут
-    for (byte i = 0; i < 3; i++) {
-      myGLCD.drawRoundRect(0 + 1, 0 + 1, 320 - i, 240 - i);
-    }
-    myGLCD.setFont(SevenSegNumFont);
-    printTemperature();
-    myGLCD.setColor(VGA_RED);
-    myGLCD.printNumI(termB7, 15, 81);
-    while (termB7 >= TempC)//
-    {
-      OnNasos (1);
-      PIctl(TempC, termB7);
-      ten.lpwm(t_pwm, out);//медленный ШИМ на тен
-      if (out != 0 ) {
-        OnHot ();
-      }
-      else OffHot ();
-      ScreenTime (96, 196, 2, 9, 1);
-      TochStop (0, 0);
-      myGLCD.setFont(SevenSegNumFont);
-      printTemperature();
-    }
-    OffNasos (1);
-    int ii = pauseB6 * 60;
-    DateTime now = rtc.now();
-    DateTime future (now.unixtime() + ii);
-    ho1 = future.hour();
-    mi1 = future.minute();
-    se1 = future.second();
-    da1 = future.day();
-    myGLCD.setColor(VGA_RED);
-    myGLCD.setFont(BigRusFont);
-    myGLCD.printNumI(pauseB6, 231, 25);
-    myGLCD.printNumI(pauseB6, 37, 25);
-    ik = 0;
-    while (ik < pauseB6) //
-    {
-      TochStop (pauseB6, 1);
-      TimeWorkNasos (WorkN[BeerN[6]] , PauseN[BeerN[6]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
-      PIctl(TempC, termB7);
-      ten.lpwm(t_pwm, out);//медленный ШИМ на тен
-      if (out != 0 ) {
-        OnHot ();
-      }
-      else OffHot ();
-      ik = OutTime (pauseB6, termB7);
-
-
-    }
-    fT = 1;
-    OffNasos (1);
-    ProgressBerr (pauseB6);
-    FMelodi (MelodiN[6]);
-  }
-
   //  **************************************Йодная проба************************************
 lableIodnayProba:
   BeerStep = 11;
@@ -1068,6 +986,87 @@ labelD:
     OffHot ();
   }
   goto lableIodnayProba;
+  //**************************************Мешаут************************************
+lableMashOut:
+  BeerStep = 10;
+  if  (termB7 != 0 && pauseB6 != 0) {
+    BlackScr ();
+    myGLCD.setBackColor(VGA_BLACK);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.drawRoundRect(10, 20, 116, 46);
+    myGLCD.drawRoundRect(204, 20, 310, 46);
+    myGLCD.drawRoundRect(10, 76, 116, 136);
+    myGLCD.drawRoundRect(204, 76, 310, 136);
+    myGLCD.drawRect(7, 156, 310, 156);
+    myGLCD.drawRect(7, 176, 310, 176);
+    myGLCD.setFont(SmallRusFont);
+    myGLCD.print("Me""\xA8""ay""\xA4"" ""\xA3""p""\x9D", 7, 160); //мешаут при
+    myGLCD.printNumI(termB7, 95, 160);
+    int i;
+    if (termB7 < 10) i = 0;
+    if (termB7 > 9 && termB7 < 100) i = 8;
+    if (termB7 > 99)  i = 16;
+    myGLCD.print("\x7F""C", 103 + i, 160);
+    myGLCD.print("\x97"" ""\xA4""e""\xA7""e""\xA2""\x9D""e"" " , 127 + i, 160); //в течении
+    int q;
+    if (pauseB6 < 10) q = 0;
+    if (pauseB6 > 9 && pauseB5 < 100) q = 8;
+    if (pauseB6 > 99)  q = 16;
+    myGLCD.printNumI(pauseB6, 207 + i, 160);
+    myGLCD.print("\xA1""\x9D""\xA2""y""\xA4", 223 + i + q, 160); //минут
+    for (byte i = 0; i < 3; i++) {
+      myGLCD.drawRoundRect(0 + 1, 0 + 1, 320 - i, 240 - i);
+    }
+    myGLCD.setFont(SevenSegNumFont);
+    printTemperature();
+    myGLCD.setColor(VGA_RED);
+    myGLCD.printNumI(termB7, 15, 81);
+    while (termB7 >= TempC)//
+    {
+      OnNasos (1);
+      PIctl(TempC, termB7);
+      ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+      if (out != 0 ) {
+        OnHot ();
+      }
+      else OffHot ();
+      ScreenTime (96, 196, 2, 9, 1);
+      TochStop (0, 0);
+      myGLCD.setFont(SevenSegNumFont);
+      printTemperature();
+    }
+    OffNasos (1);
+    int ii = pauseB6 * 60;
+    DateTime now = rtc.now();
+    DateTime future (now.unixtime() + ii);
+    ho1 = future.hour();
+    mi1 = future.minute();
+    se1 = future.second();
+    da1 = future.day();
+    myGLCD.setColor(VGA_RED);
+    myGLCD.setFont(BigRusFont);
+    myGLCD.printNumI(pauseB6, 231, 25);
+    myGLCD.printNumI(pauseB6, 37, 25);
+    ik = 0;
+    while (ik < pauseB6) //
+    {
+      TochStop (pauseB6, 1);
+      TimeWorkNasos (WorkN[BeerN[6]] , PauseN[BeerN[6]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
+      PIctl(TempC, termB7);
+      ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+      if (out != 0 ) {
+        OnHot ();
+      }
+      else OffHot ();
+      ik = OutTime (pauseB6, termB7);
+
+
+    }
+    fT = 1;
+    OffNasos (1);
+    ProgressBerr (pauseB6);
+    FMelodi (MelodiN[6]);
+  }
   //  **************************************Фильтрация************************************
 labelFiltr:
   BeerStep = 12;
