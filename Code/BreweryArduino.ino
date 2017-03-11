@@ -59,7 +59,7 @@ void setBeerM_1 (); void setBeerN1 (); void TimeWorkNasos (byte r, byte f, byte 
 void OnNasos (byte l); void OffHot (); void OnHot (); void Save_sys (); void Read_sys (); void CardInfo (); void SDSaveSys (); void SDRead (String nameF);
 void SDReadSys (); void SDBeerName (); void SDSaveBeer (); void SDReadDir (); void ErroSD (); void SDReadBeer (); void ScreenListDir (byte i);
 void ProgressBerr (byte i); void BlackScr (); void melodiNokia (); void Date (int x, int y, byte z, byte r, byte b); void SetDate (byte g); void timeReal ();
-
+void Return ();
 //******************************************************************************************************************
 void Screen0(); void Screen1(); void Screen2(); void Screen2_1 (); void Screen3(); void Screen4(); void Screen5(); void ScreenSetTime ();
 void setHot (); void setNasos (); void setBeer (); void setSD (); void Screen4_1 (); void Screen4_2 (); void Screen5_2 (); void Beer ();
@@ -148,7 +148,9 @@ boolean OnOffTerpScr = true;
 byte termgist;
 byte BeerStep = 0;//Переменная для хранения этапа варки
 long int timeWorkPause;// переменная для сохранения "сколько работает пауза"
+
 void setup () {
+  //  attachInterrupt(5, Return, RISING);
   Read_sys ();
   Wire.begin();
   SD.begin(chipSelect);

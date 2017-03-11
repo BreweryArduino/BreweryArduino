@@ -228,19 +228,34 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
 }
 //_________________________________________________________________________________________________
 void Touch0 () { // обработка тачскрина главного меню
+  int q = 0;
   while (true)
   {
+    q++;
     byte i;
     ScreenTime (96, 45, 2, 9, 1);
     Date (15, 10, 1, 9, 1);
     printTemperatureNoScr();
     myGLCD.setFont(SmallRusFont);
+
     if (TempC > 99 ) i = 0;
     if (TempC < 99 && TempC > 9) i = 8;
     if (TempC < 9) i = 16;
     myGLCD.printNumI(TempC, 265 + i, 10);
     myGLCD.print("\x7F""C", 289, 10);
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    if (q == 50) {
+      if (!card.init(SPI_HALF_SPEED, chipSelect)) {
+        myGLCD.setColor(VGA_GRAY);
+        myGLCD.print("SD", CENTER, 10);//Ошибка инициализации.Проверить:
 
+      } else {
+        myGLCD.setColor(VGA_LIME);
+        myGLCD.print("SD", CENTER, 10);// подключено правильно,  карта установлена.
+      }
+      q = 0;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     if (myTouch.dataAvailable())
     {
       myTouch.read();
