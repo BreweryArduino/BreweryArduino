@@ -10,10 +10,13 @@ void Screen0 () {// Главное меню
   myGLCD.setBackColor(VGA_BLACK);
   myGLCD.setFont(BigRusFont);
   myGLCD.setColor(VGA_LIME);
-  myGLCD.print("BreweryArduino", CENTER, 180);
+  myGLCD.print("BreweryArduino", 20, 180);
   myGLCD.setFont(SmallRusFont);
+  myGLCD.setColor(VGA_AQUA);
+  myGLCD.print("Touch", 244, 180);
+  myGLCD.setColor(VGA_LIME);
   myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E"" 2016-2017""\x98"".", CENTER, 204);
-myGLCD.print("breweryarduino@mail.ru", CENTER, 220);
+  myGLCD.print("breweryarduino@mail.ru", CENTER, 220);
   Touch0 ();
 }
 
@@ -175,7 +178,7 @@ void Screen2_1 () {//Меню управления тэном возврат с 
   myGLCD.setFont(BigRusFont);
   myGLCD.print("H", 152, 27);
   Touch3 ();
-}
+  }
 */
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void Screen4 () {//Меню варки пива 1этап
