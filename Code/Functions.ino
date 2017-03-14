@@ -23,7 +23,7 @@ void ScreenTime (int x, int y, byte z, byte r, byte b) { // x,y начальны
       scrclr ++;
       myGLCD.setColor(VGA_BLACK);
       myGLCD.fillRect(x, y, x + (8 * c) * 8, y + ((4 * c) + 8));
-      myGLCD.setColor(VGA_WHITE);
+      myGLCD.setColor(VGA_GRAY);
     }
 
     myGLCD.print("No clock", x, y);
@@ -334,42 +334,56 @@ void Date (int x, int y, byte z, byte r, byte b) {// x,y начальные ко
   byte m, s, h;
 
   int c;
-  myGLCD.setColor (colorlist[r]);
-  myGLCD.setBackColor(colorlist[b]);
-  scrclr = 0;
-  if (z == 1 ) {
-    c = 1;
+  if (! rtc.isrunning()) {
     myGLCD.setFont(SmallRusFont);
-  }
-  if (z == 2 ) {
-    c = 2;
-    myGLCD.setFont(BigRusFont);
-  }
-  if ( x + ((8 * c) * 8) > 320) x = 320 - ((8 * c) * 8);
-  if ( y + ((4 * c) + 8) > 240) y = 240 - ((4 * c) + 8);
-  DateTime now = rtc.now();
-  da =  now.day();
-  mon =  now.month();
-  yea = now.year();
+    if (scrclr == 0) {
+      scrclr ++;
+      myGLCD.setColor(VGA_BLACK);
+      myGLCD.fillRect(x, y, x + (8 * c) * 8, y + ((4 * c) + 8));
+      myGLCD.setColor(VGA_GRAY);
+    }
 
-  if (now.day() < 10) {
-    myGLCD.printNumI(0, x, y);
-    h = 8 * c;
+    myGLCD.print("No clock", x, y);
+    // following line sets the RTC to the date & time this sketch was compiled
+   // rtc.adjust(DateTime(2009, 7, 3, 0, 0, 0));
   }
-  else h = 0;
-  myGLCD.printNumI(now.day(), x + h, y);
-  myGLCD.print(".", x + ((8 * c) * 2), y);
-  if (now.month() < 10) {
-    myGLCD.printNumI(0, x + ((8 * c) * 3), y);
-    m = 8 * c;
+  else {
+    myGLCD.setColor (colorlist[r]);
+    myGLCD.setBackColor(colorlist[b]);
+    scrclr = 0;
+    if (z == 1 ) {
+      c = 1;
+      myGLCD.setFont(SmallRusFont);
+    }
+    if (z == 2 ) {
+      c = 2;
+      myGLCD.setFont(BigRusFont);
+    }
+    if ( x + ((8 * c) * 8) > 320) x = 320 - ((8 * c) * 8);
+    if ( y + ((4 * c) + 8) > 240) y = 240 - ((4 * c) + 8);
+    DateTime now = rtc.now();
+    da =  now.day();
+    mon =  now.month();
+    yea = now.year();
+
+    if (now.day() < 10) {
+      myGLCD.printNumI(0, x, y);
+      h = 8 * c;
+    }
+    else h = 0;
+    myGLCD.printNumI(now.day(), x + h, y);
+    myGLCD.print(".", x + ((8 * c) * 2), y);
+    if (now.month() < 10) {
+      myGLCD.printNumI(0, x + ((8 * c) * 3), y);
+      m = 8 * c;
+    }
+    else m = 0;
+    myGLCD.printNumI(now.month(), x + ((8 * c) * 3) + m, y);
+    myGLCD.print(".", x + ((8 * c) * 5), y);
+    s = 0;
+    myGLCD.printNumI(now.year(), x + ((8 * c) * 6) + s, y);
   }
-  else m = 0;
-  myGLCD.printNumI(now.month(), x + ((8 * c) * 3) + m, y);
-  myGLCD.print(".", x + ((8 * c) * 5), y);
-  s = 0;
-  myGLCD.printNumI(now.year(), x + ((8 * c) * 6) + s, y);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------
 

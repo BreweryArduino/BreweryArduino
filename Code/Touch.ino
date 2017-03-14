@@ -262,11 +262,63 @@ void Touch0 () { // обработка тачскрина главного ме�
       x = myTouch.getX();
       y = myTouch.getY();
       if (y > 95 && y < 145) {
-        if (x > 15 && x < 65) Screen1 ();
-        if (x > 75 && x < 125) Screen2 ();
+        if (x > 15 && x < 65) {
+          waitForItButton1(15, 95, 65, 145);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("Hac""\xA4""po""\x9E""\x9F""a ""\x9F""o""\xA1""\xA3""o""\xA2""e""\xA2""\xA4""o""\x97"" ""c""\x9D""c""\xA4""e""\xA1""\xAB"".", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 15 && x < 65) {
+            Screen1 ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(15, 95, 65, 145);
+          }
+        }
+        if (x > 75 && x < 125) {
+          waitForItButton1(75, 95, 125, 145);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("Py""\xA7""\xA2""oe y""\xA3""pa""\x97""\xA0""e""\xA2""\x9D""e ""\xA4""\xAD""\xA2""o""\xA1"".", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 75 && x < 125) {
+            Screen2 ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(75, 95, 125, 145);
+          }
+        }
         // if (x > 135 && x < 185) Screen3 ();
-        if (x > 195 && x < 245) Screen4 ();
-        if (x > 255 && x < 305) Screen5 ();
+        if (x > 195 && x < 245) {
+          waitForItButton1(195, 95, 245, 145);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("Co""\x9C""\x99""a""\xA2""\x9D""e pe""\xA6""e""\xA3""\xA4""a. Bap""\x9F""a ""\xA3""\x9D""\x97""a.", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 195 && x < 245) {
+            Screen4 ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(195, 95, 245, 145);
+          }
+        }
+        if (x > 255 && x < 305) {
+          waitForItButton1(255, 95, 305, 145);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("Pe""\xA6""e""\xA3""\xA4""\xAB"".", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 255 && x < 305) {
+            Screen5 ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(255, 95, 305, 145);
+          }
+        }
       }
     }
   }
@@ -282,11 +334,80 @@ void Touch1 () { // обработка тачскрина меню настро�
       x = myTouch.getX();
       y = myTouch.getY();
       if (y > 95 && y < 145) {
-        if (x > 15 && x < 65) ScreenSys ();
-        if (x > 75 && x < 125) setHot ();
-        if (x > 135 && x < 185) setNasos ();
-        if (x > 195 && x < 245) setBeer ();
-        if (x > 255 && x < 305) setSD ();
+        if (x > 15 && x < 65) {
+          waitForItButton1(15, 95, 65, 145);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("\x8D""ac""\xAB"". ""O""\x96""pa""\x9C"" c""\x9D""c""\xA4""e""\xA1""\xAB"". Pe""\xA0""e.", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 15 && x < 65) {
+            ScreenSys ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(15, 95, 65, 145);
+          }
+        }
+
+        if (x > 75 && x < 125) {
+          waitForItButton1(75, 95, 125, 145);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("Hac""\xA4""po""\x9E""\x9F""a"" ""\x89""\x86"" ""pe""\x9B""\x9D""\xA1""a", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 75 && x < 125) {
+            setHot ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(75, 95, 125, 145);
+          }
+        }
+
+        if (x > 135 && x < 185) {
+          waitForItButton1(135, 95, 185, 145);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("Pe""\x9B""\x9D""\xA1"" ""pa""\x96""o""\xA4""\xAB"" ""\xA2""acoca.""Hac""\xA4""po""\x9E""\x9F""a"" ""\xA2""acoca.", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 135 && x < 185) {
+            setNasos ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(135, 95, 185, 145);
+          }
+        }
+
+        if (x > 195 && x < 245) {
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("Hac""\xA4""po""\x9E""\x9F""a"" ""\xA3""\x9D""\x97""o""\x97""ap""\xA2""\x9D", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 195 && x < 245) {
+            setBeer ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(195, 95, 245, 145);
+          }
+        }
+
+        if (x > 255 && x < 305) {
+          waitForItButton1(255, 95, 305, 145);
+          myGLCD.setColor(VGA_WHITE);
+          myGLCD.print("\x89""po""\x97""ep""\x9F""a SD ""\x9F""ap""\xA4""\xAB"".", CENTER, 160);
+          delay(150);
+          Touch ();
+          if (y > 95 && y < 145 && x > 255 && x < 305) {
+            setSD ();
+          }
+          else {
+            myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+            waitForItButton(255, 95, 305, 145);
+          }
+        }
+
       }
       if (x > 32 && x < 96 && y > 20 && y < 50) {
         Save_sys ();
@@ -963,7 +1084,8 @@ void TouchSDBeerReName (byte g) {
 
 //_________________________________________________________________________________________________
 void TouchSys () {
-
+  myGLCD.setBackColor(VGA_BLACK);
+  myGLCD.setFont(SmallRusFont);
   while (true)
   {
     if (myTouch.dataAvailable())
@@ -971,10 +1093,50 @@ void TouchSys () {
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();
-      if (x > 75 && x < 125 && y > 95  && y < 145) ScreenREC ();
-      if (x > 15 && x < 65 && y > 95 && y < 145) ScreenSetTime ();
+      if (x > 15 && x < 65 && y > 95 && y < 145) {
+        waitForItButton1(15, 95, 65, 145);
+        myGLCD.setColor(VGA_WHITE);
+        myGLCD.print("\x8A""c""\xA4""a""\xA2""o""\x97""\x9F""a ""\x99""a""\xA4""\xAB"" ""\x9D"" ""\x97""pe""\xA1""e""\xA2""\x9D"".", CENTER, 160);
+        delay(150);
+        Touch ();
+        if (y > 95 && y < 145 && x > 15 && x < 65) {
+          ScreenSetTime ();
+        }
+        else {
+          myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+          waitForItButton(15, 95, 65, 145);
+        }
+      }
+      if (x > 75 && x < 125 && y > 95  && y < 145) {
+        waitForItButton1(75, 95, 125, 145);
+        myGLCD.setColor(VGA_WHITE);
+        myGLCD.print("Co""\x9C""\x99""a""\xA2""\x9D""e"" ""o""\x96""pa""\x9C""a"" c""\x9D""c""\xA4""e""\xA1""\xAB"".", CENTER, 160);
+        delay(150);
+        Touch ();
+        if (y > 95 && y < 145 && x > 75 && x < 125) {
+          ScreenREC ();
+        }
+        else {
+          myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+          waitForItButton(75, 95, 125, 145);
+        }
+      }
+
+      if (x > 135 && x < 185 && y > 95 && y < 145 ) {
+        waitForItButton1(135, 95, 185, 145);
+        myGLCD.setColor(VGA_WHITE);
+        myGLCD.print("\x86""\xA2""\x97""ep""\xA4""\x9D""po""\x97""a""\xA4""\xAC"" ""pe""\xA0""e"" ""pe""\xA0""e"".", CENTER, 160);
+        delay(150);
+        Touch ();
+        if (y > 95 && y < 145 && x > 135 && x < 185) {
+          SetRele ();
+        }
+        else {
+          myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+          waitForItButton(135, 95, 185, 145);
+        }
+      }
       if (x > 15 && x < 65 && y > 10 && y < 60) Screen1 ();// возврат в главное меню
-      if (x > 135 && x < 185 && y > 95 && y < 145 )SetRele ();
     }
   }
 }
