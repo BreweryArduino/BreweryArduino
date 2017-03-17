@@ -59,7 +59,7 @@ void setBeerM_1 (); void setBeerN1 (); void TimeWorkNasos (byte r, byte f, byte 
 void OnNasos (byte l); void OffHot (); void OnHot (); void Save_sys (); void Read_sys (); void CardInfo (); void SDSaveSys (); void SDRead (String nameF);
 void SDReadSys (); void SDBeerName (); void SDSaveBeer (); void SDReadDir (); void ErroSD (); void SDReadBeer (); void ScreenListDir (byte i);
 void ProgressBerr (byte i); void BlackScr (); void melodiNokia (); void Date (int x, int y, byte z, byte r, byte b); void SetDate (byte g); void timeReal ();
-void Return ();
+void Return ();void MainMenu ();
 //******************************************************************************************************************
 void Screen0(); void Screen1(); void Screen2(); void Screen2_1 (); void Screen3(); void Screen4(); void Screen5(); void ScreenSetTime ();
 void setHot (); void setNasos (); void setBeer (); void setSD (); void Screen4_1 (); void Screen4_2 (); void Screen5_2 (); void Beer ();
@@ -68,7 +68,7 @@ void setBeer_1 (); void ScreenSys (); void ScreenREC (); void SetRele (); void s
 void Touch0 (); void Touch1 (); void Touch2 (); void Touch3 (); void Touch4_1 (); void  UpDown (); void UpDown1 (); void OkTabel (); void SetScreen4 (byte g, byte i);
 void Touch4 (); void Touch5 (); void TouchHot (); void TouchNasos (); void TouchBeer (); void TouchSD (); void TouchSetTime (); void OkTabel1 (); void Touch4_2 ();
 void Touch5_2 (); void OkTabel2 (); void FWorkN (byte workN1); void FPauseN (byte pauseN1); void UpDown3 (); void TouchsetBeerN_1 (byte hh); void TouchsetBeerM_1 ();
-void TouchBeer_1 (); void TouchSys (); void TouchREC (); void TouchSDBeerReName (byte g); void TouchRele (); void Touch (); void TochNasos_1 ();void TochStop (byte pause, boolean pauseNo);
+void TouchBeer_1 (); void TouchSys (); void TouchREC (); void TouchSDBeerReName (byte g); void TouchRele (); void Touch (); void TochNasos_1 (); void TochStop (byte pause, boolean pauseNo);
 //******************************************************************************************************************
 
 extern unsigned Set2[0x9C4];
@@ -148,9 +148,9 @@ boolean OnOffTerpScr = true;
 byte termgist;
 byte BeerStep = 0;//Переменная для хранения этапа варки
 long int timeWorkPause;// переменная для сохранения "сколько работает пауза"
-
+boolean statusMainMenu = false;
 void setup () {
-  //  attachInterrupt(5, Return, RISING);
+  //attachInterrupt(5, Return, RISING); //Разкомментировать если используете кнопку отмена
   Read_sys ();
   Wire.begin();
   SD.begin(chipSelect);

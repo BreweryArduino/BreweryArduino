@@ -345,7 +345,7 @@ void Date (int x, int y, byte z, byte r, byte b) {// x,y начальные ко
 
     myGLCD.print("No clock", x, y);
     // following line sets the RTC to the date & time this sketch was compiled
-   // rtc.adjust(DateTime(2009, 7, 3, 0, 0, 0));
+    // rtc.adjust(DateTime(2009, 7, 3, 0, 0, 0));
   }
   else {
     myGLCD.setColor (colorlist[r]);
@@ -864,6 +864,14 @@ void Return () {
   OffNasos (0);
   BeerStep = 0;
   scale = 0;
-  Screen0 ();
+  statusMainMenu = 1;
+
+}
+void MainMenu (){
+  if ( statusMainMenu == 1){
+    Save_sys ();
+    statusMainMenu = 0;
+    Screen0 ();
+  }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------

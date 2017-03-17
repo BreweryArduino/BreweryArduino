@@ -21,6 +21,7 @@ void SetTime(byte g) {// Обработка кнопок + - ок установ
 
   while (true)
   {
+    MainMenu ();
     timeselect ();
     if (myTouch.dataAvailable())
     {
@@ -125,6 +126,7 @@ void SetDate (byte g) {// Обработка кнопок + - ок устано�
 
   while (true)
   {
+    MainMenu ();
     timeselect ();
     if (myTouch.dataAvailable())
     {
@@ -231,6 +233,7 @@ void Touch0 () { // обработка тачскрина главного ме�
   int q = 0;
   while (true)
   {
+    MainMenu ();
     q++;
     byte i;
     ScreenTime (96, 45, 2, 9, 1);
@@ -327,7 +330,7 @@ void Touch0 () { // обработка тачскрина главного ме�
 void Touch1 () { // обработка тачскрина меню настроек
   while (true)
   {
-
+MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -421,6 +424,7 @@ void Touch2 () { // обработка тачскрина меню тэна
 
   while (true)
   {
+    MainMenu ();
     myGLCD.setColor(VGA_LIME);
     myGLCD.setFont(BigRusFont);
     myGLCD.printNumI(TempC, 200, 80);
@@ -554,7 +558,7 @@ void Touch2 () { // обработка тачскрина меню тэна
 void Touch4 () { // обработка тачскрина меню варки пива
   while (true)
   {
-
+MainMenu ();
     if (myTouch.dataAvailable())
     {
 
@@ -589,7 +593,7 @@ void Touch4 () { // обработка тачскрина меню варки п
 void Touch4_1 () {
   while (true)
   {
-
+MainMenu ();
     if (myTouch.dataAvailable())
     {
 
@@ -625,7 +629,7 @@ void Touch4_1 () {
 void Touch4_2 () {
   while (true)
   {
-
+MainMenu ();
     if (myTouch.dataAvailable())
     {
 
@@ -643,7 +647,7 @@ void Touch5 () { // обработка тачскрина меню sd карты
 
   while (true)
   {
-
+MainMenu ();
     if (myTouch.dataAvailable())
     {
       NameBeer = "/BEER/";
@@ -920,6 +924,7 @@ LabelListDir:
 void Touch5_2 () {
   while (true)
   {
+    MainMenu ();
     myGLCD.setFont(BigRusFont);
     if (myTouch.dataAvailable())
     {
@@ -958,6 +963,7 @@ void Touch5_2 () {
           myGLCD.print("COXPAH""\x86""T""\x92""?", CENTER, 176);
           boolean a;
           while (true) {
+            MainMenu ();
             if (myTouch.dataAvailable())
             {
               myTouch.read();
@@ -1052,7 +1058,7 @@ void TouchSDBeerReName (byte g) {
   if (w == 0) w = 1;
   while (true)
   {
-
+MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1088,6 +1094,7 @@ void TouchSys () {
   myGLCD.setFont(SmallRusFont);
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1143,6 +1150,7 @@ void TouchSys () {
 void TouchREC () {
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1169,7 +1177,7 @@ void TouchREC () {
 
 void TouchSetTime () { //обработка меню часов
   while (true) {
-
+MainMenu ();
     ScreenTime (96, 100, 2, 9, 1);
     Date (80, 150, 2, 9, 1);
     if (myTouch.dataAvailable())
@@ -1248,6 +1256,7 @@ void TouchSetTime () { //обработка меню часов
 void TouchRele () {
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1272,6 +1281,7 @@ void TouchRele () {
 void TouchHot () { //обработка меню настройки тэна
   while (true)
   {
+    MainMenu ();
     myGLCD.setColor(VGA_LIME);
     printTemperatureNoScr();
     myGLCD.setFont(SevenSegNumFont);
@@ -1341,6 +1351,7 @@ void TouchHot () { //обработка меню настройки тэна
           myGLCD.drawBitmap(145, 156, 40, 40, ok1, 1);// "ok"
           while (true)
           {
+            MainMenu ();
             if (myTouch.dataAvailable())
             {
 
@@ -1399,6 +1410,7 @@ void TouchHot () { //обработка меню настройки тэна
           myGLCD.drawBitmap(145, 156, 40, 40, ok1, 1);// "ok"
           while (true)
           {
+            MainMenu ();
             if (myTouch.dataAvailable())
             {
 
@@ -1455,6 +1467,7 @@ void TouchHot () { //обработка меню настройки тэна
           myGLCD.drawBitmap(145, 156, 40, 40, ok1, 1);// "ok"
           while (true)
           {
+            MainMenu ();
             if (myTouch.dataAvailable())
             {
 
@@ -1501,6 +1514,7 @@ void TouchHot () { //обработка меню настройки тэна
 void TouchNasos () { //обработка меню насоса первая страница
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1535,6 +1549,7 @@ void TouchNasos () { //обработка меню насоса первая с�
 void TochNasos_1 () {//обработка меню насоса второя страница
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1566,6 +1581,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
         myGLCD.printNumI(maxTerpNW, CENTER, 99);
 
         while (true) {
+          MainMenu ();
           if (myTouch.dataAvailable())
           {
 
@@ -1608,6 +1624,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
         myGLCD.printNumI(airW, 160, 99);
 
         while (true) {
+          MainMenu ();
           if (myTouch.dataAvailable())
           {
 
@@ -1651,6 +1668,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
         myGLCD.printNumI(airP, CENTER, 99);
 
         while (true) {
+          MainMenu ();
           if (myTouch.dataAvailable())
           {
 
@@ -1694,6 +1712,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
         myGLCD.printNumI(rep, CENTER, 99);
 
         while (true) {
+          MainMenu ();
           if (myTouch.dataAvailable())
           {
 
@@ -1731,6 +1750,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
 void TouchBeer () { //первая страница меню настройки пивоварни
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1776,6 +1796,7 @@ void TouchBeer () { //первая страница меню настройки 
 void TouchBeer_1 () { //Вторая страница меню настройки пивоварни
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1794,6 +1815,7 @@ void TouchBeer_1 () { //Вторая страница меню настройк�
         myGLCD.printNumI(termKIP, CENTER, 99);
 
         while (true) {
+          MainMenu ();
           if (myTouch.dataAvailable())
           {
 
@@ -1831,6 +1853,7 @@ void TouchBeer_1 () { //Вторая страница меню настройк�
 void TouchsetBeerN_1 (byte hh) {
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1968,6 +1991,7 @@ void TouchsetBeerN_1 (byte hh) {
 void TouchsetBeerM_1 () {
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -2025,6 +2049,7 @@ void TouchsetBeerM_1 () {
 void TouchSD () { //обработка меню рецептов
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -2040,6 +2065,7 @@ void SetScreen4 (byte g, byte i) {// Обработка кнопок + - ок у
 
   while (true)
   {
+    MainMenu ();
     myGLCD.setColor (VGA_RED);
     myGLCD.setBackColor (VGA_BLACK);
     myGLCD.setFont(SevenSegNumFont);
@@ -2048,6 +2074,7 @@ void SetScreen4 (byte g, byte i) {// Обработка кнопок + - ок у
 
       while (true)
       {
+        MainMenu ();
         myTouch.read();
         x = myTouch.getX();
         y = myTouch.getY();
@@ -2144,6 +2171,7 @@ void SetScreen4 (byte g, byte i) {// Обработка кнопок + - ок у
     if (g == 2) {
       while (true)
       {
+        MainMenu ();
         myTouch.read();
         x = myTouch.getX();
         y = myTouch.getY();
@@ -2234,6 +2262,7 @@ void SetScreen4 (byte g, byte i) {// Обработка кнопок + - ок у
 
       while (true)
       {
+        MainMenu ();
         if (myTouch.dataAvailable())
         {
           myTouch.read();
@@ -2340,6 +2369,7 @@ void FWorkN (byte workN1) {
   myGLCD.setFont(SevenSegNumFont);
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -2380,6 +2410,7 @@ void FPauseN (byte pauseN1) {
   myGLCD.setFont(SevenSegNumFont);
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();

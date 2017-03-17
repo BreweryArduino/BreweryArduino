@@ -1,6 +1,10 @@
 void Beer () {
+  int summTime = 0;
   byte Dpause = 0;
   byte DtempC = 0;
+  MainMenu ();
+
+
   myGLCD.fillScr(VGA_BLACK);
   //-------------------------------расчет и отрисовка прогресс бара-----------------------------
   int alltime = 0;
@@ -13,7 +17,7 @@ void Beer () {
   if  (timeB1 > 0 )alltime = alltime + timeB1;
   kof = 300 / alltime;
   myGLCD.setColor(VGA_GRAY);
-  int summTime = 0;
+
   myGLCD.drawRect (10, 222, 310, 233);
   if  (termB2 != 0 && pauseB1 != 0) {
     summTime = summTime + (kof * pauseB1);
@@ -146,10 +150,12 @@ void Beer () {
     myGLCD.setColor(VGA_WHITE);
     myGLCD.print("K""\x9D""\xA3""\xAF""\xA7""e""\xA2""\x9D""e", 208, 171);
   }
+
   byte iz = 0;
   int ik = 0;
   while ( iz == 0)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -277,6 +283,7 @@ void Beer () {
 
   while ( iz == 0)
   {
+    MainMenu ();
     ScreenTime (96, 196, 2, 9, 1);
     if (myTouch.dataAvailable())
     {
@@ -300,6 +307,7 @@ void Beer () {
     myGLCD.print("\xA2""acoca", CENTER, 122);//насоса
     iz = 0;
     while ( iteration == 0)    {
+      MainMenu ();
       ScreenTime (96, 196, 2, 9, 1);
       TimeWorkNasosAir ();
       if (fR == 1 && fT == 1)iz++;
@@ -342,6 +350,7 @@ void Beer () {
     printTemperature();
 
     while ( termB1 >= TempC) {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, termB1);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -374,6 +383,7 @@ void Beer () {
   iz = 0;
   while ( iz == 0)
   {
+    MainMenu ();
     printTemperatureNoScr();
     PIctl(TempC, termB1);
     ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -424,6 +434,7 @@ void Beer () {
     myGLCD.printNumI(termB2, 15, 81);
     while (termB2 >= TempC)//
     {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, termB2);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -453,6 +464,7 @@ void Beer () {
     fR = 1;
     while (ik < pauseB1) //
     {
+      MainMenu ();
       TimeWorkNasos (WorkN[BeerN[1]] , PauseN[BeerN[1]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB2);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -508,6 +520,7 @@ lablePause2:
     myGLCD.printNumI(termB3, 15, 81);
     while (termB3 >= TempC)//
     {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, termB3);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -535,6 +548,7 @@ lablePause2:
     ik = 0;
     while (ik < pauseB2) //
     {
+      MainMenu ();
       TochStop (pauseB2, 1);
       TimeWorkNasos (WorkN[BeerN[2]] , PauseN[BeerN[2]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB3);
@@ -590,6 +604,7 @@ lablePause3:
     myGLCD.printNumI(termB4, 15, 81);
     while (termB4 >= TempC)//
     {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, termB4);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -617,6 +632,7 @@ lablePause3:
     ik = 0;
     while (ik < pauseB3) //
     {
+      MainMenu ();
       TochStop (pauseB3, 1);
       TimeWorkNasos (WorkN[BeerN[3]] , PauseN[BeerN[3]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB4);
@@ -672,6 +688,7 @@ lablePause4:
     myGLCD.printNumI(termB5, 15, 81);
     while (termB5 >= TempC)//
     {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, termB5);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -699,6 +716,7 @@ lablePause4:
     ik = 0;
     while (ik < pauseB4) //
     {
+      MainMenu ();
       TochStop (pauseB4, 1);
       TimeWorkNasos (WorkN[BeerN[4]] , PauseN[BeerN[4]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB5);
@@ -754,6 +772,7 @@ lablePause5:
     myGLCD.printNumI(termB6, 15, 81);
     while (termB6 >= TempC)//
     {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, termB6);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -781,6 +800,7 @@ lablePause5:
     ik = 0;
     while (ik < pauseB5) //
     {
+      MainMenu ();
       TochStop (pauseB5, 1);
       TimeWorkNasos (WorkN[BeerN[5]] , PauseN[BeerN[5]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB6);
@@ -819,6 +839,7 @@ lableIodnayProba:
   myGLCD.setBackColor(VGA_BLACK);
   while (true)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -943,6 +964,7 @@ labelD:
     myGLCD.printNumI(DtempC, 15, 81);
     while (DtempC >= TempC)//
     {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, DtempC);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -970,6 +992,7 @@ labelD:
     ik = 0;
     while (ik < Dpause) //
     {
+      MainMenu ();
       TochStop (Dpause, 1);
       TimeWorkNasos (WorkN[BeerN[1]] , PauseN[BeerN[1]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, DtempC);
@@ -1023,6 +1046,7 @@ lableMashOut:
     myGLCD.printNumI(termB7, 15, 81);
     while (termB7 >= TempC)//
     {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, termB7);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -1050,6 +1074,7 @@ lableMashOut:
     ik = 0;
     while (ik < pauseB6) //
     {
+      MainMenu ();
       TochStop (pauseB6, 1);
       TimeWorkNasos (WorkN[BeerN[6]] , PauseN[BeerN[6]], 1 ) ; //Функция считает время работы и простоя насоса (работа,простой)
       PIctl(TempC, termB7);
@@ -1086,6 +1111,7 @@ labelFiltr:
   iz = 0;
   while ( iz == 0)
   {
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       ScreenTime (96, 196, 2, 9, 1);
@@ -1109,6 +1135,7 @@ labelFiltr:
     myGLCD.print("\xA2""acoca", CENTER, 122);//насоса
     iz = 0;
     while ( iteration == 0)    {
+      MainMenu ();
       ScreenTime (96, 196, 2, 9, 1);
       //TochStop ();
       TimeWorkNasosAir ();
@@ -1152,6 +1179,7 @@ lableKipychenie:
     myGLCD.printNumI(termKIP, 15, 81);
     while (termKIP > TempC)//
     {
+      MainMenu ();
       OnNasos (1);
       PIctl(TempC, termKIP);
       ten.lpwm(t_pwm, out);//медленный ШИМ на тен
@@ -1243,6 +1271,7 @@ lableKipychenie:
     BeerStep = 15;
     while (ik < timeB1) //
     {
+      MainMenu ();
       printTemperatureNoScr();
       myGLCD.setColor(VGA_LIME);
       myGLCD.setFont(SmallRusFont);
@@ -1402,6 +1431,7 @@ lableKipychenie:
     myGLCD.printNumI(chil, 15, 81);
     byte dd = 0;
     while (chil < TempC) {
+      MainMenu ();
 
       myTouch.read();
       x = myTouch.getX();
@@ -1453,6 +1483,7 @@ lableKipychenie:
     myGLCD.drawBitmap(270 - i, 190 - i, 50, 50, beer, 1);
     myGLCD.drawBitmap(270 - i, 0 + i, 50, 50, beer, 1);
     if (myTouch.dataAvailable()) {
+      MainMenu ();
       Screen0 ();
     }
   }
@@ -1460,7 +1491,7 @@ lableKipychenie:
   myGLCD.setColor(VGA_LIME);
   myGLCD.print("BAPKA"" ""\x85""ABEP""\x8E""E""HA!!!", CENTER, 110);
   while (true) {
-
+    MainMenu ();
     if (myTouch.dataAvailable()) {
       Screen0 ();
     }
