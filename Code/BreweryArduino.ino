@@ -150,7 +150,7 @@ byte BeerStep = 0;//Переменная для хранения этапа ва
 long int timeWorkPause;// переменная для сохранения "сколько работает пауза"
 boolean statusMainMenu = false;
 void setup () {
-  //attachInterrupt(5, Return, RISING); //Разкомментировать если используете кнопку отмена
+  //attachInterrupt(5, Return, RISING); //Раскомментировать если используете кнопку перехода в главное меню
   Read_sys ();
   Wire.begin();
   SD.begin(chipSelect);
