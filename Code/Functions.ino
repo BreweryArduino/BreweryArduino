@@ -860,18 +860,39 @@ void TochStop (byte pause, boolean pauseNo) {
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Return () {
-  ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
-  OffNasos (0);
-  BeerStep = 0;
-  scale = 0;
-  statusMainMenu = 1;
-
+  if (statusDoubleTap == 1 && BeerStep > 9) DoubleTap = 1;
+  if (  BeerStep < 5) {
+    ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
+    OffNasos (0);
+    BeerStep = 0;
+    scale = 0;
+    DoubleTap = 0;
+    statusMainMenu = 1;
+  }
+  else {
+    statusMainMenu = 2;
+    ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
+    OffNasos (0);
+  }
 }
-void MainMenu (){
-  if ( statusMainMenu == 1){
+void MainMenu () {
+  if ( statusMainMenu == 1) {//Выход в главное меню
     Save_sys ();
     statusMainMenu = 0;
     Screen0 ();
+  }
+  if (statusMainMenu == 2) {//Выход из варки в меню настроек
+    statusMainMenu = 3;
+    if (DoubleTap == 1) {
+      BeerStep = 0;
+      SubBeerStep = 0;
+      DoubleTap = 0;
+      Save_sys ();
+      statusMainMenu = 0;
+      statusDoubleTap = 0;
+      Screen0 ();
+    }
+    else Screen1 ();
   }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -148,9 +148,13 @@ boolean OnOffTerpScr = true;
 byte termgist;
 byte BeerStep = 0;//Переменная для хранения этапа варки
 long int timeWorkPause;// переменная для сохранения "сколько работает пауза"
-boolean statusMainMenu = false;
+byte statusMainMenu = 0;
+byte SubBeerStep = 0;
+byte SubSubBeerStep = 0;//подпод шаги для йодной пробы
+byte DoubleTap = 0;//флаг двойного нажатия для выход из меню настроек(варка) в главное меню
+boolean statusDoubleTap = 0;
 void setup () {
-  //attachInterrupt(5, Return, RISING); //Раскомментировать если используете кнопку перехода в главное меню
+attachInterrupt(5, Return, RISING); //Раскомментировать если используете кнопку перехода в главное меню
   Read_sys ();
   Wire.begin();
   SD.begin(chipSelect);

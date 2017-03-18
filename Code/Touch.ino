@@ -328,9 +328,10 @@ void Touch0 () { // обработка тачскрина главного ме�
 }
 //_________________________________________________________________________________________________
 void Touch1 () { // обработка тачскрина меню настроек
+statusDoubleTap = 1;
   while (true)
   {
-MainMenu ();
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -414,7 +415,16 @@ MainMenu ();
       }
       if (x > 32 && x < 96 && y > 20 && y < 50) {
         Save_sys ();
-        Screen0 ();// возврат в главное меню
+        if (statusMainMenu == 0) {
+          statusDoubleTap = 0;
+          Screen0 ();// возврат в главное меню
+        }
+        else {
+          statusDoubleTap = 0;
+          statusMainMenu = 0;
+          DoubleTap = 0;
+          Beer ();
+        }
       }
     }
   }
@@ -558,7 +568,7 @@ void Touch2 () { // обработка тачскрина меню тэна
 void Touch4 () { // обработка тачскрина меню варки пива
   while (true)
   {
-MainMenu ();
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
 
@@ -593,7 +603,7 @@ MainMenu ();
 void Touch4_1 () {
   while (true)
   {
-MainMenu ();
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
 
@@ -629,7 +639,7 @@ MainMenu ();
 void Touch4_2 () {
   while (true)
   {
-MainMenu ();
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
 
@@ -647,7 +657,7 @@ void Touch5 () { // обработка тачскрина меню sd карты
 
   while (true)
   {
-MainMenu ();
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       NameBeer = "/BEER/";
@@ -1058,7 +1068,7 @@ void TouchSDBeerReName (byte g) {
   if (w == 0) w = 1;
   while (true)
   {
-MainMenu ();
+    MainMenu ();
     if (myTouch.dataAvailable())
     {
       myTouch.read();
@@ -1177,7 +1187,7 @@ void TouchREC () {
 
 void TouchSetTime () { //обработка меню часов
   while (true) {
-MainMenu ();
+    MainMenu ();
     ScreenTime (96, 100, 2, 9, 1);
     Date (80, 150, 2, 9, 1);
     if (myTouch.dataAvailable())

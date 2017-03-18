@@ -39,6 +39,8 @@ void Screen1 () {//Меню установки
   myGLCD.setBackColor(VGA_BLACK);
   myGLCD.setFont(SmallRusFont);
   myGLCD.print("Hac""\xA4""po""\x9E""\x9F""a ""\x9F""o""\xA1""\xA3""o""\xA2""e""\xA2""\xA4""o""\x97"" ""c""\x9D""c""\xA4""e""\xA1""\xAB", CENTER, 70);
+   myGLCD.printNumI(BeerStep, CENTER, 200);
+   myGLCD.printNumI(SubBeerStep, CENTER, 220);
   Touch1 ();
 
 }
