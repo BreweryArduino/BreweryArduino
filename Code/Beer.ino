@@ -845,7 +845,7 @@ lableIodnayProba:
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();
-      if (x > 40 && x < 280 && y > 140 && y < 200) goto labelFiltr;
+      if (x > 40 && x < 280 && y > 140 && y < 200) goto lableMashOut;
       if (x > 300 && x < 320 && y > 0 && y < 10) {
         myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
       }
