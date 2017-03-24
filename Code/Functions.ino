@@ -326,6 +326,7 @@ void NoCommerc() {
       }
     }
   }
+  ReturnBackup ();
   Screen0 ();
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -775,7 +776,7 @@ void TochStop (byte pause, boolean pauseNo) {
           if (x > 10 && x < 310 && y > 170 && y < 220) {
             iz++  ;
             myGLCD.print("          ", CENTER, 196); // Затираем
-            if (BeerStep != 14) {
+            if (BeerStep != 24) {
               ii = (pause * 60) - ((pause * 60) - timeWorkPause);
               myGLCD.setColor(VGA_WHITE);
               DateTime now = rtc.now();
@@ -860,6 +861,7 @@ void TochStop (byte pause, boolean pauseNo) {
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Return () {
+
   if (statusDoubleTap == 1 && BeerStep > 9) DoubleTap = 1;
   if (  BeerStep < 5) {
     ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
@@ -875,13 +877,16 @@ void Return () {
     OffNasos (0);
   }
 }
-void MainMenu () {
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void MainMenu (byte pause) {
+
   if ( statusMainMenu == 1) {//Выход в главное меню
     Save_sys ();
     statusMainMenu = 0;
     Screen0 ();
   }
   if (statusMainMenu == 2) {//Выход из варки в меню настроек
+    pause = pauseBeerScreen1;
     statusMainMenu = 3;
     if (DoubleTap == 1) {
       BeerStep = 0;
@@ -890,9 +895,82 @@ void MainMenu () {
       Save_sys ();
       statusMainMenu = 0;
       statusDoubleTap = 0;
+      // Очищаем Backup
+      for (byte i = 199; i < 245; i++) {
+        EEPROM.write(i,  0); //Записываем новые значения в память
+      }
       Screen0 ();
     }
     else Screen1 ();
   }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+void PauseBeerScreen1 () {
+  int Pauseii;
+  if (BeerStep != 24 && BeerStep > 14 ) {
+    Pauseii = (pauseBeerScreen1 * 60) - ((pauseBeerScreen1 * 60) - timeWorkPause);
+    myGLCD.setColor(VGA_WHITE);
+    DateTime now = rtc.now();
+    DateTime future (now.unixtime() + Pauseii);
+    ho1 = future.hour();
+    mi1 = future.minute();
+    se1 = future.second();
+    da1 = future.day();
+  }
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void ReturnBackup () {
+  statusBeer = EEPROM.read(220);
+  if (statusBeer == 1) {
+    myGLCD.fillScr(VGA_BLACK);
+    //myGLCD.fillRoundRect(40, 20, 280, 56);
+    myGLCD.setColor(139, 69, 19);
+    myGLCD.fillRoundRect(40, 70, 280, 130);
+    myGLCD.fillRoundRect(40, 140, 280, 200);
+    myGLCD.setFont(BigRusFont);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.setBackColor(VGA_BLACK);
+    myGLCD.print("Bap""\x9F""a ""\xA2""e ""\x9C""a""\x97""ep""\xA8""e""\xA2""a!", CENTER, 10);//Варка не завершена!
+    myGLCD.print("\x89""po""\x99""o""\xA0""\x9B""\x9D""\xA4""\xAC""?", CENTER, 40);//Продолжить
+    myGLCD.setBackColor(139, 69, 19);
+    myGLCD.setColor(VGA_WHITE);
+    myGLCD.print("\x82""A", CENTER, 162);//Продолжить
+    myGLCD.print("HET", CENTER, 92);//Добавить паузу
+    myGLCD.setBackColor(VGA_BLACK);
+    while (true)
+    {
+
+      if (myTouch.dataAvailable())
+      {
+        myTouch.read();
+        x = myTouch.getX();
+        y = myTouch.getY();
+        if (x > 40 && x < 280) {
+          if (y > 70 && y < 130) {
+            statusBeer = 0;
+            BeerStep = 0;
+            SubBeerStep = 0;
+            DoubleTap = 0;
+            statusMainMenu = 0;
+            statusDoubleTap = 0;
+            //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Очищаем Backup
+            for (byte i = 199; i < 245; i++) {
+              EEPROM.write(i,  0); //Записываем новые значения в память
+            }
+            Screen0 ();
+          }
+          if (y > 140 && y < 200) {
+            ReadBackup ();
+            if ( BeerStep == 1) Screen4 ();
+            if ( BeerStep == 2)Screen4_1 ();
+            if ( BeerStep == 3)Screen4_2 ();
+            Beer ();
+          }
+        }
+      }
+    }
+  }
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+

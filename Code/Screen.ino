@@ -39,8 +39,6 @@ void Screen1 () {//Меню установки
   myGLCD.setBackColor(VGA_BLACK);
   myGLCD.setFont(SmallRusFont);
   myGLCD.print("Hac""\xA4""po""\x9E""\x9F""a ""\x9F""o""\xA1""\xA3""o""\xA2""e""\xA2""\xA4""o""\x97"" ""c""\x9D""c""\xA4""e""\xA1""\xAB", CENTER, 70);
-   //myGLCD.printNumI(BeerStep, CENTER, 200);
-   //myGLCD.printNumI(SubBeerStep, CENTER, 220);
   Touch1 ();
 
 }
@@ -184,6 +182,7 @@ void Screen2_1 () {//Меню управления тэном возврат с 
 */
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void Screen4 () {//Меню варки пива 1этап
+  BeerStep = 1;//Переменная для хранения этапа варки
   myGLCD.fillScr(VGA_BLACK);
   myGLCD.drawBitmap(135, 10, 50, 50, beer, 1);
   myGLCD.drawBitmap(68, 20, 64, 30, LeftButton1, 1);
@@ -238,6 +237,7 @@ void Screen4 () {//Меню варки пива 1этап
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void Screen4_1 () {
+  BeerStep = 2;//Переменная для хранения этапа варки
   myGLCD.fillScr(VGA_BLACK);
   myGLCD.drawBitmap(135, 10, 50, 50, beer, 1);
   myGLCD.drawBitmap(68, 20, 64, 30, LeftButton1, 1);
@@ -289,6 +289,7 @@ void Screen4_1 () {
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void Screen4_2 () {
+  BeerStep = 3;//Переменная для хранения этапа варки
   int w;
   myGLCD.fillScr(VGA_BLACK);
   myGLCD.drawBitmap(135, 10, 50, 50, sd, 1);

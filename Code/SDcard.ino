@@ -78,16 +78,16 @@ void CardInfo () {
   if (SD.exists("/BEER") == false) {
     a = 170;
     //myFile = SD.open("SYS.TXT", FILE_WRITE);
-      // set date time callback function
-  SdFile::dateTimeCallback(dateTime); 
+    // set date time callback function
+    SdFile::dateTimeCallback(dateTime);
     SD.mkdir("/BEER");
     //myFile.close();
     myGLCD.print("co""\x9C""\x99""a""\x9A""\xA1""....BEER", 5, 140);//проверка существования папки для хранения рецептов
   }
   if (SD.exists("SYS.TXT") == false) {
     b = 185;
-      // set date time callback function
-  SdFile::dateTimeCallback(dateTime); 
+    // set date time callback function
+    SdFile::dateTimeCallback(dateTime);
     myFile = SD.open("SYS.TXT", FILE_WRITE);
     myFile.close();
     myGLCD.print("co""\x9C""\x99""a""\x9A""\xA1""....SYS.TXT", 5, 155);//проверка существования папки для хранения рецептов
@@ -99,8 +99,8 @@ void CardInfo () {
 void SDSaveSys () {// Функция записи на карту файла sys.txt
   File myFile;
   ErroSD ();
-    // set date time callback function
-  SdFile::dateTimeCallback(dateTime); 
+  // set date time callback function
+  SdFile::dateTimeCallback(dateTime);
   myFile = SD.open("sys.txt", FILE_WRITE);
   myGLCD.print("*", LEFT, 200);//
   myFile.seek(0);
@@ -151,11 +151,11 @@ void SDSaveSys () {// Функция записи на карту файла sys
     myFile.print(EEPROM.read(8));//ReleOff
     myFile.print(";");
     myGLCD.print("***************", LEFT, 200);
-    myFile.print(EEPROM.read(50));//OnOffTerpNW 
+    myFile.print(EEPROM.read(50));//OnOffTerpNW
     myFile.print(";");
     myGLCD.print("***************", LEFT, 200);
     myFile.print(EEPROM.read(51));//maxTerpNW
-    myFile.print(";"); 
+    myFile.print(";");
   }
   // close the file:
   myFile.close();
@@ -221,7 +221,7 @@ void SDReadSys () {// Функция восстановления образа �
   }
   OnOffTerpNW = outArray[36];
   maxTerpNW = outArray[37];
-  
+
   Save_sys ();
 }
 
@@ -270,13 +270,15 @@ void SDReadBeer () {
   timeB5 = outArray[17];
   timeB6 = outArray[18];
   chil = outArray[19];
+  statusBeer = 1;//флаг начала варки для Backup
+  SaveBackup ();
   Screen4_2 ();
 }
 void SDSaveBeer () {
   File myFile;
   ErroSD ();
-    // set date time callback function
-  SdFile::dateTimeCallback(dateTime); 
+  // set date time callback function
+  SdFile::dateTimeCallback(dateTime);
   myFile = SD.open(NameBeer, FILE_WRITE);
   myFile.seek(0);
   // if the file opened okay, write to it:
