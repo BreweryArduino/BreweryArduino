@@ -1711,6 +1711,7 @@ lableKipychenie:
         printTemperature();
       }
     }
+    OffNasos (1);
     BeerStep = 0;
     SubBeerStep = 0;
     SaveBackup ();

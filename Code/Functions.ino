@@ -116,6 +116,11 @@ void printTemperature() {
   TempC = temperature + 0.51;
 
   myGLCD.setColor(VGA_LIME);
+  if(TempC <100){
+     myGLCD.setColor(VGA_BLACK);
+      myGLCD.fillRoundRect(273, 81, 32, 50);
+  }
+  myGLCD.setColor(VGA_LIME);
   myGLCD.printNumI(TempC, 209, 81);
 }
 
@@ -973,4 +978,14 @@ void ReturnBackup () {
   }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-
+void playTone(int note) {
+  long elapsed_time = 0;
+  while (elapsed_time < note_len) {
+     digitalWrite(Bib,HIGH);
+     delayMicroseconds(note / 2);
+     digitalWrite(Bib, LOW);
+     delayMicroseconds(note / 2);
+     elapsed_time += (note);
+   }
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------
