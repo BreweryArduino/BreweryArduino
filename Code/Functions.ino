@@ -978,14 +978,5 @@ void ReturnBackup () {
   }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void playTone(int note) {
-  long elapsed_time = 0;
-  while (elapsed_time < note_len) {
-     digitalWrite(Bib,HIGH);
-     delayMicroseconds(note / 2);
-     digitalWrite(Bib, LOW);
-     delayMicroseconds(note / 2);
-     elapsed_time += (note);
-   }
-}
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------
