@@ -115,11 +115,11 @@ void printTemperature() {
 
   TempC = temperature + 0.51;
 
-  myGLCD.setColor(VGA_LIME);
-  if(TempC <100){
-     myGLCD.setColor(VGA_BLACK);
-      myGLCD.fillRoundRect(273, 305, 32, 131);
-  }
+ // myGLCD.setColor(VGA_LIME);
+ // if(TempC <100){
+   //  myGLCD.setColor(VGA_BLACK);
+    //  myGLCD.fillRoundRect(273, 305, 32, 131);
+  //}
   myGLCD.setColor(VGA_LIME);
   myGLCD.printNumI(TempC, 209, 81);
 }
