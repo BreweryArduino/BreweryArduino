@@ -27,7 +27,7 @@ DallasTemperature sensors(&oneWire);
 
 // arrays to hold device address
 DeviceAddress tempDeviceAddress;
-
+//UTFT    myGLCD(ITDB32S, 38,39,40,41);
 UTFT    myGLCD(ILI9341_16, 38, 39, 40, 41);
 URTouch  myTouch( 6, 5, 4, 3, 2);
 DigOut ten(12);//нагреватель на 9 пине
@@ -59,7 +59,7 @@ void setBeerM_1 (); void setBeerN1 (); void TimeWorkNasos (byte r, byte f, byte 
 void OnNasos (byte l); void OffHot (); void OnHot (); void Save_sys (); void Read_sys (); void CardInfo (); void SDSaveSys (); void SDRead (String nameF);
 void SDReadSys (); void SDBeerName (); void SDSaveBeer (); void SDReadDir (); void ErroSD (); void SDReadBeer (); void ScreenListDir (byte i);
 void ProgressBerr (byte i); void BlackScr (); void melodiNokia (); void Date (int x, int y, byte z, byte r, byte b); void SetDate (byte g); void timeReal ();
-void Return ();void MainMenu (byte pause);void SaveBackup ();void ReadBackup ();void PauseBeerScreen1 ();
+void Return (); void MainMenu (byte pause); void SaveBackup (); void ReadBackup (); void PauseBeerScreen1 ();
 //******************************************************************************************************************
 void Screen0(); void Screen1(); void Screen2(); void Screen2_1 (); void Screen3(); void Screen4(); void Screen5(); void ScreenSetTime ();
 void setHot (); void setNasos (); void setBeer (); void setSD (); void Screen4_1 (); void Screen4_2 (); void Screen5_2 (); void Beer ();
@@ -99,8 +99,8 @@ int y = 100;
 byte numberPauseB = 0;// кол-во температурных пауз
 byte scrclr = 1;//флаг запрета обновления надписи "no clok"
 byte pauseB1; byte pauseB2; byte pauseB3; byte pauseB4; byte pauseB5; byte pauseB6; //массив хранения температурных пауз в приготовлении пива 1 по 6 время паузы
-byte termB1; byte termB2; byte termB3; byte termB4; byte termB5; byte termB6; byte termB7;
-byte timeB1, timeB2, timeB3, timeB4, timeB5, timeB6; //время кипячения и закладки хмеля
+byte termB1; byte termB2; byte termB3; byte termB4; byte termB5; byte termB6; byte termB7 = 78;
+byte timeB1 = 60, timeB2, timeB3, timeB4, timeB5, timeB6; //время кипячения и закладки хмеля
 byte chil;//охладить
 byte termKIP = 100;// температура закипания
 long int ho, mi, se, da, yea, mon;
@@ -141,7 +141,7 @@ char* BufName[] = {"M", "Y", "_", "_", "B", "E", "E", "R",}; // временны
 byte SumDir = 0;//для хранения кол-во рецептов
 byte ScreenDir = 1;
 int kof;//шкала прогресса
-int scale = 0;//шкала прогресса
+int scale = 10;//шкала прогресса
 byte maxTerpNW = 85;
 boolean OnOffTerpNW = false;
 boolean OnOffTerpScr = true;
@@ -156,8 +156,10 @@ boolean statusDoubleTap = 0;
 boolean statusBeer = 0;
 int stepSaveBackup;// переменная кол-ва записей в ячеку памяти МК
 byte pauseBeerScreen1 = 0;//промежуточная перемнная для отсчета времени после нажатия кнопки"Возврат" в режиме варки
-  byte Dpause = 0;
-  byte DtempC = 0;
+byte Dpause = 0;
+byte DtempC = 0;
+#define note_len 2000
+byte FirstClick = 0;
 void setup () {
 attachInterrupt(5, Return, RISING); //Раскомментировать если используете кнопку перехода в главное меню
   Read_sys ();

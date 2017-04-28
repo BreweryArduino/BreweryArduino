@@ -1,5 +1,6 @@
 void waitForItButton(int x1, int y1, int x2, int y2)
 {
+  playTone(3400);
   myGLCD.setColor(255, 0, 0);
   myGLCD.drawRect (x1, y1, x2, y2);
   delay(200);
@@ -9,6 +10,7 @@ void waitForItButton(int x1, int y1, int x2, int y2)
 //_________________________________________________________________________________________________
 void waitForItButton1(int x1, int y1, int x2, int y2)
 {
+  playTone(3400);
   myGLCD.setColor(255, 0, 0);
   myGLCD.drawRect (x1, y1, x2, y2);
   /*while (myTouch.dataAvailable())
@@ -605,7 +607,19 @@ void Touch4 () { // обработка тачскрина меню варки п
       if (x > 274 && x < 314 && y > 126 && y < 166)
       {
         waitForItButton(274, 126, 314, 166);//Делаем окантовку кнопки
-        OkTabel ();
+        if (flagTabel == 1)OkTabel ();
+        if (flagTabel == 2 && termB1 != 0)OkTabel ();
+        if (flagTabel == 4 && termB2 != 0 && pauseB1 != 0)OkTabel ();
+        if (flagTabel == 6 && termB3 != 0 && pauseB2 != 0)OkTabel ();
+        if (flagTabel == 8 && termB4 != 0 && pauseB3 != 0)OkTabel ();
+        if (flagTabel == 10 && termB5 != 0 && pauseB4 != 0)OkTabel ();
+        if (flagTabel == 3 && termB1 != 0)OkTabel ();
+        if (flagTabel == 5 && termB2 != 0 && pauseB1 != 0)OkTabel ();
+        if (flagTabel == 7 && termB3 != 0 && pauseB2 != 0)OkTabel ();
+        if (flagTabel == 9 && termB4 != 0 && pauseB3 != 0)OkTabel ();
+        if (flagTabel == 11 && termB5 != 0 && pauseB4 != 0)OkTabel ();
+        if (flagTabel == 12 || flagTabel == 13)OkTabel ();
+        Touch4 ();
       }
     }
   }

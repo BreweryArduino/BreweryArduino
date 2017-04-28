@@ -12,113 +12,115 @@ void UpDown () {
     Touch4 ();
   }
   if (flagTabel == 2) {
+
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
     myGLCD.printNumI(termB2, 164, 119);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(termB3, 164, 139);
+    myGLCD.printNumI(pauseB1, 240, 119);
     myGLCD.printNumI(termB1, 164, 99);
     Touch4 ();
+
   }
   if (flagTabel == 3) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(termB3, 164, 139);
+    myGLCD.printNumI(pauseB1, 240, 119);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
     myGLCD.printNumI(termB2, 164, 119);
-    myGLCD.printNumI(termB4, 164, 159);
+    myGLCD.printNumI(termB3, 164, 139);
     Touch4 ();
   }
   if (flagTabel == 4) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(termB4, 164, 159);
+    myGLCD.printNumI(termB3, 164, 139);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(termB3, 164, 139);
-    myGLCD.printNumI(termB5, 164, 179);
+    myGLCD.printNumI(pauseB1, 240, 119);
+    myGLCD.printNumI(pauseB2, 240, 139);
     Touch4 ();
   }
   if (flagTabel == 5) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(termB5, 164, 179);
+    myGLCD.printNumI(pauseB2, 240, 139);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
+    myGLCD.printNumI(termB3, 164, 139);
     myGLCD.printNumI(termB4, 164, 159);
-    myGLCD.printNumI(termB6, 164, 199);
     Touch4 ();
   }
   if (flagTabel == 6) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(termB6, 164, 199);
+    myGLCD.printNumI(termB4, 164, 159);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(termB5, 164, 179);
-    myGLCD.printNumI(termB7, 164, 219);
+    myGLCD.printNumI(pauseB2, 240, 139);
+    myGLCD.printNumI(pauseB3, 240, 159);
     Touch4 ();
   }
   if (flagTabel == 7) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(termB7, 164, 219);
+    myGLCD.printNumI(pauseB3, 240, 159);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(termB6, 164, 199);
-    myGLCD.printNumI(pauseB1, 240, 119);
+    myGLCD.printNumI(termB4, 164, 159);
+    myGLCD.printNumI(termB5, 164, 179);
     Touch4 ();
   }
   if (flagTabel == 8) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(pauseB1, 240, 119);
+    myGLCD.printNumI(termB5, 164, 179);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(termB7, 164, 219);
-    myGLCD.printNumI(pauseB2, 240, 139);
+    myGLCD.printNumI(pauseB3, 240, 159);
+    myGLCD.printNumI(pauseB4, 240, 179);
     Touch4 ();
   }
   if (flagTabel == 9) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(pauseB2, 240, 139);
+    myGLCD.printNumI(pauseB4, 240, 179);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(pauseB1, 240, 119);
-    myGLCD.printNumI(pauseB3, 240, 159);
+    myGLCD.printNumI(termB5, 164, 179);
+    myGLCD.printNumI(termB6, 164, 199);
     Touch4 ();
   }
   if (flagTabel == 10) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(pauseB3, 240, 159);
+    myGLCD.printNumI(termB6, 164, 199);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(pauseB2, 240, 139);
+    myGLCD.printNumI(pauseB5, 240, 199);
     myGLCD.printNumI(pauseB4, 240, 179);
     Touch4 ();
   }
   if (flagTabel == 11) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(pauseB4, 240, 179);
+    myGLCD.printNumI(pauseB5, 240, 199);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(pauseB3, 240, 159);
-    myGLCD.printNumI(pauseB5, 240, 199);
+    myGLCD.printNumI(termB6, 164, 199);
+    myGLCD.printNumI(termB7, 164, 219);
     Touch4 ();
   }
   if (flagTabel == 12) {
     myGLCD.setColor(VGA_BLUE);
     myGLCD.setBackColor(VGA_WHITE);
-    myGLCD.printNumI(pauseB5, 240, 199);
+    myGLCD.printNumI(termB7, 164, 219);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(pauseB4, 240, 179);
     myGLCD.printNumI(pauseB6, 240, 219);
+    myGLCD.printNumI(pauseB5, 240, 199);
     Touch4 ();
   }
   if (flagTabel == 13) {
@@ -127,7 +129,7 @@ void UpDown () {
     myGLCD.printNumI(pauseB6, 240, 219);
     myGLCD.setBackColor(VGA_BLACK);
     myGLCD.setColor(VGA_LIME);
-    myGLCD.printNumI(pauseB5, 240, 199);
+    myGLCD.printNumI(termB7, 164, 219);
     myGLCD.printNumI(termB1, 164, 99);
     Touch4 ();
   }

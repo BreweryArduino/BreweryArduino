@@ -115,11 +115,11 @@ void printTemperature() {
 
   TempC = temperature + 0.51;
 
- // myGLCD.setColor(VGA_LIME);
- // if(TempC <100){
-   //  myGLCD.setColor(VGA_BLACK);
-    //  myGLCD.fillRoundRect(273, 305, 32, 131);
-  //}
+  myGLCD.setColor(VGA_LIME);
+  if (TempC < 100) {
+    myGLCD.setColor(VGA_BLACK);
+    myGLCD.fillRoundRect(273, 81, 305, 131);
+  }
   myGLCD.setColor(VGA_LIME);
   myGLCD.printNumI(TempC, 209, 81);
 }
@@ -173,7 +173,7 @@ void SetTimeClock (int yea2, byte mon2, byte da2, byte ho2, byte mi2, byte se2) 
 int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
   int iz = 0;
 
-  ScreenTime (96, 196, 2, 9, 1);
+  ScreenTime (96, 180, 2, 9, 1);
   myGLCD.setColor(VGA_LIME);
   DateTime now = rtc.now();
   ho = now.hour();
@@ -202,11 +202,13 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
     timeWorkPause = ((86400 + h1 + m1 + se1) - (ho + mi + se));
     q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 60;
   }
-  if (q > 0) {
-    if (q <= 9) myGLCD.print(" ", 247, 25);
-    if (q <= 99) myGLCD.print(" ", 263, 25);
-    myGLCD.printNumI(q, 231, 25);
-  }
+if (q > 0) {
+     if (q <= 9) myGLCD.print(" ", 247, 25);
+     if (q <= 99) myGLCD.print(" ", 263, 25);
+     myGLCD.printNumI(q, 231, 25);
+    }
+
+
   if (q == 0) {
     myGLCD.printNumI(0, 231, 25);
     myGLCD.print(":", 247, 25);
@@ -234,7 +236,7 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
 int OutTimeNoScr (byte z) { // z = pauseB[]
   int iz = 0;
 
-  ScreenTime (96, 196, 2, 9, 1);
+  ScreenTime (96, 180, 2, 9, 1);
   myGLCD.setColor(VGA_LIME);
   DateTime now = rtc.now();
   ho = now.hour();
@@ -733,14 +735,15 @@ void Touch () {
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void ProgressBerr (byte i) {
-  myGLCD.setColor(VGA_WHITE);
+  myGLCD.setColor(VGA_YELLOW);
   scale = scale + (kof * i);
+ // myGLCD.printNumI(scale, 250, 200);
   myGLCD.fillRect (10, 225, scale, 230);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void BlackScr () {
   myGLCD.setColor(VGA_BLACK);
-  myGLCD.fillRect (3, 3, 317, 220);
+  myGLCD.fillRect (3, 3, 317, 201);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // call back for file timestamps
@@ -765,8 +768,8 @@ void TochStop (byte pause, boolean pauseNo) {
     if (x > 10 && x < 310 && y > 170 && y < 230) {
       myGLCD.setColor(VGA_RED);
       myGLCD.setFont(BigRusFont);
-      myGLCD.print("          ", 96, 196); // Затираем часы
-      myGLCD.print("\x89""ay""\x9C""a", CENTER, 196); // Пауза
+      myGLCD.print("          ", 96, 180); // Затираем часы
+      myGLCD.print("\x89""ay""\x9C""a", CENTER, 180); // Пауза
       ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
       OffHot ();
       OffNasos (1);
@@ -780,7 +783,7 @@ void TochStop (byte pause, boolean pauseNo) {
           y = myTouch.getY();
           if (x > 10 && x < 310 && y > 170 && y < 220) {
             iz++  ;
-            myGLCD.print("          ", CENTER, 196); // Затираем
+            myGLCD.print("          ", CENTER, 180); // Затираем
             if (BeerStep != 24) {
               ii = (pause * 60) - ((pause * 60) - timeWorkPause);
               myGLCD.setColor(VGA_WHITE);
@@ -978,5 +981,14 @@ void ReturnBackup () {
   }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-
+void playTone(int note) {
+  long elapsed_time = 0;
+  while (elapsed_time < note_len) {
+    digitalWrite(Bib, HIGH);
+    delayMicroseconds(note / 2);
+    digitalWrite(Bib, LOW);
+    delayMicroseconds(note / 2);
+    elapsed_time += (note);
+  }
+}
 //----------------------------------------------------------------------------------------------------------------------------------------------------
