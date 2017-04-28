@@ -1285,7 +1285,7 @@ lableMashOut:
       myGLCD.drawRect(7, 176, 310, 176);
       myGLCD.setFont(SmallRusFont);
       myGLCD.print("Me""\xA8""ay""\xA4"" ""\xA3""p""\x9D", 7, 160); //мешаут при
-      myGLCD.print("ME""\x8E\x80\x8A""T", p6 - 6, 210);
+      myGLCD.print("ME""\x8E""A""\x8A""T", p6 - 6, 210);
       myGLCD.printNumI(termB7, 95, 160);
       int i;
       if (termB7 < 10) i = 0;
@@ -1373,7 +1373,7 @@ lableMashOut:
     SaveBackup ();
     myGLCD.setFont(SmallRusFont);
     myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("            ", p6, 210);
+    myGLCD.print("                  ", p6 - 6, 210);
   }
   //  **************************************Фильтрация************************************
   if (BeerStep == 22) {
