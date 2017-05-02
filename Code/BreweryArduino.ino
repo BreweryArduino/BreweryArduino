@@ -185,6 +185,7 @@ attachInterrupt(5, Return, RISING); //Раскомментировать есл�
 
   pinMode (NasosPin, OUTPUT);
   digitalWrite(NasosPin, ReleOff);
+  melodi ();
   NoCommerc();
 
 }

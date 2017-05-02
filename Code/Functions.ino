@@ -172,14 +172,13 @@ void SetTimeClock (int yea2, byte mon2, byte da2, byte ho2, byte mi2, byte se2) 
 //Функция считает сколько осталось времени до завершения шага с выводом на экран
 int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
   int iz = 0;
-
-  ScreenTime (96, 180, 2, 9, 1);
+  ScreenTime (96, 188, 2, 9, 1);
   myGLCD.setColor(VGA_LIME);
   DateTime now = rtc.now();
-  ho = now.hour();
-  mi = now.minute();
-  se = now.second();
-  da = now.day();
+  ho = now.hour();    //узнаем какой текущий час
+  mi = now.minute();  //узнаем какая текущая минута 
+  se = now.second();  //узнаем какая текущая секунда
+  da = now.day();   //узнаем какой текущий день
   if (ho ==  ho1 && mi == mi1 && se == se1 && da == da1) {
     iz = z + 1;
   }
@@ -188,9 +187,9 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
   int m1;
   int s1;
   if (da1 == da) {
-    h1 = (ho1 - ho) * 3600;
-    m1 = (mi1 - mi) * 60;
-    s1 = (se1 - se);
+    h1 = (ho1 - ho) * 3600;   //остаток паузы часов в сеундах
+    m1 = (mi1 - mi) * 60;   //остаток паузы минут в сеундах
+    s1 = (se1 - se);      //остаток паузы сеунд
     timeWorkPause = (h1 + m1 + s1);
     q = (h1 + m1 + s1) / 60;
   }
@@ -200,29 +199,49 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
     h1 = ho1 * 3600;
     m1 = mi1 * 60;
     timeWorkPause = ((86400 + h1 + m1 + se1) - (ho + mi + se));
-    q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 60;
+    q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 60;//минуты
   }
-if (q > 0) {
-     if (q <= 9) myGLCD.print(" ", 247, 25);
-     if (q <= 99) myGLCD.print(" ", 263, 25);
-     myGLCD.printNumI(q, 231, 25);
+  if (q > 0) {
+  
+    if (q > 99) myGLCD.printNumI(q, 208, 25);
+  if  (q >= 10 && q <= 99) {
+  myGLCD.print(" ", 208, 25);
+  myGLCD.printNumI(q, 224, 25);
+  }
+    if (q >= 0 && q <= 9) {
+  myGLCD.print(" ", 224, 25);
+  myGLCD.printNumI(q, 240, 25);
+  }
+  
+  
+  //----------отображает секунды
+  int q1;
+  q1 = (-q*60)+timeWorkPause;
+    myGLCD.print(":", 256, 25);
+  //q1 = secundprint[se];
+  if (q1 >= 10) {
+      myGLCD.printNumI(q1, 272, 25);
+    } 
+    else {
+      myGLCD.printNumI(0, 272, 25);
+      myGLCD.printNumI(q1, 288, 25);
     }
-
-
+  //-------------
+  }
   if (q == 0) {
-    myGLCD.printNumI(0, 231, 25);
-    myGLCD.print(":", 247, 25);
+    myGLCD.printNumI(0, 240, 25);
+    myGLCD.print(":", 256, 25);
     if (da1 == da) {
       q = (h1 + m1 + s1) / 1;
     }
     else q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 1;
     timeWorkPause = q;
     if (q >= 10) {
-      myGLCD.printNumI(q, 263, 25);
+      myGLCD.printNumI(q, 272, 25);
     }
     else {
-      myGLCD.printNumI(q, 279, 25);
-      myGLCD.print("0", 263, 25);
+      myGLCD.printNumI(q, 288, 25);
+      myGLCD.printNumI(0, 272, 25);
     }
   }
   myGLCD.setFont(SevenSegNumFont);
@@ -236,7 +255,7 @@ if (q > 0) {
 int OutTimeNoScr (byte z) { // z = pauseB[]
   int iz = 0;
 
-  ScreenTime (96, 180, 2, 9, 1);
+  ScreenTime (96, 188, 2, 9, 1);
   myGLCD.setColor(VGA_LIME);
   DateTime now = rtc.now();
   ho = now.hour();
@@ -326,6 +345,7 @@ void NoCommerc() {
         x = myTouch.getX();
         y = myTouch.getY();
         if (x > 50 && x < 270 && y > 180 && y < 236) {
+          waitForItButton(50, 180, 270, 236);
           EEPROM.write(100, 1);
           Screen0 ();
         }
@@ -737,7 +757,7 @@ void Touch () {
 void ProgressBerr (byte i) {
   myGLCD.setColor(VGA_YELLOW);
   scale = scale + (kof * i);
- // myGLCD.printNumI(scale, 250, 200);
+  //myGLCD.printNumI(scale, 250, 200);
   myGLCD.fillRect (10, 225, scale, 230);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -766,10 +786,11 @@ void TochStop (byte pause, boolean pauseNo) {
     x = myTouch.getX();
     y = myTouch.getY();
     if (x > 10 && x < 310 && y > 170 && y < 230) {
+       playTone(3400);
       myGLCD.setColor(VGA_RED);
       myGLCD.setFont(BigRusFont);
-      myGLCD.print("          ", 96, 180); // Затираем часы
-      myGLCD.print("\x89""ay""\x9C""a", CENTER, 180); // Пауза
+      myGLCD.print("          ", 96, 188); // Затираем часы
+      myGLCD.print("\x89""ay""\x9C""a", CENTER, 188); // Пауза
       ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
       OffHot ();
       OffNasos (1);
@@ -782,8 +803,9 @@ void TochStop (byte pause, boolean pauseNo) {
           x = myTouch.getX();
           y = myTouch.getY();
           if (x > 10 && x < 310 && y > 170 && y < 220) {
+            playTone(3400);
             iz++  ;
-            myGLCD.print("          ", CENTER, 180); // Затираем
+            myGLCD.print("          ", CENTER, 188); // Затираем
             if (BeerStep != 24) {
               ii = (pause * 60) - ((pause * 60) - timeWorkPause);
               myGLCD.setColor(VGA_WHITE);
@@ -869,7 +891,7 @@ void TochStop (byte pause, boolean pauseNo) {
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Return () {
-
+  playTone(2800);
   if (statusDoubleTap == 1 && BeerStep > 9) DoubleTap = 1;
   if (  BeerStep < 5) {
     ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
@@ -909,7 +931,9 @@ void MainMenu (byte pause) {
       }
       Screen0 ();
     }
-    else Screen1 ();
+    else {
+      Screen1 ();
+    }
   }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -955,6 +979,7 @@ void ReturnBackup () {
         y = myTouch.getY();
         if (x > 40 && x < 280) {
           if (y > 70 && y < 130) {
+            waitForItButton(40, 70, 280, 130);
             statusBeer = 0;
             BeerStep = 0;
             SubBeerStep = 0;
@@ -969,6 +994,7 @@ void ReturnBackup () {
             Screen0 ();
           }
           if (y > 140 && y < 200) {
+            waitForItButton(40, 140, 280, 200);
             ReadBackup ();
             if ( BeerStep == 1) Screen4 ();
             if ( BeerStep == 2)Screen4_1 ();

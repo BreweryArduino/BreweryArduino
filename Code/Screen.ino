@@ -91,9 +91,9 @@ void Screen2() { //Меню управления тэном
 
   myGLCD.setFont(SmallRusFont);
   myGLCD.setColor(VGA_RED);
-  myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" %", 116, 150);
+  myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" %", 120, 150);
   myGLCD.setFont(SevenSegNumFont);
-  myGLCD.printNumI(out, 100, 95);
+  myGLCD.printNumI(out, 128, 95);
   Touch2 ();
 }
 
@@ -163,9 +163,9 @@ void Screen2_1 () {//Меню управления тэном возврат с 
 
   myGLCD.setFont(SmallRusFont);
   myGLCD.setColor(VGA_RED);
-  myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" %", 116, 150);
+  myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" %", 120, 150);
   myGLCD.setFont(SevenSegNumFont);
-  myGLCD.printNumI(out, 100, 95);
+  myGLCD.printNumI(out, 128, 95);
   Touch2 ();
 }
 /*void Screen3 () {//

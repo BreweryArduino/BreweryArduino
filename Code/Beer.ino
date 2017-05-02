@@ -259,7 +259,7 @@ void Beer () {
             delay(200);
             Touch ();
             if (x > 250 && x < 310 && y > 80 && y < 130) {
-              ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5);
+              if (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5 != 0) ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5);
               BeerStep = 21;
               SubBeerStep = 0;
               goto lableMashOut;
@@ -276,7 +276,7 @@ void Beer () {
             delay(200);
             Touch ();
             if (x > 10 && x < 150 && y > 150 && y < 200) {
-              ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5);
+              if (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5 != 0) ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5);
               BeerStep = 20;
               SubBeerStep = 0;
               goto lableIodnayProba;
@@ -291,7 +291,7 @@ void Beer () {
             delay(200);
             Touch ();
             if (x > 170 && x < 310 && y > 150 && y < 200) {
-              ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5 + pauseB6);
+              if (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5 + pauseB6 != 0) ProgressBerr (pauseB1 + pauseB2 + pauseB3 + pauseB4 + pauseB5 + pauseB6);
               BeerStep = 24;
               goto lableKipychenie;
             }
@@ -353,13 +353,14 @@ void Beer () {
     while ( iz == 0)
     {
       MainMenu (0);
-      ScreenTime (96, 180, 2, 9, 1);
+      ScreenTime (96, 188, 2, 9, 1);
       if (myTouch.dataAvailable())
       {
         myTouch.read();
         x = myTouch.getX();
         y = myTouch.getY();
-        if (x > 50 && x < 270 && y > 90 && y < 166) iz++  ;
+        if (x > 50 && x < 270 && y > 80 && y < 156) iz++  ;
+        waitForItButton(50, 80, 270, 156);
       }
     }
     BeerStep = 12;
@@ -384,7 +385,7 @@ void Beer () {
       iz = 0;
       while ( iteration == 0)    {
         MainMenu (0);
-        ScreenTime (96, 180, 2, 9, 1);
+        ScreenTime (96, 188, 2, 9, 1);
         TimeWorkNasosAir ();
         if (fR == 1 && fT == 1)iz++;
 
@@ -437,7 +438,7 @@ void Beer () {
           OnHot ();
         }
         else OffHot ();
-        ScreenTime (96, 180, 2, 9, 1);
+        ScreenTime (96, 188, 2, 9, 1);
         TochStop (0, 0);
         myGLCD.setFont(SevenSegNumFont);
         myGLCD.setColor(VGA_RED);
@@ -464,6 +465,7 @@ void Beer () {
     myGLCD.setBackColor(VGA_YELLOW);
     myGLCD.setColor(VGA_RED);
     myGLCD.print("\x85""ac""\xAB""\xA3""\xAC""\xA4""e"" ""co""\xA0""o""\x99", CENTER, 110);//Засыпьте солод
+    myGLCD.setBackColor(VGA_BLACK);
     iz = 0;
     while ( iz == 0)
     {
@@ -492,14 +494,18 @@ void Beer () {
         myGLCD.setFont(BigRusFont);
         myGLCD.print("\x7F""C", 200, 20);
       }
-      ScreenTime (96, 180, 2, 9, 1);
+      ScreenTime (96, 188, 2, 9, 1);
       TochStop (0, 0);
       if (myTouch.dataAvailable())
       {
         myTouch.read();
         x = myTouch.getX();
         y = myTouch.getY();
-        if (x > 50 && x < 270 && y > 90 && y < 166) iz++  ;
+        if (x > 50 && x < 270 && y > 90 && y < 166){
+          iz++  ;
+          waitForItButton(40, 80, 280, 156);
+        }
+        
       }
     }
     BeerStep = 15;
@@ -556,7 +562,7 @@ void Beer () {
             OnHot ();
           }
           else OffHot ();
-          ScreenTime (96, 180, 2, 9, 1);
+          ScreenTime (96, 188, 2, 9, 1);
           TochStop (0, 0);
           myGLCD.setFont(SevenSegNumFont);
           printTemperature();
@@ -665,7 +671,7 @@ lablePause2:
             OnHot ();
           }
           else OffHot ();
-          ScreenTime (96, 180, 2, 9, 1);
+          ScreenTime (96, 188, 2, 9, 1);
           TochStop (0, 0);
           myGLCD.setFont(SevenSegNumFont);
           printTemperature();
@@ -773,7 +779,7 @@ lablePause3:
             OnHot ();
           }
           else OffHot ();
-          ScreenTime (96, 180, 2, 9, 1);
+          ScreenTime (96, 188, 2, 9, 1);
           TochStop (0, 0);
           myGLCD.setFont(SevenSegNumFont);
           printTemperature();
@@ -880,7 +886,7 @@ lablePause4:
           }
 
           else OffHot ();
-          ScreenTime (96, 180, 2, 9, 1);
+          ScreenTime (96, 188, 2, 9, 1);
           TochStop (0, 0);
           myGLCD.setFont(SevenSegNumFont);
           printTemperature();
@@ -986,7 +992,7 @@ lablePause5:
             OnHot ();
           }
           else OffHot ();
-          ScreenTime (96, 180, 2, 9, 1);
+          ScreenTime (96, 188, 2, 9, 1);
           TochStop (0, 0);
           myGLCD.setFont(SevenSegNumFont);
           printTemperature();
@@ -1075,6 +1081,7 @@ lableIodnayProba:
           x = myTouch.getX();
           y = myTouch.getY();
           if (x > 40 && x < 280 && y > 140 && y < 200) {
+            waitForItButton(40, 140, 280, 200);
             BeerStep = 21;
             SubBeerStep = 0;
             SubSubBeerStep = 0;
@@ -1088,6 +1095,7 @@ lableIodnayProba:
             myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
           }
           if (x > 40 && x < 280 && y > 70 && y < 130) {
+            waitForItButton(40, 70, 280, 130);
             BlackScr ();
             myGLCD.drawBitmap(48, 35, 64, 30, LeftButton1, 1);
             myGLCD.drawBitmap(208, 35, 64, 30, RightButton1, 1);
@@ -1125,12 +1133,15 @@ lableIodnayProba:
                 x = myTouch.getX();
                 y = myTouch.getY();
                 if ( x > 40 && x < 280 && y > 160 && y < 196) {
+                  waitForItButton(40, 160, 280, 196);
                   SubBeerStep = 201;
                   SaveBackup ();
                   goto labelD;
                 }
                 if (y > 35 && y < 65) {
                   if (x > 48 && x < 112) {
+                    waitForItButton(48, 35, 112, 65);
+                    myGLCD.setColor(VGA_RED);
                     Dpause--;
                     if (Dpause > 240) Dpause = 240;
                     myGLCD.print("   ", CENTER, 42);//Пауза
@@ -1140,6 +1151,8 @@ lableIodnayProba:
                   }
 
                   if (x > 208 && x < 272) {
+                    waitForItButton(208, 35, 272, 65);
+                    myGLCD.setColor(VGA_RED);
                     Dpause++;
                     if (Dpause > 240) Dpause = 0;
                     myGLCD.print("   ", CENTER, 42);//Пауза
@@ -1149,6 +1162,8 @@ lableIodnayProba:
                 }
                 if (y > 115 && y < 145) {
                   if (x > 48 && x < 112) {
+                    waitForItButton(48, 115, 112, 145);
+                    myGLCD.setColor(VGA_RED);
                     DtempC--;
                     if (DtempC > 120) DtempC = 240;
                     myGLCD.print("   ", CENTER, 122);//Пауза
@@ -1158,6 +1173,8 @@ lableIodnayProba:
                   }
 
                   if (x > 208 && x < 272) {
+                    waitForItButton(208, 115, 272, 145);
+                    myGLCD.setColor(VGA_RED);
                     DtempC++;
                     if (DtempC > 120) DtempC = 0;
                     myGLCD.print("   ", CENTER, 122);//Пауза
@@ -1220,7 +1237,7 @@ labelD:
               OnHot ();
             }
             else OffHot ();
-            ScreenTime (96, 180, 2, 9, 1);
+            ScreenTime (96, 188, 2, 9, 1);
             TochStop (0, 0);
             myGLCD.setFont(SevenSegNumFont);
             printTemperature();
@@ -1321,7 +1338,7 @@ lableMashOut:
             OnHot ();
           }
           else OffHot ();
-          ScreenTime (96, 180, 2, 9, 1);
+          ScreenTime (96, 188, 2, 9, 1);
           TochStop (0, 0);
           myGLCD.setFont(SevenSegNumFont);
           printTemperature();
@@ -1367,13 +1384,14 @@ lableMashOut:
       OffNasos (1);
       ProgressBerr (pauseB6);
       FMelodi (MelodiN[6]);
+      myGLCD.print("      ", p6 - 6, 210);
     }
     BeerStep = 22;
     SubBeerStep = 0;
     SaveBackup ();
     myGLCD.setFont(SmallRusFont);
     myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("                  ", p6 - 6, 210);
+
   }
   //  **************************************Фильтрация************************************
   if (BeerStep == 22) {
@@ -1397,12 +1415,13 @@ labelFiltr:
       MainMenu (0);
       if (myTouch.dataAvailable())
       {
-        ScreenTime (96, 180, 2, 9, 1);
+        ScreenTime (96, 188, 2, 9, 1);
         TochStop (0, 0);
         myTouch.read();
         x = myTouch.getX();
         y = myTouch.getY();
-        if (x > 50 && x < 270 && y > 80 && y < 156) iz++;
+        if (x > 40 && x < 280 && y > 80 && y < 156) iz++;
+        waitForItButton(40, 80, 280, 156);
       }
     }
     BeerStep = 23;
@@ -1424,7 +1443,7 @@ labelFiltr:
       iz = 0;
       while ( iteration == 0)    {
         MainMenu (0);
-        ScreenTime (96, 180, 2, 9, 1);
+        ScreenTime (96, 188, 2, 9, 1);
         //TochStop ();
         TimeWorkNasosAir ();
         if (fR == 1 && fT == 1)iz++;
@@ -1484,7 +1503,7 @@ lableKipychenie:
             OnHot ();
           }
           else OffHot ();
-          ScreenTime (96, 180, 2, 9, 1);
+          ScreenTime (96, 188, 2, 9, 1);
           TochStop (0, 0);
           myGLCD.setFont(SevenSegNumFont);
           printTemperature();
@@ -1506,9 +1525,9 @@ lableKipychenie:
       myGLCD.drawBitmap(241, 85, 64, 30, RightButton1, 1);
       myGLCD.setFont(SevenSegNumFont);
       myGLCD.setColor(VGA_RED);
-      myGLCD.printNumI(out, 100, 75);
+      myGLCD.printNumI(out, 128, 75);
       myGLCD.setFont(SmallRusFont);
-      myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" % ", 100, 130);
+      myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" % ", 120, 130);
       myGLCD.setColor(VGA_LIME);
       if (SubBeerStep == 241) {
         int ii = timeB1 * 60;
@@ -1575,16 +1594,20 @@ lableKipychenie:
       if (SubBeerStep == 242) {
         while (ik < timeB1) //
         {
+          int i;
           MainMenu (timeB1);
           printTemperatureNoScr();
           myGLCD.setColor(VGA_LIME);
-          myGLCD.setFont(SmallRusFont);
-          myGLCD.printNumI(TempC, 140, 25);
-          int i;
-          if (TempC < 10) i = 0;
-          if (TempC > 9 && TempC < 100) i = 8;
-          if (TempC > 99)  i = 16;
-          myGLCD.print("\x7F""C", 148 + i, 25);
+          myGLCD.setFont(BigRusFont);
+          if (TempC >= 100) i = 38;
+          if  (TempC > 9 && TempC < 100) i = 28;
+          if (TempC < 10 )i = 18;
+          myGLCD.printNumI(TempC, 160 - i, 25);
+          // myGLCD.setFont(SmallRusFont);
+          if (TempC < 10) i = 160;
+          if (TempC > 9 && TempC < 100) i = 162;
+          if (TempC > 99)  i = 170;
+          myGLCD.print("\x7F""C", i, 25);
 
           if (myTouch.dataAvailable())
           {
@@ -1593,22 +1616,28 @@ lableKipychenie:
             x = myTouch.getX();
             y = myTouch.getY();
             if (x > 15 && x < 79 && y > 85 && y < 115) {
+              waitForItButton (15, 85, 79, 115);
               out--;
               if (out > 100) out = 0;
 
             }
             if (x > 241 && x < 305 && y > 85 && y < 115) {
+              waitForItButton (241, 85, 305, 115);
               out++;
               if (out > 100) out = 100;
 
             }
           }
           myGLCD.setColor(VGA_BLACK);
-          if (out < 10)myGLCD.fillRoundRect(132, 75, 196, 125);
-          if (out < 100)myGLCD.fillRoundRect(164, 75, 196, 125);
+          if (out < 10)myGLCD.fillRoundRect(175, 75, 192, 125);
+          if (out < 100)myGLCD.fillRoundRect(191, 75, 208, 125);
           myGLCD.setColor(VGA_RED);
           myGLCD.setFont(SevenSegNumFont);
-          myGLCD.printNumI(out, 100, 75);
+          byte pos;
+          if (out > 9 && out < 100) pos = 128;
+          if (out < 10) pos = 144;
+          if (out > 99) pos = 112;
+          myGLCD.printNumI(out, pos, 75);
           ten.lpwm(t_pwm, out);//медленный ШИМ на тен
 
           if (timeB2 != 0) {
@@ -1769,7 +1798,7 @@ lableKipychenie:
           fT = 1;
           OffNasos (0);
         }
-        ScreenTime (96, 180, 2, 9, 1);
+        ScreenTime (96, 188, 2, 9, 1);
         myGLCD.setFont(SevenSegNumFont);
         printTemperature();
       }
@@ -1801,6 +1830,7 @@ lableKipychenie:
     myGLCD.drawBitmap(270 - i, 190 - i, 50, 50, beer, 1);
     myGLCD.drawBitmap(270 - i, 0 + i, 50, 50, beer, 1);
     if (myTouch.dataAvailable()) {
+      playTone(3400);
       MainMenu (0);
       statusBeer = 0;//флаг завершения варки для Backup
       Screen0 ();
@@ -1812,6 +1842,7 @@ lableKipychenie:
   while (true) {
     MainMenu (0);
     if (myTouch.dataAvailable()) {
+      playTone(3400);
       statusBeer = 0;//флаг завершения варки для Backup
       Screen0 ();
     }
