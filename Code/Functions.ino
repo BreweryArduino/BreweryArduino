@@ -176,7 +176,7 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
   myGLCD.setColor(VGA_LIME);
   DateTime now = rtc.now();
   ho = now.hour();    //узнаем какой текущий час
-  mi = now.minute();  //узнаем какая текущая минута 
+  mi = now.minute();  //узнаем какая текущая минута
   se = now.second();  //узнаем какая текущая секунда
   da = now.day();   //узнаем какой текущий день
   if (ho ==  ho1 && mi == mi1 && se == se1 && da == da1) {
@@ -202,31 +202,31 @@ int OutTime (byte z, byte x) { // z = pauseB[], x = termB[]
     q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 60;//минуты
   }
   if (q > 0) {
-  
+
     if (q > 99) myGLCD.printNumI(q, 208, 25);
-  if  (q >= 10 && q <= 99) {
-  myGLCD.print(" ", 208, 25);
-  myGLCD.printNumI(q, 224, 25);
-  }
+    if  (q >= 10 && q <= 99) {
+      myGLCD.print(" ", 208, 25);
+      myGLCD.printNumI(q, 224, 25);
+    }
     if (q >= 0 && q <= 9) {
-  myGLCD.print(" ", 224, 25);
-  myGLCD.printNumI(q, 240, 25);
-  }
-  
-  
-  //----------отображает секунды
-  int q1;
-  q1 = (-q*60)+timeWorkPause;
+      myGLCD.print(" ", 224, 25);
+      myGLCD.printNumI(q, 240, 25);
+    }
+
+
+    //----------отображает секунды
+    int q1;
+    q1 = (-q * 60) + timeWorkPause;
     myGLCD.print(":", 256, 25);
-  //q1 = secundprint[se];
-  if (q1 >= 10) {
+    //q1 = secundprint[se];
+    if (q1 >= 10) {
       myGLCD.printNumI(q1, 272, 25);
-    } 
+    }
     else {
       myGLCD.printNumI(0, 272, 25);
       myGLCD.printNumI(q1, 288, 25);
     }
-  //-------------
+    //-------------
   }
   if (q == 0) {
     myGLCD.printNumI(0, 240, 25);
@@ -285,24 +285,46 @@ int OutTimeNoScr (byte z) { // z = pauseB[]
     q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 60;
   }
   if (q > 0) {
-    if (q <= 9) myGLCD.print(" ", 247, 25);
-    if (q <= 99) myGLCD.print(" ", 263, 25);
-    myGLCD.printNumI(q, 231, 25);
+
+    if (q > 99) myGLCD.printNumI(q, 208, 25);
+    if  (q >= 10 && q <= 99) {
+      myGLCD.print(" ", 208, 25);
+      myGLCD.printNumI(q, 224, 25);
+    }
+    if (q >= 0 && q <= 9) {
+      myGLCD.print(" ", 224, 25);
+      myGLCD.printNumI(q, 240, 25);
+    }
+
+
+    //----------отображает секунды
+    int q1;
+    q1 = (-q * 60) + timeWorkPause;
+    myGLCD.print(":", 256, 25);
+    //q1 = secundprint[se];
+    if (q1 >= 10) {
+      myGLCD.printNumI(q1, 272, 25);
+    }
+    else {
+      myGLCD.printNumI(0, 272, 25);
+      myGLCD.printNumI(q1, 288, 25);
+    }
+    //-------------
   }
   if (q == 0) {
-    myGLCD.printNumI(0, 231, 25);
-    myGLCD.print(":", 247, 25);
+    myGLCD.printNumI(0, 240, 25);
+    myGLCD.print(":", 256, 25);
     if (da1 == da) {
       q = (h1 + m1 + s1) / 1;
     }
     else q = ((86400 + h1 + m1 + se1) - (ho + mi + se)) / 1;
     timeWorkPause = q;
     if (q >= 10) {
-      myGLCD.printNumI(q, 263, 25);
+      myGLCD.printNumI(q, 272, 25);
     }
     else {
-      myGLCD.printNumI(q, 279, 25);
-      myGLCD.print("0", 263, 25);
+      myGLCD.printNumI(q, 288, 25);
+      myGLCD.printNumI(0, 272, 25);
     }
   }
   return iz;
@@ -786,7 +808,7 @@ void TochStop (byte pause, boolean pauseNo) {
     x = myTouch.getX();
     y = myTouch.getY();
     if (x > 10 && x < 310 && y > 170 && y < 230) {
-       playTone(3400);
+      playTone(3400);
       myGLCD.setColor(VGA_RED);
       myGLCD.setFont(BigRusFont);
       myGLCD.print("          ", 96, 188); // Затираем часы

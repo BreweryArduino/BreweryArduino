@@ -501,11 +501,11 @@ void Beer () {
         myTouch.read();
         x = myTouch.getX();
         y = myTouch.getY();
-        if (x > 50 && x < 270 && y > 90 && y < 166){
+        if (x > 50 && x < 270 && y > 90 && y < 166) {
           iz++  ;
           waitForItButton(40, 80, 280, 156);
         }
-        
+
       }
     }
     BeerStep = 15;
@@ -611,13 +611,14 @@ void Beer () {
       OffNasos (1);
       ProgressBerr (pauseB1);
       FMelodi (MelodiN[1]);
+          myGLCD.setFont(SmallRusFont);
+    myGLCD.setColor(VGA_BLACK);
+    myGLCD.print("  ", p1 - 6, 210);
     }
     BeerStep = 16;
     SubBeerStep = 0;
     SaveBackup ();
-    myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p1 - 6, 210);
+
   }
   //**************************************Пауза №2************************************
   if (BeerStep == 16) {
@@ -719,13 +720,14 @@ lablePause2:
       OffNasos (1);
       ProgressBerr (pauseB2);
       FMelodi (MelodiN[2]);
+          myGLCD.setFont(SmallRusFont);
+    myGLCD.setColor(VGA_BLACK);
+    myGLCD.print("  ", p2 - 6, 210);
     }
     BeerStep = 17;
     SubBeerStep = 0;
     SaveBackup ();
-    myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p2 - 6, 210);
+
   }
   //**************************************Пауза №3************************************
   if ( BeerStep == 17) {
@@ -825,13 +827,14 @@ lablePause3:
       OffNasos (1);
       ProgressBerr (pauseB3);
       FMelodi (MelodiN[3]);
+          myGLCD.setFont(SmallRusFont);
+    myGLCD.setColor(VGA_BLACK);
+    myGLCD.print("  ", p3 - 6, 210);
     }
     BeerStep = 18;
     SubBeerStep = 0;
     SaveBackup ();
-    myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p3 - 6, 210);
+
   }
   //**************************************Пауза №4************************************
   if ( BeerStep == 18) {
@@ -932,13 +935,14 @@ lablePause4:
       OffNasos (1);
       ProgressBerr (pauseB4);
       FMelodi (MelodiN[4]);
+          myGLCD.setFont(SmallRusFont);
+    myGLCD.setColor(VGA_BLACK);
+    myGLCD.print("  ", p4 - 6, 210);
     }
     BeerStep = 19;
     SubBeerStep = 0;
     SaveBackup ();
-    myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p4 - 6, 210);
+
   }
   //**************************************Пауза №5************************************
   if ( BeerStep == 19) {
@@ -1038,13 +1042,14 @@ lablePause5:
       OffNasos (1);
       ProgressBerr (pauseB5);
       FMelodi (MelodiN[5]);
+      myGLCD.setFont(SmallRusFont);
+      myGLCD.setColor(VGA_BLACK);
+      myGLCD.print("  ", p5 - 6, 210);
     }
     BeerStep = 20;
     SubBeerStep = 0;
     SaveBackup ();
-    myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p5 - 6, 210);
+
   }
   //  **************************************Йодная проба************************************
   if (BeerStep == 20) {
@@ -1384,13 +1389,14 @@ lableMashOut:
       OffNasos (1);
       ProgressBerr (pauseB6);
       FMelodi (MelodiN[6]);
+      myGLCD.setFont(SmallRusFont);
+      myGLCD.setColor(VGA_BLACK);
       myGLCD.print("      ", p6 - 6, 210);
     }
     BeerStep = 22;
     SubBeerStep = 0;
     SaveBackup ();
-    myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
+
 
   }
   //  **************************************Фильтрация************************************
