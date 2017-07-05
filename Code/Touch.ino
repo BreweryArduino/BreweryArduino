@@ -3,9 +3,11 @@ void waitForItButton(int x1, int y1, int x2, int y2)
 
   myGLCD.setColor(255, 0, 0);
   myGLCD.drawRect (x1, y1, x2, y2);
+  myGLCD.drawRect (x1 - 1, y1 - 1, x2 + 1, y2 + 1);
   delay(100);
   myGLCD.setColor(VGA_BLACK);
   myGLCD.drawRect (x1, y1, x2, y2);
+  myGLCD.drawRect (x1 - 1, y1 - 1, x2 + 1, y2 + 1);
   playTone(3400);
 }
 //_________________________________________________________________________________________________
@@ -13,6 +15,7 @@ void waitForItButton1(int x1, int y1, int x2, int y2)
 {
   myGLCD.setColor(255, 0, 0);
   myGLCD.drawRect (x1, y1, x2, y2);
+  myGLCD.drawRect (x1 - 1, y1 - 1, x2 + 1, y2 + 1);
   playTone(3400);
 }
 //_________________________________________________________________________________________________
@@ -1272,6 +1275,21 @@ void TouchSys () {
           waitForItButton(135, 95, 185, 145);
         }
       }
+      if (x > 195 && x < 245 && y > 95 && y < 145 ) {
+        waitForItButton1(195, 95, 245, 145);
+        myGLCD.setColor(VGA_WHITE);
+        myGLCD.print("Koppe""\x9F\xA4\x9D""po""\x97\x9F""a ""\x99""a""\xA4\xA7\x9D\x9F""a  ""\xA4""e""\xA1\xA3""epa""\xA4""yp""\xAB", CENTER, 160);
+        delay(150);
+        Touch ();
+        if (x > 195 && x < 245 && y > 95 && y < 145 ) {
+          waitForItButton(195, 95, 245, 145);
+          setTerM ();
+        }
+        else {
+          myGLCD.print("                                                                                                                                                                  ", CENTER, 160);
+          waitForItButton(195, 95, 245, 145);
+        }
+      }
       if (x > 15 && x < 65 && y > 10 && y < 60) {
         waitForItButton(15, 10, 65, 60);
         Screen1 ();// возврат в главное меню
@@ -1415,6 +1433,46 @@ void TouchRele () {
     }
   }
 }
+//_________________________________________________________________________________________________
+void TochTerM () {
+  myGLCD.setColor(VGA_RED);
+  myGLCD.setBackColor(VGA_BLACK);
+  myGLCD.printNumF(TermCk, 1, CENTER, 92);
+  while (true)
+  {
+    MainMenu (pauseBeerScreen1);
+    if (myTouch.dataAvailable())
+    {
+      myGLCD.setFont(BigRusFont);
+      myTouch.read();
+      x = myTouch.getX();
+      y = myTouch.getY();
+      if (x > 15 && x < 79 && y > 85 && y < 115) {
+        waitForItButton (15, 85, 79, 115);
+        TermCk = TermCk - 0.1;
+        if (TermCk <= -2.2) TermCk = -2.2;
+        myGLCD.setColor(VGA_RED);
+        myGLCD.setBackColor(VGA_BLACK);
+        myGLCD.print("      ", CENTER, 92);
+        myGLCD.printNumF(TermCk, 1, CENTER, 92);
+      }
+      if (x > 241 && x < 305 && y > 85 && y < 115) {
+        waitForItButton (241, 85, 305, 115);
+        TermCk = TermCk + 0.1;
+        if (TermCk > 2.2) TermCk = 2.2;
+        myGLCD.setColor(VGA_RED);
+        myGLCD.setBackColor(VGA_BLACK);
+        myGLCD.print("      ", CENTER, 92);
+        myGLCD.printNumF(TermCk, 1, CENTER, 92);
+      }
+      if (x > 15 && x < 65 && y > 10 && y < 60) {
+        waitForItButton(15, 10, 65, 60);
+        ScreenSys ();// возврат в  меню SYS
+      }
+    }
+  }
+}
+
 //_________________________________________________________________________________________________
 void TouchHot () { //обработка меню настройки тэна
   while (true)
@@ -1662,13 +1720,12 @@ void TouchNasos () { //обработка меню насоса первая с�
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();
-      myGLCD.drawBitmap(188, 20, 64, 30, RightButton1, 1);
       if (x > 188 && x < 252 && y > 20 && y < 50) {
-         waitForItButton(188, 20, 252, 50);//Делаем окантовку кнопки
+        waitForItButton(188, 20, 252, 50);//Делаем окантовку кнопки
         setNasos_1();
       }
       if (x > 15 && x < 65 && y > 10 && y < 60) {
-         waitForItButton(15, 10, 65, 60);//Делаем окантовку кнопки
+        waitForItButton(15, 10, 65, 60);//Делаем окантовку кнопки
         Screen1 ();// возврат в  меню настроек
       }
       if (x > 279 && x < 309) {
@@ -1704,8 +1761,8 @@ void TochNasos_1 () {//обработка меню насоса второя с�
       x = myTouch.getX();
       y = myTouch.getY();
       if (x > 300 && x < 320 && y > 0 && y < 10) {
-          myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
-        }
+        myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E", CENTER, 204);
+      }
       if (x > 244 && x < 304 && y > 80 && y < 140) {
         waitForItButton(244, 80, 304, 140);
         OnOffTerpNW = !OnOffTerpNW;
@@ -1717,11 +1774,11 @@ void TochNasos_1 () {//обработка меню насоса второя с�
         if (OnOffTerpNW == true)myGLCD.print ("B""K""\x88"".", 262, 106);
       }
       if (x > 68 && x < 132 && y > 20 && y < 50) {
-         waitForItButton(68, 20, 132, 50);
+        waitForItButton(68, 20, 132, 50);
         setNasos ();
       }
       if (x > 16 && x <  76 && y > 80 && y < 140) {
-         waitForItButton(16, 80, 76, 140);
+        waitForItButton(16, 80, 76, 140);
         myGLCD.setColor (VGA_RED);
         myGLCD.drawRoundRect(16 , 80, 76 , 140);
         myGLCD.drawBitmap(30, 156, 40, 40, minus1, 1);// "-"
@@ -1742,7 +1799,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
             y = myTouch.getY();
             if (y > 156 && y < 196) {
               if (x > 30 && x < 70) {
-                 waitForItButton(30, 156, 70, 196);
+                waitForItButton(30, 156, 70, 196);
                 maxTerpNW --;
                 if (maxTerpNW < 10) maxTerpNW = 120;
                 myGLCD.setColor (VGA_BLACK);
@@ -1810,7 +1867,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
                 myGLCD.printNumI(airW, CENTER, 99);
                 delay(100);
               }
-              if (x > 145 && x < 185){
+              if (x > 145 && x < 185) {
                 waitForItButton(145, 156, 185, 196);
                 setNasos_1 ();
               }
@@ -1910,7 +1967,7 @@ void TochNasos_1 () {//обработка меню насоса второя с�
                 myGLCD.printNumI(rep, CENTER, 99);
                 delay(100);
               }
-              if (x > 145 && x < 185){
+              if (x > 145 && x < 185) {
                 waitForItButton(145, 156, 185, 196);
                 setNasos_1 ();
               }
@@ -1931,7 +1988,7 @@ void TouchBeer () { //первая страница меню настройки 
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();
-      if (x > 15 && x < 65 && y > 10 && y < 60){
+      if (x > 15 && x < 65 && y > 10 && y < 60) {
         waitForItButton(15, 10, 65, 60);
         Screen1 ();// возврат в  меню настроек
       }
@@ -1983,7 +2040,7 @@ void TouchBeer_1 () { //Вторая страница меню настройк�
       myTouch.read();
       x = myTouch.getX();
       y = myTouch.getY();
-      if (x > 68 && x < 132 && y > 20 && y < 50){
+      if (x > 68 && x < 132 && y > 20 && y < 50) {
         waitForItButton(68, 20, 132, 50);
         setBeer ();// возврат в  меню настроек
       }
@@ -2028,7 +2085,7 @@ void TouchBeer_1 () { //Вторая страница меню настройк�
                 myGLCD.printNumI(termKIP, CENTER, 99);
                 delay(100);
               }
-              if (x > 145 && x < 185){
+              if (x > 145 && x < 185) {
                 waitForItButton(145, 156, 185, 196);
                 setBeer_1 ();
               }
@@ -2232,7 +2289,7 @@ void TouchsetBeerM_1 () {
         }
       }
       if (y > 130 && y < 190) {
-        if (x > 16 && x < 76){
+        if (x > 16 && x < 76) {
           waitForItButton(16, 130, 76, 190);
           melodi ();
         }
@@ -2240,7 +2297,7 @@ void TouchsetBeerM_1 () {
           waitForItButton(92, 130, 152, 190);
           melodiErr ();
         }
-        if (x > 168 && x < 228){
+        if (x > 168 && x < 228) {
           waitForItButton(168, 130, 228, 190);
           melodiNokia ();
         }

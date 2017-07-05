@@ -102,7 +102,7 @@ void printTemperature() {
 
   if (millis() - lastTempRequest >= delayInMillis) // waited long enough??
   {
-    temperature = sensors.getTempCByIndex(0);
+    temperature = sensors.getTempCByIndex(0) + TermCk;
     idle = 0;
     resolution++;
     if (resolution > 12) resolution = 9;
@@ -113,7 +113,7 @@ void printTemperature() {
   }
   idle++;
 
-  TempC = temperature + 0.51;
+  TempC = temperature + 0.51 + TermCk;
 
   myGLCD.setColor(VGA_LIME);
   if (TempC < 100) {
@@ -128,7 +128,7 @@ void printTemperature() {
 void printTemperatureNoScr() {
   if (millis() - lastTempRequest >= delayInMillis) // waited long enough??
   {
-    temperature = sensors.getTempCByIndex(0);
+    temperature = sensors.getTempCByIndex(0) + TermCk;
     idle = 0;
     resolution++;
     if (resolution > 12) resolution = 9;
@@ -1037,6 +1037,25 @@ void playTone(int note) {
     digitalWrite(Bib, LOW);
     delayMicroseconds(note / 2);
     elapsed_time += (note);
+  }
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void ToneToch () {
+  const int threshold = 10;    // minimum reading of the sensors that generates a note
+
+  // notes to play, corresponding to the 3 sensors:
+  int notes[] = {
+    NOTE_A4, NOTE_B4, NOTE_C3
+  };
+  for (int thisSensor = 0; thisSensor < 3; thisSensor++) {
+    // get a sensor reading:
+    int sensorReading = analogRead(thisSensor);
+
+    // if the sensor is pressed hard enough:
+    if (sensorReading > threshold) {
+      // play the note corresponding to this sensor:
+      tone(Bib, notes[thisSensor], 20);
+    }
   }
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------

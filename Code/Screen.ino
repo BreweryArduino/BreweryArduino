@@ -16,7 +16,7 @@ void Screen0 () {// Главное меню
   myGLCD.print("Touch", 252, 200);
   myGLCD.setColor(VGA_LIME);
   myGLCD.print("\x82""e""\xA1""e""\xA2""\xA4""\xAC""e""\x97"" ""H""\x9D""\x9F""o""\xA0""a""\x9E"" 2016-2017""\x98"".", CENTER, 220);
- // myGLCD.print("breweryarduino@mail.ru", CENTER, 220);
+  // myGLCD.printNumI(-1, CENTER, 180);
   Touch0 ();
 }
 
@@ -533,11 +533,13 @@ void ScreenSys () {
   myGLCD.setColor(VGA_WHITE);
   myGLCD.fillRect(75, 95, 125, 145);
   myGLCD.fillRect(143, 10, 193, 60);
+  myGLCD.fillRect(195, 95, 245, 145);
   myGLCD.setColor(VGA_BLACK);
   myGLCD.setBackColor(VGA_WHITE);
   myGLCD.setFont(BigRusFont);
   myGLCD.print("REC", 77, 114);
   myGLCD.print("REL", 137, 114);
+  myGLCD.print("T""\x7F""C", 197, 114);
   myGLCD.print("SYS", 145, 28);
   TouchSys ();
 
@@ -601,6 +603,26 @@ void SetRele () {
   TouchRele ();
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+void setTerM () {
+  myGLCD.fillScr(VGA_BLACK);
+
+  myGLCD.drawBitmap(68, 20, 64, 30, LeftButton1, 1);// назад
+  myGLCD.setColor(VGA_WHITE);
+  myGLCD.fillRect(135, 10, 185, 60);
+  myGLCD.fillRect(15, 10, 65, 60);
+  myGLCD.setColor(VGA_BLACK);
+  myGLCD.setBackColor(VGA_WHITE);
+  myGLCD.setFont(BigRusFont);
+  myGLCD.print("SYS", 17, 28);
+  myGLCD.print("T""\x7F""C", 135, 28);
+  myGLCD.drawBitmap(15, 85, 64, 30, LeftButton1, 1);
+  myGLCD.drawBitmap(241, 85, 64, 30, RightButton1, 1);
+  myGLCD.setBackColor(VGA_BLACK);
+  myGLCD.setColor(VGA_BLUE);
+  myGLCD.print("T1", CENTER, 69);
+  TochTerM ();
+}
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 void setHot () {
   myGLCD.fillScr(VGA_BLACK);

@@ -59,15 +59,15 @@ void Save_sys () {
     {
       EEPROM.write(40 + i, MelodiN[i]); //Записываем новые значения в память
     }
-    if (EEPROM.read(50) != OnOffTerpNW) {
-      EEPROM.write(50, OnOffTerpNW); //Записываем новые значения в память
-    }
   }
   if (EEPROM.read(50) != OnOffTerpNW) {
     EEPROM.write(50, OnOffTerpNW); //Записываем новые значения в память
   }
   if (EEPROM.read(51) != maxTerpNW) {
     EEPROM.write(51, maxTerpNW); //Записываем новые значения в память
+  }
+    if (EEPROM.read(52) != TermCk) {
+    EEPROM.write(52, TermCk); //Записываем новые значения в память
   }
 }
 
@@ -90,6 +90,7 @@ void Read_sys () {
   }
   OnOffTerpNW = EEPROM.read(50);//Читаем из памяти значение
   maxTerpNW = EEPROM.read(51);//Читаем из памяти значение
+  TermCk = EEPROM.read(52);//Читаем из памяти значение
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -186,9 +187,9 @@ void SaveBackup () {
   }
   if (EEPROM.read(227) !=  da1) {
     EEPROM.write(227,  da1); //Записываем новые значения в память
-     Serial.println (da1);
+    Serial.println (da1);
   }
-  
+
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   // сохраняем время заданное при кипячении в память МК
 

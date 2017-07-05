@@ -430,6 +430,7 @@ void Beer () {
       myGLCD.setFont(SevenSegNumFont);
       printTemperature();
       while ( termB1 >= TempC) {
+        if (temperature >= termB1) break;
         MainMenu (0);
         OnNasos (1);
         PIctl(TempC, termB1);
@@ -447,9 +448,10 @@ void Beer () {
       }
 
     }
+    FMelodi (MelodiN[0]);
     OffNasos (1);
     OffHot ();
-    FMelodi (MelodiN[0]);
+    ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
     BeerStep = 14;
     SaveBackup ();
   }
@@ -467,12 +469,15 @@ void Beer () {
     myGLCD.print("\x85""ac""\xAB""\xA3""\xAC""\xA4""e"" ""co""\xA0""o""\x99", CENTER, 110);//Засыпьте солод
     myGLCD.setBackColor(VGA_BLACK);
     iz = 0;
+    boolean z = 0;
+    printTemperatureNoScr();
     while ( iz == 0)
     {
+
       MainMenu (0);
-      printTemperatureNoScr();
+
       //PIctl(TempC, termB1);
-      //ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+      //
       if (termB1 > TempC) {
         myGLCD.setColor(VGA_LIME);
         myGLCD.setFont(SevenSegNumFont);
@@ -502,11 +507,18 @@ void Beer () {
         x = myTouch.getX();
         y = myTouch.getY();
         if (x > 50 && x < 270 && y > 90 && y < 166) {
-          iz++  ;
+          if (z == 1) {
+            iz++  ;
+            waitForItButton(40, 80, 280, 156);
+            delay (100);
+          }
+          z = 1;
           waitForItButton(40, 80, 280, 156);
         }
 
       }
+      printTemperatureNoScr();
+      if (z == 0) ToneToch ();
     }
     BeerStep = 15;
     SaveBackup ();
@@ -554,6 +566,7 @@ void Beer () {
       if (SubBeerStep == 150) {
         while (termB2 >= TempC)//
         {
+          if (termB2 <= temperature)break;
           MainMenu (0);
           OnNasos (1);
           PIctl(TempC, termB2);
@@ -611,9 +624,9 @@ void Beer () {
       OffNasos (1);
       ProgressBerr (pauseB1);
       FMelodi (MelodiN[1]);
-          myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p1 - 6, 210);
+      myGLCD.setFont(SmallRusFont);
+      myGLCD.setColor(VGA_BLACK);
+      myGLCD.print("  ", p1 - 6, 210);
     }
     BeerStep = 16;
     SubBeerStep = 0;
@@ -664,6 +677,7 @@ lablePause2:
       if (SubBeerStep == 160) {
         while (termB3 >= TempC)//
         {
+          if (termB3 <= temperature)break;
           MainMenu (0);
           OnNasos (1);
           PIctl(TempC, termB3);
@@ -720,9 +734,9 @@ lablePause2:
       OffNasos (1);
       ProgressBerr (pauseB2);
       FMelodi (MelodiN[2]);
-          myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p2 - 6, 210);
+      myGLCD.setFont(SmallRusFont);
+      myGLCD.setColor(VGA_BLACK);
+      myGLCD.print("  ", p2 - 6, 210);
     }
     BeerStep = 17;
     SubBeerStep = 0;
@@ -771,8 +785,9 @@ lablePause3:
         SaveBackup ();
       }
       if (SubBeerStep == 170) {
-        while (termB4 >= TempC)//
+        while (termB4 >= temperature)//
         {
+          if (termB4 <= TempC)break;
           MainMenu (0);
           OnNasos (1);
           PIctl(TempC, termB4);
@@ -827,9 +842,9 @@ lablePause3:
       OffNasos (1);
       ProgressBerr (pauseB3);
       FMelodi (MelodiN[3]);
-          myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p3 - 6, 210);
+      myGLCD.setFont(SmallRusFont);
+      myGLCD.setColor(VGA_BLACK);
+      myGLCD.print("  ", p3 - 6, 210);
     }
     BeerStep = 18;
     SubBeerStep = 0;
@@ -878,8 +893,9 @@ lablePause4:
         SaveBackup ();
       }
       if (SubBeerStep == 180) {
-        while (termB5 >= TempC)//
+        while (termB5 >= temperature)//
         {
+          if (termB5 <= TempC)break;
           MainMenu (0);
           OnNasos (1);
           PIctl(TempC, termB5);
@@ -935,9 +951,9 @@ lablePause4:
       OffNasos (1);
       ProgressBerr (pauseB4);
       FMelodi (MelodiN[4]);
-          myGLCD.setFont(SmallRusFont);
-    myGLCD.setColor(VGA_BLACK);
-    myGLCD.print("  ", p4 - 6, 210);
+      myGLCD.setFont(SmallRusFont);
+      myGLCD.setColor(VGA_BLACK);
+      myGLCD.print("  ", p4 - 6, 210);
     }
     BeerStep = 19;
     SubBeerStep = 0;
@@ -986,8 +1002,9 @@ lablePause5:
         SaveBackup ();
       }
       if (SubBeerStep == 190) {
-        while (termB6 >= TempC)//
+        while (termB6 >= temperature)//
         {
+          if (termB6 <= TempC)break;
           MainMenu (0);
           OnNasos (1);
           PIctl(TempC, termB6);
@@ -1060,6 +1077,45 @@ lableIodnayProba:
       SaveBackup ();
     }
     if (SubBeerStep == 200) {
+      myGLCD.setFont(BigRusFont);
+      myGLCD.setColor(VGA_YELLOW);
+      myGLCD.fillRoundRect(40, 80, 280, 156);
+      myGLCD.setBackColor(VGA_YELLOW);
+      myGLCD.setColor(VGA_RED);
+      myGLCD.print("\x87""o""\x99\xA2""a""\xAF"" ""\xA3""po""\x96""a", CENTER, 110);//Йодная проба
+      myGLCD.setBackColor(VGA_BLACK);
+      iz = 0;
+      boolean z = 0;
+      printTemperatureNoScr();
+      while ( iz == 0)
+      {
+
+        MainMenu (0);
+
+        //PIctl(TempC, termB1);
+        //
+
+        ScreenTime (96, 188, 2, 9, 1);
+        TochStop (0, 0);
+        if (myTouch.dataAvailable())
+        {
+          myTouch.read();
+          x = myTouch.getX();
+          y = myTouch.getY();
+          if (x > 50 && x < 270 && y > 90 && y < 166) {
+            if (z == 1) {
+              iz++  ;
+              waitForItButton(40, 80, 280, 156);
+              delay (100);
+            }
+            z = 1;
+            waitForItButton(40, 80, 280, 156);
+          }
+
+        }
+        if (z == 0) ToneToch ();
+      }
+      BlackScr ();
       myGLCD.setColor(VGA_WHITE);
       myGLCD.setFont(SmallRusFont);
       myGLCD.setBackColor(VGA_BLACK);
@@ -1232,8 +1288,9 @@ labelD:
           SubSubBeerStep = 201;
         }
         if (SubSubBeerStep == 201) {
-          while (DtempC >= TempC)//
+          while (DtempC >= temperature)//
           {
+            if (DtempC <= TempC)break;
             MainMenu (0);
             OnNasos (1);
             PIctl(TempC, DtempC);
@@ -1335,6 +1392,7 @@ lableMashOut:
       if (SubBeerStep == 210) {
         while (termB7 >= TempC)//
         {
+          if (termB7 <= temperature)break;
           MainMenu (0);
           OnNasos (1);
           PIctl(TempC, termB7);
@@ -1404,31 +1462,43 @@ lableMashOut:
 labelFiltr:
     BlackScr ();
     ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
-    if (out != 0 ) {
+    /*if (out != 0 ) {
       OnHot ();
-    }
-    else OffHot ();
-    delay(1000);
+      }
+      else OffHot ();*/
+    //delay(1000);
     myGLCD.setFont(BigRusFont);
     myGLCD.setColor(VGA_WHITE);
     myGLCD.fillRoundRect(40, 80, 280, 156);
     myGLCD.setBackColor(VGA_WHITE);
     myGLCD.setColor(VGA_RED);
     myGLCD.print("\x89""po""\xA1""o""\x9E""\xA4""e"" ""\x9C""a""\xA4""op", CENTER, 110);//Промойте затор
+
     iz = 0;
+    boolean z = 0;
     while ( iz == 0)
     {
+
       MainMenu (0);
+      ScreenTime (96, 188, 2, 9, 1);
+      TochStop (0, 0);
       if (myTouch.dataAvailable())
       {
-        ScreenTime (96, 188, 2, 9, 1);
-        TochStop (0, 0);
         myTouch.read();
         x = myTouch.getX();
         y = myTouch.getY();
-        if (x > 40 && x < 280 && y > 80 && y < 156) iz++;
-        waitForItButton(40, 80, 280, 156);
+        if (x > 50 && x < 270 && y > 90 && y < 166) {
+          if (z == 1) {
+            iz++  ;
+            waitForItButton(40, 80, 280, 156);
+            delay (100);
+          }
+          z = 1;
+          waitForItButton(40, 80, 280, 156);
+        }
+
       }
+      if (z == 0) ToneToch ();
     }
     BeerStep = 23;
     SaveBackup ();
@@ -1501,6 +1571,7 @@ lableKipychenie:
       if (SubBeerStep == 240) {
         while (termKIP > TempC)//
         {
+          if (termKIP <= temperature)break;
           MainMenu (0);
           OnNasos (1);
           PIctl(TempC, termKIP);
@@ -1529,11 +1600,6 @@ lableKipychenie:
       myGLCD.setColor (VGA_WHITE);
       myGLCD.drawBitmap(15, 85, 64, 30, LeftButton1, 1);
       myGLCD.drawBitmap(241, 85, 64, 30, RightButton1, 1);
-      myGLCD.setFont(SevenSegNumFont);
-      myGLCD.setColor(VGA_RED);
-      myGLCD.printNumI(out, 128, 75);
-      myGLCD.setFont(SmallRusFont);
-      myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" % ", 120, 130);
       myGLCD.setColor(VGA_LIME);
       if (SubBeerStep == 241) {
         int ii = timeB1 * 60;
@@ -1596,55 +1662,164 @@ lableKipychenie:
       myGLCD.printNumI(timeB1, 231, 25);
       myGLCD.printNumI(timeB1, 37, 25);
       ik = 0;
-
+      boolean aut = 0;
       if (SubBeerStep == 242) {
+        printTemperatureNoScr();
+        byte TempCBack = TempC;
+        byte OutBack = out;
+        int i;
+        myGLCD.setColor(VGA_LIME);
+        myGLCD.setFont(BigRusFont);
+        if (TempC >= 100) i = 38;
+        if  (TempC > 9 && TempC < 100) i = 28;
+        if (TempC < 10 )i = 18;
+        myGLCD.printNumI(TempC, 160 - i, 25);
+        if (TempC < 10) i = 160;
+        if (TempC > 9 && TempC < 100) i = 162;
+        if (TempC > 99)  i = 170;
+        myGLCD.print("\x7F""C", i, 25);
+        boolean melodiX = 0;
         while (ik < timeB1) //
         {
+          if (melodiX == 1)melodiErr ();
           int i;
           MainMenu (timeB1);
-          printTemperatureNoScr();
+
           myGLCD.setColor(VGA_LIME);
           myGLCD.setFont(BigRusFont);
-          if (TempC >= 100) i = 38;
-          if  (TempC > 9 && TempC < 100) i = 28;
-          if (TempC < 10 )i = 18;
-          myGLCD.printNumI(TempC, 160 - i, 25);
-          // myGLCD.setFont(SmallRusFont);
-          if (TempC < 10) i = 160;
-          if (TempC > 9 && TempC < 100) i = 162;
-          if (TempC > 99)  i = 170;
-          myGLCD.print("\x7F""C", i, 25);
-
-          if (myTouch.dataAvailable())
-          {
-            myGLCD.setFont(BigRusFont);
-            myTouch.read();
-            x = myTouch.getX();
-            y = myTouch.getY();
-            if (x > 15 && x < 79 && y > 85 && y < 115) {
-              waitForItButton (15, 85, 79, 115);
-              out--;
-              if (out > 100) out = 0;
-
+          //myGLCD.print("     ", 122, 25);
+          if (aut == 1) {
+            //myGLCD.setFont(SevenSegNumFont);
+            //myGLCD.setColor(VGA_RED);
+            // myGLCD.printNumI(out, 128, 75);
+            myGLCD.setFont(SmallRusFont);
+            myGLCD.print("Mo""\xA9""\xA2""oc""\xA4""\xAC"" % ", 120, 130);
+            if (TempCBack != TempC) {
+              myGLCD.setColor(VGA_LIME);
+              myGLCD.setFont(BigRusFont);
+              myGLCD.print("     ", 122, 25);
+              if (TempC >= 100) i = 38;
+              if  (TempC > 9 && TempC < 100) i = 28;
+              if (TempC < 10 )i = 18;
+              myGLCD.printNumI(TempC, 160 - i, 25);
+              if (TempC < 10) i = 160;
+              if (TempC > 9 && TempC < 100) i = 162;
+              if (TempC > 99)  i = 170;
+              myGLCD.print("\x7F""C", i, 25);
             }
-            if (x > 241 && x < 305 && y > 85 && y < 115) {
-              waitForItButton (241, 85, 305, 115);
-              out++;
-              if (out > 100) out = 100;
+            if (melodiX == 0) {
+              if (myTouch.dataAvailable())
+              {
+                myGLCD.setFont(BigRusFont);
+                myTouch.read();
+                x = myTouch.getX();
+                y = myTouch.getY();
+                if (x > 15 && x < 79 && y > 85 && y < 115) {
+                  waitForItButton (15, 85, 79, 115);
+                  out--;
+                  if (out > 100) out = 0;
 
+                }
+                if (x > 241 && x < 305 && y > 85 && y < 115) {
+                  waitForItButton (241, 85, 305, 115);
+                  out++;
+                  if (out > 100) out = 100;
+
+                }
+
+                if (x > 90 && x < 230 && y > 75 && y < 125) {
+                  waitForItButton (90, 75, 230, 125);
+                  myGLCD.setColor(VGA_BLACK);
+                  myGLCD.fillRoundRect(90, 75, 230, 125);
+                  aut = 0;
+                  continue;
+                }
+              }
             }
+            myGLCD.setColor(VGA_BLACK);
+            if (out < 10)myGLCD.fillRoundRect(175, 75, 192, 125);
+            if (out < 100)myGLCD.fillRoundRect(191, 75, 208, 125);
+            myGLCD.setColor(VGA_RED);
+            myGLCD.setFont(SevenSegNumFont);
+            byte pos;
+            if (out > 9 && out < 100) {
+              pos = 128;
+            }
+            else {
+              if (out <= 9) pos = 144;
+            }
+            if (out > 99) pos = 112;
+            myGLCD.printNumI(out, pos, 75);
+            ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+
           }
-          myGLCD.setColor(VGA_BLACK);
-          if (out < 10)myGLCD.fillRoundRect(175, 75, 192, 125);
-          if (out < 100)myGLCD.fillRoundRect(191, 75, 208, 125);
-          myGLCD.setColor(VGA_RED);
-          myGLCD.setFont(SevenSegNumFont);
-          byte pos;
-          if (out > 9 && out < 100) pos = 128;
-          if (out < 10) pos = 144;
-          if (out > 99) pos = 112;
-          myGLCD.printNumI(out, pos, 75);
-          ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+          if (aut == 0) {
+            //myGLCD.setFont(SevenSegNumFont);
+            // myGLCD.setColor(VGA_RED);
+            //myGLCD.printNumI(termKIP, 128, 75);
+            myGLCD.setFont(SmallRusFont);
+            myGLCD.print("Te""\xA1\xA3""epa""\xA4""ypa", 120, 130);
+            myGLCD.setColor(VGA_LIME);
+            myGLCD.setFont(BigRusFont);
+            if (TempCBack != TempC) {
+              myGLCD.setColor(VGA_LIME);
+              myGLCD.setFont(BigRusFont);
+              myGLCD.print("     ", 122, 25);
+              if (TempC >= 100) i = 38;
+              if  (TempC > 9 && TempC < 100) i = 28;
+              if (TempC < 10 )i = 18;
+              myGLCD.printNumI(TempC, 160 - i, 25);
+              if (TempC < 10) i = 160;
+              if (TempC > 9 && TempC < 100) i = 162;
+              if (TempC > 99)  i = 170;
+              myGLCD.print("\x7F""C", i, 25);
+            }
+            if (melodiX == 0) {
+              if (myTouch.dataAvailable())
+              {
+                myGLCD.setFont(BigRusFont);
+                myTouch.read();
+                x = myTouch.getX();
+                y = myTouch.getY();
+                if (x > 15 && x < 79 && y > 85 && y < 115) {
+                  waitForItButton (15, 85, 79, 115);
+                  termKIP--;
+                  if (termKIP > 120) termKIP = 0;
+
+                }
+                if (x > 241 && x < 305 && y > 85 && y < 115) {
+                  waitForItButton (241, 85, 305, 115);
+                  termKIP++;
+                  if (termKIP > 120) termKIP = 120;
+
+                }
+
+                if (x > 90 && x < 230 && y > 75 && y < 125) {
+                  waitForItButton (90, 75, 230, 125);
+                  myGLCD.setColor(VGA_BLACK);
+                  myGLCD.fillRoundRect(90, 75, 230, 125);
+                  aut = 1;
+                  continue;
+                }
+              }
+            }
+            myGLCD.setColor(VGA_BLACK);
+            if (termKIP < 10)myGLCD.fillRoundRect(175, 75, 192, 125);
+            if (termKIP < 100)myGLCD.fillRoundRect(191, 75, 208, 125);
+            myGLCD.setColor(VGA_RED);
+            myGLCD.setFont(SevenSegNumFont);
+            byte pos;
+            if (termKIP > 9 && termKIP <= 99) {
+              pos = 128;
+            }
+            else {
+              if (termKIP <= 9) pos = 144;
+            }
+            if (termKIP > 99) pos = 112;
+            myGLCD.printNumI(termKIP, pos, 75);
+            PIctl(TempC, termKIP);
+            ten.lpwm(t_pwm, out);//медленный ШИМ на тен
+          }
 
           if (timeB2 != 0) {
             DateTime now = rtc.now();
@@ -1653,13 +1828,14 @@ lableKipychenie:
             se = now.second();
             da = now.day();
             if (ho ==  hoB2 && mi == miB2 && se == seB2 && da == daB2) {
-              melodiErr ();
+              //melodiErr ();
               //ProgressBerr (timeB2);
               myGLCD.setFont(SmallRusFont);
               myGLCD.setColor(VGA_BLACK);
               myGLCD.fillRoundRect(7, 157, 310, 175);
               myGLCD.setColor (VGA_WHITE);
               myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #1", CENTER, 160); //Добавить хмель (14)
+              melodiX = 1;
               //myGLCD.printNumI(1, 227, 160); //
             }
           }
@@ -1670,13 +1846,14 @@ lableKipychenie:
             se = now.second();
             da = now.day();
             if (ho ==  hoB3 && mi == miB3 && se == seB3 && da == daB3) {
-              melodiErr ();
+              //melodiErr ();
               //ProgressBerr (timeB3 - timeB2);
               myGLCD.setFont(SmallRusFont);
               myGLCD.setColor(VGA_BLACK);
               myGLCD.fillRoundRect(7, 157, 310, 175);
               myGLCD.setColor (VGA_WHITE);
               myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #2", CENTER, 160); //Добавить хмель (14)
+              melodiX = 1;
               //myGLCD.printNumI(2, 227, 160); //
             }
           }
@@ -1687,13 +1864,14 @@ lableKipychenie:
             se = now.second();
             da = now.day();
             if (ho ==  hoB4 && mi == miB4 && se == seB4 && da == daB4) {
-              melodiErr ();
+              //melodiErr ();
               //ProgressBerr (timeB4 - timeB3);
               myGLCD.setFont(SmallRusFont);
               myGLCD.setColor(VGA_BLACK);
               myGLCD.fillRoundRect(7, 157, 310, 175);
               myGLCD.setColor (VGA_WHITE);
               myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #3", CENTER, 160); //Добавить хмель (14)
+              melodiX = 1;
               //myGLCD.printNumI(3, 227, 160); //
             }
           }
@@ -1704,13 +1882,14 @@ lableKipychenie:
             se = now.second();
             da = now.day();
             if (ho ==  hoB5 && mi == miB5 && se == seB5 && da == daB5) {
-              melodiErr ();
+              //melodiErr ();
               //ProgressBerr (timeB5 - timeB4);
               myGLCD.setFont(SmallRusFont);
               myGLCD.setColor(VGA_BLACK);
               myGLCD.fillRoundRect(7, 157, 310, 175);
               myGLCD.setColor (VGA_WHITE);
               myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #4", CENTER, 160); //Добавить хмель (14)
+              melodiX = 1;
               //myGLCD.printNumI(4, 227, 160); //
             }
           }
@@ -1721,19 +1900,28 @@ lableKipychenie:
             se = now.second();
             da = now.day();
             if (ho ==  hoB6 && mi == miB6 && se == seB6 && da == daB6) {
-              melodiErr ();
+              //melodiErr ();
               //ProgressBerr (timeB6 - timeB5);
               myGLCD.setFont(SmallRusFont);
               myGLCD.setColor(VGA_BLACK);
               myGLCD.fillRoundRect(7, 157, 310, 175);
               myGLCD.setColor (VGA_WHITE);
               myGLCD.print("\x82""o""\x96""a""\x97""\x9D""\xA4""\xAC"" ""x""\xA1""e""\xA0""\xAC"" #5", CENTER, 160); //Добавить хмель (14)
+              melodiX = 1;
               //myGLCD.printNumI(5, 227, 160); //
             }
           }
           //TochStop (timeB1, 1);
           ik = OutTimeNoScr (timeB1);
-
+          TempCBack = TempC;
+          printTemperatureNoScr();
+          if (melodiX == 1) {
+            if (myTouch.dataAvailable())
+            {
+              melodiX = 0;
+              delay (200);
+            }
+          }
         }
       }
       ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
@@ -1748,7 +1936,67 @@ lableKipychenie:
   //**************************************Вирпул************************************
   if (BeerStep == 25) {
     if (chil != 0) {
-      BlackScr ();
+      myGLCD.fillScr(VGA_BLACK);
+      myGLCD.setFont(BigRusFont);
+      myGLCD.setColor(VGA_YELLOW);
+      myGLCD.fillRoundRect(40, 80, 280, 156);
+      myGLCD.setBackColor(VGA_YELLOW);
+      myGLCD.setColor(VGA_BLUE);
+      myGLCD.print("Ox""\xA0""a""\x99\x9D\xA4\xAC", CENTER, 110);//Охладить
+      myGLCD.setBackColor(VGA_BLACK);
+      iz = 0;
+      boolean zz = 0;
+      printTemperatureNoScr();
+      while ( iz == 0)
+      {
+
+        MainMenu (0);
+
+        //PIctl(TempC, termB1);
+        //
+        if (chil > TempC) {
+          myGLCD.setColor(VGA_LIME);
+          myGLCD.setFont(SevenSegNumFont);
+          myGLCD.printNumI(TempC, CENTER, 20);//Засыпьте солод
+          myGLCD.setFont(BigRusFont);
+          myGLCD.print("\x7F""C", 200, 20);
+          delay (100);
+          myGLCD.setColor(VGA_RED);
+          myGLCD.setFont(SevenSegNumFont);
+          myGLCD.printNumI(TempC, CENTER, 20);//Засыпьте солод
+          myGLCD.setFont(BigRusFont);
+          myGLCD.print("\x7F""C", 200, 20);
+        }
+        else
+        {
+          myGLCD.setColor(VGA_LIME);
+          myGLCD.setFont(SevenSegNumFont);
+          myGLCD.printNumI(TempC, CENTER, 20);//Засыпьте солод
+          myGLCD.setFont(BigRusFont);
+          myGLCD.print("\x7F""C", 200, 20);
+        }
+        ScreenTime (96, 188, 2, 9, 1);
+        TochStop (0, 0);
+        if (myTouch.dataAvailable())
+        {
+          myTouch.read();
+          x = myTouch.getX();
+          y = myTouch.getY();
+          if (x > 50 && x < 270 && y > 90 && y < 166) {
+            if (zz == 1) {
+              iz++  ;
+              waitForItButton(40, 80, 280, 156);
+              delay (100);
+            }
+            zz = 1;
+            waitForItButton(40, 80, 280, 156);
+          }
+
+        }
+        printTemperatureNoScr();
+        ToneToch ();
+      }
+      myGLCD.fillScr(VGA_BLACK);
       myGLCD.setBackColor(VGA_BLACK);
       myGLCD.setColor(VGA_WHITE);
       myGLCD.drawRoundRect(10, 20, 116, 46);
@@ -1773,6 +2021,7 @@ lableKipychenie:
       myGLCD.setColor(VGA_RED);
       myGLCD.printNumI(chil, 15, 81);
       byte dd = 0;
+      boolean z = 0;
       while (chil < TempC) {
         MainMenu (0);
 
@@ -1786,23 +2035,25 @@ lableKipychenie:
         }
 
         if (dd == 1) {
-
-          myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
-          myGLCD.setFont(SmallRusFont);
-          myGLCD.setColor(VGA_LIME);
-          myGLCD.print("BK""\x88", 148, 41);
-
-          OnNasos (0);
+          if (z == 1) {
+            myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
+            myGLCD.setFont(SmallRusFont);
+            myGLCD.setColor(VGA_LIME);
+            myGLCD.print("BK""\x88", 148, 41);
+            z = 0;
+            OnNasos (0);
+          }
         }
         if (dd == 0) {
-
-          myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
-          myGLCD.setFont(SmallRusFont);
-          myGLCD.setColor(VGA_RED);
-          myGLCD.print("B""\x91""K""\x88", 148, 41);
-
-          fT = 1;
-          OffNasos (0);
+          if (z == 0) {
+            myGLCD.drawBitmap(135, 20, 50, 50, nasos, 1);
+            myGLCD.setFont(SmallRusFont);
+            myGLCD.setColor(VGA_RED);
+            myGLCD.print("B""\x91""K""\x88", 148, 41);
+            z = 1;
+            fT = 1;
+            OffNasos (0);
+          }
         }
         ScreenTime (96, 188, 2, 9, 1);
         myGLCD.setFont(SevenSegNumFont);

@@ -33,7 +33,7 @@ URTouch  myTouch( 6, 5, 4, 3, 2);
 DigOut ten(12);//нагреватель на 9 пине
 #define NasosPin  10// насос
 #define Bib 11// pin 11 - выход писчалки
-#define t_pwm 1000//период медленного ШИМ`а
+#define t_pwm 3000//период медленного ШИМ`а
 uint8_t out = 0;
 float kP = 15; //коэффициент пропорциональности
 #define p_min 0.0//минимум П составляющей - не < 0
@@ -41,7 +41,7 @@ float kP = 15; //коэффициент пропорциональности
 float kI = 0;//коэффициент интегрирования
 #define i_min -30.0//минимум И составляющей
 #define i_max 30.0//максимум И составляющей
-#define d_ctl 0.5//зона пропорциональности ust-d_ctl
+#define d_ctl 1//зона пропорциональности ust-d_ctl
 #define out_min 0//минимальный выходной %
 #define out_max 100//максимальный выходной %
 static float iPid = 0;
@@ -160,6 +160,7 @@ byte Dpause = 0;
 byte DtempC = 0;
 #define note_len 2000
 byte FirstClick = 0;
+float TermCk = 0.0;
 void setup () {
 attachInterrupt(5, Return, RISING); //Раскомментировать если используете кнопку перехода в главное меню
   Read_sys ();

@@ -156,6 +156,8 @@ void SDSaveSys () {// Функция записи на карту файла sys
     myGLCD.print("***************", LEFT, 200);
     myFile.print(EEPROM.read(51));//maxTerpNW
     myFile.print(";");
+    myFile.print(EEPROM.read(52));//TermCk
+    myFile.print(";");
   }
   // close the file:
   myFile.close();
@@ -221,7 +223,7 @@ void SDReadSys () {// Функция восстановления образа �
   }
   OnOffTerpNW = outArray[36];
   maxTerpNW = outArray[37];
-
+TermCk = outArray[38];
   Save_sys ();
 }
 
