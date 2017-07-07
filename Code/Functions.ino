@@ -113,7 +113,7 @@ void printTemperature() {
   }
   idle++;
 
-  TempC = temperature + 0.51 + TermCk;
+  TempC = temperature + 0.51;
 
   myGLCD.setColor(VGA_LIME);
   if (TempC < 100) {
