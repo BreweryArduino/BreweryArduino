@@ -2022,6 +2022,7 @@ lableKipychenie:
       myGLCD.printNumI(chil, 15, 81);
       byte dd = 0;
       boolean z = 0;
+      ChillClokWater (true);
       while (chil < TempC) {
         MainMenu (0);
 
@@ -2060,6 +2061,7 @@ lableKipychenie:
         printTemperature();
       }
     }
+    ChillClokWater (false);
     OffNasos (1);
     BeerStep = 0;
     SubBeerStep = 0;
