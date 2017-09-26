@@ -33,6 +33,7 @@ URTouch  myTouch( 6, 5, 4, 3, 2);
 DigOut ten(12);//нагреватель на 9 пине
 #define NasosPin  10// насос
 #define Bib 11// pin 11 - выход писчалки
+#define ChillClock  47 //Выход на управление клапаном охлаждения
 #define t_pwm 3000//период медленного ШИМ`а
 uint8_t out = 0;
 float kP = 15; //коэффициент пропорциональности
@@ -185,7 +186,9 @@ attachInterrupt(5, Return, RISING); //Раскомментировать есл�
   lastTempRequest = millis();
 
   pinMode (NasosPin, OUTPUT);
+  pinMode (ChillClock, OUTPUT);
   digitalWrite(NasosPin, ReleOff);
+  digitalWrite(ChillClock, LOW);
   melodi ();
   NoCommerc();
 
