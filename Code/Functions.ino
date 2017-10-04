@@ -918,7 +918,6 @@ void Return () {
   if (  BeerStep < 5) {
     ten.lpwm(t_pwm, 0);//медленный ШИМ на тен
     OffNasos (0);
-     ChillClokWater (false);
     BeerStep = 0;
     scale = 0;
     DoubleTap = 0;
@@ -942,6 +941,7 @@ void MainMenu (byte pause) {
     pause = pauseBeerScreen1;
     statusMainMenu = 3;
     if (DoubleTap == 1) {
+       ChillClokWater (false);
       BeerStep = 0;
       SubBeerStep = 0;
       DoubleTap = 0;
