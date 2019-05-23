@@ -1,3 +1,3 @@
 # BreweryArduino
 # Dementev Nikolay
-#  Код больше не поддерживается
+#  Код больше не поддерживаетcя
